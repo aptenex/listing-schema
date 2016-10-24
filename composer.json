@@ -1,6 +1,6 @@
 {
     "name": "aptenex/listing-schema",
-    "description": "Listing schema definition (json-schema.org) for a property listing rental.",
+    "description": "Listing schema definition (json-schema.org) for a property listing rental. ALPHA.",
     "minimum-stability": "dev",
     "license": "proprietary",
     "autoload": {
