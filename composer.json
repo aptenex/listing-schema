@@ -1,5 +1,5 @@
 {
-    "name": "rentivo/listing-schema",
+    "name": "aptenex/listing-schema",
     "description": "Listing schema definition (json-schema.org) for a property listing rental.",
     "minimum-stability": "dev",
     "license": "proprietary",
