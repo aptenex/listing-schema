@@ -3,6 +3,12 @@
     "description": "Listing schema definition (json-schema.org) for a property listing rental.",
     "minimum-stability": "dev",
     "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "ListingSchema\\" : "src/"
+        }
+    },
     "authors": [
         {
             "name": "Chris Atkinson",
