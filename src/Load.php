@@ -12,7 +12,7 @@ class Load {
 	}
 	
 	public function load(){
-		return file_get_contents('listing.json');
+		return file_get_contents(__DIR__ . '/listing.json');
 	}
 	
 	protected function __construct()
