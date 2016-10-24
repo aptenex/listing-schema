@@ -1,10 +1,24 @@
 <?php
 namespace ListingSchema;
 class Load {
-	
-	public function __construct()
+	private static $instance;
+	public static function getInstance()
 	{
-		die("asdad");
+		if (null === static::$instance) {
+			static::$instance = new static();
+		}
+		
+		return static::$instance;
 	}
+	
+	public function load(){
+		return file_get_contents('listing.json');
+	}
+	
+	protected function __construct()
+	{
+	}
+	
+
 	
 }
