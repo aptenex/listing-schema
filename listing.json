@@ -1,0 +1,1153 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "description": "Schema for Rentals",
+    "properties": {
+        "$id": {
+            "type": [
+                "string",
+                "integer"
+            ]
+        },
+        "$lastModifiedAt": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time"
+        },
+        "$schemaBuiltAt": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time"
+        },
+        "$createdAt": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time"
+        },
+        "$locale": {
+            "$ref": "#/definitions/locale"
+        },
+        "name": {
+            "type": "string"
+        },
+        "headline": {
+            "$ref": "#/definitions/translatableContent"
+        },
+        "listing": {
+            "$ref": "#/definitions/listing"
+        },
+        "flags": {
+            "properties": {
+                "isInstantBookable": {
+                    "type": "boolean",
+                    "description": "Designates if this property is instant bookable and can accept payments online."
+                },
+                "isDeleted": {
+                    "type": "boolean",
+                    "description": "Designates if this property is deleted and should not be visible by public."
+                },
+                "isPublishedToChannels": {
+                    "type": "boolean",
+                    "description": "Designates if this property is available to be published to external channels."
+                }
+            }
+        },
+        "suitability": {
+            "$ref": "#/definitions/suitability"
+        },
+        "texts": {
+            "$ref": "#/definitions/texts"
+        },
+        "policies": {
+            "$ref": "#/definitions/policies"
+        },
+        "features": {
+            "$ref": "#/definitions/features"
+        },
+        "rooms": {
+            "$ref": "#/definitions/rooms"
+        },
+        "address": {
+            "$ref": "#/definitions/address"
+        },
+        "location": {
+            "description": "A geographical coordinate",
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "displayExactLocation": {
+                    "type": "boolean",
+                    "default": true
+                }
+            }
+        },
+        "advertisingDestination": {
+            "type": "object",
+            "properties": {
+                "google": {
+                    "type": "object",
+                    "properties": {
+                        "place_id": {
+                            "type": "string"
+                        },
+                        "+resolved": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {}
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "geoplanet": {
+                    "type": "object",
+                    "properties": {
+                        "woeid": {
+                            "type": "string"
+                        },
+                        "+resolved": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {}
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
+        },
+        "arrival": {
+            "$ref": "#/definitions/arrival"
+        },
+        "departure": {
+            "$ref": "#/definitions/departure"
+        },
+        "pricing": {
+            "$ref": "#/definitions/pricing"
+        },
+        "media" : {
+            "$ref": "#/definitions/media"
+        },
+        "contacts" : {
+            "$ref" : "#/definitions/contacts"
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "contacts" : {
+            "type" : "array",
+            "items" : {
+                "type": [ {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "isPublic": {
+                        "type": "boolean"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "sendEnquiries": {
+                        "type": "boolean"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "countryISO2": {
+                        "type": "string",
+                        "maxLength": 2
+                    },
+                    "speaks": {
+                        "type": "array",
+                        "items": {
+                            "description" : "ISO 639-1 code. For example: en, fr, de, es.",
+                            "type": "string"
+                        },
+                        "uniqueItems" : true
+                    }
+                } }]
+            }
+
+        },
+        "media" : {
+            "type" : "array",
+            "items": {
+                "type": [
+                    {
+                        "type" : "object",
+                        "title" : "Photo",
+                        "properties" : {
+                            "$id": {"type" : "string"},
+                            "$provider": {"type" : "string"},
+                            "type": { "type" :  "string", "enum" : ["URI", "BASE64"] },
+                            "group": {  "type" : "string", "enum" : ["PHOTOS", "FLOORPLAN"] },
+                            "uri": { "type" : "string", "format": "uri" },
+                            "data" : { "type" : "string", "pattern" : "^data:image/[.*]"},
+                            "position": { "type" : "integer" },
+                            "isFeatured": {"type" : "boolean"},
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        }
+                    },
+                    {
+                        "type" : "object",
+                        "title" : "Video",
+                        "properties" : {
+                            "$id": {"type" : "string"},
+                            "$provider": {"type" : "string"},
+                            "type": { "type" :  "string", "enum" : ["URI"] },
+                            "group": {  "type" : "string", "enum" : ["VIDEO"] },
+                            "uri": { "type" : "string", "format": "uri" },
+                            "position": { "type" : "integer" },
+                            "isFeatured": {"type" : "boolean"},
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        }
+                    },
+                    {
+                        "type" : "object",
+                        "title" : "Web Link",
+                        "properties" : {
+                            "$id": {"type" : "string"},
+                            "$provider": {"type" : "string"},
+                            "type": { "type" :  "string", "enum" : ["URI"] },
+                            "group": {  "type" : "string", "enum" : ["LINK"] },
+                            "uri": { "type" : "string", "format": "uri" },
+                            "position": { "type" : "integer" },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+
+        "pricing": {
+            "type": "object",
+            "properties": {
+                "visual": {
+                    "type": "object",
+                    "properties": {
+                        "currency": {
+                            "$ref": "#/definitions/currency"
+                        },
+                        "low": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "high": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "weeklyLow": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "weeklyHigh": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "nightlyLow": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "nightlyHigh": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        }
+                    },
+                    "dependencies": {
+                        "low": [
+                            "currency",
+                            "high"
+                        ],
+                        "high": [
+                            "currency",
+                            "low"
+                        ],
+                        "weeklyLow": [
+                            "currency",
+                            "weeklyHigh"
+                        ],
+                        "weeklyHigh": [
+                            "currency",
+                            "weeklyLow"
+                        ],
+                        "nightlyLow": [
+                            "currency",
+                            "nightlyHigh"
+                        ],
+                        "nightlyHigh": [
+                            "currency",
+                            "nightlyLow"
+                        ]
+                    }
+                }
+            }
+        },
+        "arrival": {
+            "type": "object",
+            "properties": {
+                "wifi": {
+                    "type": "object",
+                    "properties": {
+                        "ssid": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "buildingEntryCode": {
+                    "type": "string"
+                },
+                "unitEntryCode": {
+                    "type": "string"
+                },
+                "texts": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "items": {
+                        "type": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "description": "The Type of Descriptive Text",
+                                        "type": "string",
+                                        "enum": [
+                                            "KEY_COLLECTION",
+                                            "ARRIVAL_INSTRUCTIONS"
+                                        ]
+                                    },
+                                    "description": {
+                                        "$ref": "#/definitions/translatableContentWithTitle"
+                                    }
+                                },
+                                "required": [
+                                    "description",
+                                    "type"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "checkInTime": {
+                    "type": "string",
+                    "pattern": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                },
+                "earlyCheckIn": {
+                    "type": "object",
+                    "properties": {
+                        "time": {
+                            "type": "string",
+                            "pattern": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                        },
+                        "amount": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "currency": {
+                            "$ref": "#/definitions/currency"
+                        }
+                    },
+                    "dependencies": {
+                        "amount": "currency",
+                        "currency": "amount"
+                    }
+                }
+            }
+        },
+        "departure": {
+            "type": "object",
+            "properties": {
+                "texts": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "items": {
+                        "type": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "description": "The Type of Descriptive Text",
+                                        "type": "string",
+                                        "enum": [
+                                            "KEY_RETURN",
+                                            "DEPARTURE_INSTRUCTIONS"
+                                        ]
+                                    },
+                                    "description": {
+                                        "$ref": "#/definitions/translatableContentWithTitle"
+                                    }
+                                },
+                                "required": [
+                                    "description",
+                                    "type"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "lateCheckOut": {
+                    "type": "object",
+                    "properties": {
+                        "time": {
+                            "type": "string",
+                            "pattern": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                        },
+                        "amount": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "currency": {
+                            "type": "string",
+                            "pattern": "^(AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STD|SVC|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYI|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL)$"
+                        }
+                    },
+                    "dependencies": {
+                        "amount": "currency",
+                        "currency": "amount"
+                    }
+                },
+                "checkOutTime": {
+                    "type": "string",
+                    "pattern": "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
+                }
+            }
+        },
+        "suitability": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": [
+                    {
+                        "type": "object",
+                        "format": "table",
+                        "title": "Pets and Smoking with Restrictions",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "description": "The Suitability TYPE",
+                                "type": "string",
+                                "enum": [
+                                    "SMOKING",
+                                    "PETS"
+                                ]
+                            },
+                            "value": {
+                                "type": "string",
+                                "enum": [
+                                    "SUITABLE",
+                                    "SUITABLE_WITH_RESTRICTIONS",
+                                    "NOT_SUITABLE"
+                                ]
+                            },
+                            "maxAllowed": {
+                                "type": "integer",
+                                "default": 1,
+                                "minimum": 0,
+                                "maximum": 10
+                            }
+                        },
+                        "required": [
+                            "value",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "People",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "description": "The Suitability TYPE",
+                                "type": "string",
+                                "enum": [
+                                    "CHILDREN",
+                                    "INFANTS",
+                                    "ELDERLY",
+                                    "WHEELCHAIR"
+                                ]
+                            },
+                            "value": {
+                                "type": "string",
+                                "enum": [
+                                    "GREAT_SUITABILITY",
+                                    "SUITABLE",
+                                    "SUITABLE_WITH_RESTRICTIONS",
+                                    "NOT_SUITABLE"
+                                ]
+                            },
+                            "details": {
+                                "$ref": "#/definitions/translatableContent"
+                            }
+                        },
+                        "required": [
+                            "value",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "Groups and Events",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "description": "The Suitability TYPE",
+                                "type": "string",
+                                "enum": [
+                                    "GROUPS",
+                                    "WEDDINGS",
+                                    "EVENTS"
+                                ]
+                            },
+                            "value": {
+                                "type": "string",
+                                "enum": [
+                                    "ASK_OWNER",
+                                    "SUITABLE",
+                                    "NOT_SUITABLE"
+                                ]
+                            },
+                            "maxAllowed": {
+                                "type": "integer",
+                                "description": "What is the maximum capacity for the venue or rental listing?",
+                                "default": 1,
+                                "minimum": 0,
+                                "maximum": 1000
+                            },
+                            "details": {
+                                "$ref": "#/definitions/translatableContent"
+                            }
+                        },
+                        "required": [
+                            "value",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "Ideal Suitability or Hide",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "description": "The Suitability TYPE",
+                                "type": "string",
+                                "enum": [
+                                    "SAME_SEX"
+                                ]
+                            },
+                            "value": {
+                                "type": [
+                                    "string"
+                                ],
+                                "enum": [
+                                    "GREAT_SUITABILITY"
+                                ]
+                            },
+                            "details": {
+                                "$ref": "#/definitions/translatableContent"
+                            }
+                        },
+                        "required": [
+                            "value",
+                            "type"
+                        ]
+                    }
+                ]
+            }
+        },
+        "rooms": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": [
+                    {
+                        "type": "object",
+                        "title": "Bedroom",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "BEDROOM"
+                                ],
+                                "default": "BEDROOM"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "isSharedSpace": {
+                                "type": "boolean"
+                            },
+                            "isLockable": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            },
+                            "blueprint": {
+                                "type": "array",
+                                "properties": {
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "SINGLE",
+                                            "TRIPLE_BUNK",
+                                            "DOUBLE_BUNK",
+                                            "KING",
+                                            "QUEEN",
+                                            "DOUBLE",
+                                            "SOFA_DOUBLE",
+                                            "SOFA_SINGLE",
+                                            "FOLDING",
+                                            "OTHER",
+                                            "INFLATABLE",
+                                            "WATER"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "required": [
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "Bathroom",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "BATHROOM"
+                                ],
+                                "default": "BATHROOM"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "isSharedSpace": {
+                                "type": "boolean"
+                            },
+                            "isLockable": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            },
+                            "blueprint": {
+                                "type": "array",
+                                "properties": {
+                                    "quantity": {
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "HOT_TUB",
+                                            "BATH",
+                                            "WHIRLPOOL",
+                                            "SHOWER",
+                                            "WASH_BASIN",
+                                            "BIDET"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "required": [
+                            "type"
+                        ]
+                    }
+                ]
+            }
+        },
+        "features": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": [
+                    {
+                        "type": "object",
+                        "title": "Feature",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "HOB",
+                                    "GARAGE",
+                                    "WASHING_MACHINE",
+                                    "FIREPLACE"
+                                ]
+                            },
+                            "category": {
+                                "type": "string",
+                                "default": "Amenities",
+                                "pattern": "^(\\w+([\\\\])?)*"
+                            },
+                            "priority": {
+                                "type": "integer"
+                            },
+                            "quantity": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "default": 1
+                            },
+                            "isSpecial": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "category",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "Distance",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "DISTANCE_TRAIN",
+                                    "DISTANCE_SHOPS",
+                                    "DISTANCE_BEACH",
+                                    "DISTANCE_CITY_CENTER",
+                                    "DISTANCE_METRO_STATION",
+                                    "DISTANCE_AIRPORT",
+                                    "DISTANCE_NIGHTLIFE",
+                                    "DISTANCE_BUS_STOP",
+                                    "DISTANCE_COACH_STATION"
+                                ]
+                            },
+                            "category": {
+                                "type": "string",
+                                "default": "Distance",
+                                "pattern": "^(\\w+([\\\\])?)*"
+                            },
+                            "distance": {
+                                "properties": {
+                                    "value": {
+                                        "type": "number",
+                                        "multipleOf": 0.01
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "enum": [
+                                            "MILES",
+                                            "KILOMETERS"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "value",
+                                    "unit"
+                                ]
+                            },
+                            "priority": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "category",
+                            "distance",
+                            "type"
+                        ]
+                    }
+                ]
+            }
+        },
+        "texts": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "The Type of Descriptive Text",
+                                "type": "string",
+                                "enum": [
+                                    "PRIMARY_DESCRIPTION",
+                                    "ABOUT_NEIGHBOURHOOD",
+                                    "ABOUT_DESTINATION",
+                                    "FAQ",
+                                    "WELCOME",
+                                    "HOUSE_RULES",
+                                    "LISTING_DIRECTIONS"
+                                ]
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    }
+                ]
+            }
+        },
+        "policies": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "The Type of Descriptive Text",
+                                "type": "string",
+                                "enum": [
+                                    "BOOKING_TERMS",
+                                    "HOUSE_RULES",
+                                    "GROUP_BOOKINGS",
+                                    "OTHER"
+                                ]
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "Your payment schedules",
+                                "type": "string",
+                                "enum": [
+                                    "PAYMENT_SCHEDULE"
+                                ]
+                            },
+                            "paymentPercentageAtTimeOfBooking": {
+                                "type": "number",
+                                "multipleOf": 0.01
+                            },
+                            "daysBeforeArrivalBalanceDue": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "Your cancellcation policies",
+                                "type": "string",
+                                "enum": [
+                                    "CANCELLATION_POLICY"
+                                ]
+                            },
+                            "rules": {
+                                "type": "array",
+                                "items": {
+                                    "type": [
+                                        {
+                                            "properties": {
+                                                "daysBeforeArrival": {
+                                                    "type": "integer"
+                                                },
+                                                "percentageRefund": {
+                                                    "type": "number",
+                                                    "maximum": 100,
+                                                    "minimum": 0,
+                                                    "multipleOf": 0.01
+                                                },
+                                                "feesRefunded": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    }
+                ]
+            }
+        },
+        "translatableContent": {
+            "type": "object",
+            "patternProperties": {
+                "^[a-z]{2}(_([a-zA-Z]{2}){1,2})?_[A-Z]{2}$": {
+                    "type": "object",
+                    "$ref": "#/definitions/i18nContent"
+                }
+            },
+            "properties": {
+                "en": {
+                    "type": "object",
+                    "$ref": "#/definitions/i18nContent"
+                }
+            },
+            "uniqueItems": true,
+            "additionalProperties": false
+        },
+        "translatableContentWithTitle": {
+            "type": "object",
+            "patternProperties": {
+                "^[a-z]{2}(_([a-zA-Z]{2}){1,2})?_[A-Z]{2}$": {
+                    "type": "object",
+                    "$ref": "#/definitions/i18nContentWithTitle"
+                }
+            },
+            "properties": {
+                "en": {
+                    "type": "object",
+                    "$ref": "#/definitions/i18nContentWithTitle"
+                }
+            },
+            "uniqueItems": true,
+            "additionalProperties": true
+        },
+        "listing": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "APARTMENT",
+                        "BARN",
+                        "HOUSE",
+                        "VILLA",
+                        "TOWNHOUSE",
+                        "CHALET",
+                        "FARMHOUSE",
+                        "CASTLE",
+                        "COTTAGE",
+                        "RESORT",
+                        "BNB",
+                        "HOTEL",
+                        "BOAT",
+                        "CONDO",
+                        "HOUSE_BOAT",
+                        "CABIN",
+                        "HOSTEL",
+                        "BEACH_HUT",
+                        "GITE",
+                        "STUDIO",
+                        "BUNGALOW",
+                        "CHATEAU",
+                        "CARAVAN",
+                        "PENTHOUSE",
+                        "CAMPER_VAN"
+                    ],
+                    "default": "APARTMENT"
+                },
+                "arrangement": {
+                    "type": "string",
+                    "enum": [
+                        "ENTIRE_LISTING",
+                        "ROOM_OWN_FACILITIES",
+                        "ROOM_SHARED_FACILITIES"
+                    ],
+                    "default": "ENTIRE_LISTING"
+                },
+                "floor": {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "maximum": 200,
+                    "minimum": 0
+                },
+                "bedrooms": {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "maximum": 100,
+                    "minimum": 0
+                },
+                "bathrooms": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "multipleOf": 1,
+                    "maximum": 100,
+                    "minimum": 0
+                },
+                "sleeps": {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "maximum": 100,
+                    "minimum": 1,
+                    "default": 1
+                },
+                "maxOccupancy": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "multipleOf": 1,
+                    "maximum": 100,
+                    "minimum": 1
+                },
+                "touristLicense": {
+                    "type": "string"
+                },
+                "stateTax": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "bedrooms",
+                "sleeps"
+            ]
+        },
+        "i18nContent": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string"
+                },
+                "locale": {
+                    "$ref": "#/definitions/locale"
+                }
+            },
+            "required": [
+                "content",
+                "locale"
+            ]
+        },
+        "address": {
+            "type": "object",
+            "properties": {
+                "addressLine1": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "addressLine2": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "city": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "region": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "stateProvince": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "country": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "zipPostCode": {
+                    "type": "string",
+                    "maxLength": 16
+                },
+                "countryISO2": {
+                    "type": "string",
+                    "maxLength": 2
+                },
+                "displayExactLocation": {
+                    "type": "boolean",
+                    "default": true
+                }
+            },
+            "dependencies": {
+                "addressLine2": "addressLine1"
+            }
+        },
+        "i18nContentWithTitle": {
+            "allOf": [
+                {
+                    "$ref": "#/definitions/i18nContent"
+                },
+                {
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    "required": [
+                        "title"
+                    ]
+                }
+            ],
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "content": {
+                    "type": "string"
+                },
+                "locale": {
+                    "$ref": "#/definitions/locale"
+                }
+            }
+        },
+        "locale": {
+            "type": "string",
+            "pattern": "^[a-z]{2}(_([a-zA-Z]{2}){1,2})?_[A-Z]{2}$",
+            "default": "en_GB"
+        },
+        "currency": {
+            "type": "string",
+            "pattern": "^(AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BTC|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|EUR|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STD|SVC|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYI|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XSU|XTS|XUA|XXX|YER|ZAR|ZMW|ZWL)$"
+        }
+    },
+    "required": [
+        "$id",
+        "name",
+        "location"
+    ]
+}

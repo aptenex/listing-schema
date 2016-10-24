@@ -1,0 +1,12 @@
+{
+    "name": "rentivo/listing-schema",
+    "description": "Listing schema definition (json-schema.org) for a property listing rental.",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Chris Atkinson",
+            "email": "chrisacky@gmail.com"
+        }
+    ]
+}
