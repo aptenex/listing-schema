@@ -315,6 +315,9 @@
                                 "type": "string",
                                 "format": "uri"
                             },
+                            "isListingPage": {
+                                "type": "boolean"
+                            },
                             "position": {
                                 "type": "integer"
                             },
