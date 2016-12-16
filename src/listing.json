@@ -282,12 +282,12 @@
                             },
                             "description": {
                                 "$ref": "#/definitions/translatableContentWithTitle"
-                            },
-                            "required": [
-                                "type",
-                                "category"
-                            ]
-                        }
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "category"
+                        ]
                     },
                     {
                         "type": "object",
@@ -323,12 +323,12 @@
                             },
                             "description": {
                                 "$ref": "#/definitions/translatableContentWithTitle"
-                            },
-                            "required": [
-                                "type",
-                                "category"
-                            ]
-                        }
+                            }
+                        },
+                        "required": [
+                            "type",
+                            "category"
+                        ]
                     }
                 ]
             }
