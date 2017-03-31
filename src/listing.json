@@ -173,6 +173,9 @@
         "policies": {
             "$ref": "#/definitions/policies"
         },
+        "reviews": {
+            "$ref": "#/definitions/reviews"
+        },
         "contacts": {
             "$ref": "#/definitions/contacts"
         }
@@ -350,6 +353,7 @@
         },
         "pricing": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "static" : {
                     "type" : "object",
@@ -1616,6 +1620,58 @@
                         },
                         "description": {
                             "$ref": "#/definitions/translatableContentWithTitle"
+                        }
+                    },
+                    "required": [
+                        "description",
+                        "type"
+                    ]
+                }]
+            }
+        },
+        "reviews": {
+            "type": "array",
+            "additionalProperties": false,
+            "items": {
+                "type": [{
+                    "type": "object",
+                    "properties": {
+                        "description": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        },
+                        "guestName": {
+                            "type": "string"
+                        },
+                        "reviewedAt": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "format": "date-time"
+                        },
+                        "stayedAt": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "format": "date-time"
+                        },
+                        "stayDuration": {
+                            "type": "number",
+                            "multipleOf": 1
+                        },
+                        "rating": {
+                            "type": "object",
+                            "properties": {
+                                "score": {
+                                    "type": "number",
+                                    "multipleOf": 0.1
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "multipleOf": 0.1
+                                }
+                            }
                         }
                     },
                     "required": [
