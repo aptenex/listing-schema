@@ -1636,7 +1636,7 @@
                 "type": [{
                     "type": "object",
                     "properties": {
-                        "description": {
+                        "review": {
                             "$ref": "#/definitions/translatableContentWithTitle"
                         },
                         "reviewerName": {
