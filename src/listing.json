@@ -1639,10 +1639,10 @@
                         "description": {
                             "$ref": "#/definitions/translatableContentWithTitle"
                         },
-                        "guestName": {
+                        "reviewerName": {
                             "type": "string"
                         },
-                        "reviewedAt": {
+                        "createdAt": {
                             "type": [
                                 "string",
                                 "null"
