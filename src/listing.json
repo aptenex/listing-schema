@@ -975,6 +975,7 @@
                                 "GENERAL_PARKING_SPACE",
                                 "GENERAL_PERSONAL_WELCOME",
                                 "GENERAL_PET_FRIENDLY",
+                                "GENERAL_SUITABLE_FOR_ELDERLY",
                                 "GENERAL_PORTABLE_FAN",
                                 "GENERAL_SECURITY_SAFE",
                                 "GENERAL_SKI_STORAGE",
@@ -1718,6 +1719,7 @@
                     "type": "string",
                     "enum": [
                         "LISTING_TYPE_APARTMENT",
+                        "LISTING_TYPE_BUILDING",
                         "LISTING_TYPE_BARN",
                         "LISTING_TYPE_HOUSE",
                         "LISTING_TYPE_VILLA",
