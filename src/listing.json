@@ -16,7 +16,7 @@
                 "string",
                 "integer"
             ],
-            "description": "If you have a different marketing ID to the main ID you can supply an additional reference code."
+            "description": "If you have a different marketing ID to the main reference ID you can supply an additional reference code."
         },
         "$brand": {
             "type": [
