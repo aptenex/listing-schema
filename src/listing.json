@@ -11,6 +11,13 @@
             ],
             "description": "This is the internal ID for the originating source of the rental"
         },
+        "$marketingReferenceId": {
+            "type": [
+                "string",
+                "integer"
+            ],
+            "description": "If you have a different marketing ID to the main ID you can supply an additional reference code."
+        },
         "$brand": {
             "type": [
                 "string"
