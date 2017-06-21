@@ -1725,6 +1725,7 @@
                 "type": {
                     "type": "string",
                     "enum": [
+                        "LISTING_TYPE_UNSPECIFIED",
                         "LISTING_TYPE_APARTMENT",
                         "LISTING_TYPE_BUILDING",
                         "LISTING_TYPE_BARN",
