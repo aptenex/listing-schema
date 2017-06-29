@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "Schema for Rentals",
+    "description": "Schema for Rentals v0.0.5",
     "properties": {
         "_debug": {},
         "$id": {
@@ -847,6 +847,7 @@
                                 "GENERAL_PARKING_SPACE",
                                 "GENERAL_PERSONAL_WELCOME",
                                 "GENERAL_PET_FRIENDLY",
+                                "GENERAL_SUITABLE_FOR_ELDERLY",
                                 "GENERAL_PORTABLE_FAN",
                                 "GENERAL_SECURITY_SAFE",
                                 "GENERAL_SKI_STORAGE",
@@ -1589,7 +1590,9 @@
                 "type": {
                     "type": "string",
                     "enum": [
+                        "LISTING_TYPE_UNSPECIFIED",
                         "LISTING_TYPE_APARTMENT",
+                        "LISTING_TYPE_BUILDING",
                         "LISTING_TYPE_BARN",
                         "LISTING_TYPE_HOUSE",
                         "LISTING_TYPE_VILLA",
