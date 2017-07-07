@@ -1,0 +1,625 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "additionalProperties": true,
+  "definitions": {
+    "brackets": {
+      "additionalItems": true,
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "amount": {
+            "description": "A fixed amount or percentage (0 to 1)",
+            "maxLength": 255,
+            "title": "Amount",
+            "type": "number"
+          },
+          "days": {
+            "additionalItems": true,
+            "items": {
+              "type": "string",
+              "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "matchAmount": {
+            "default": 0,
+            "description": "The amount of nights to match when using days",
+            "exclusiveMaximum": false,
+            "exclusiveMinimum": false,
+            "title": "Day Match Amount",
+            "type": "integer"
+          },
+          "night": {
+            "description": "What nights to match supports integers, dashes and + eg 1-2, 3, 4+",
+            "maxLength": 255,
+            "title": "Night",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array",
+      "uniqueItems": false
+    }
+  },
+  "id": "https://www.procuro.io/schemas/upp-schema-01.json",
+  "properties": {
+    "data": {
+      "additionalItems": true,
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "currency": {
+            "default": "GBP",
+            "description": "3 Character ISO Currency Code",
+            "maxLength": 255,
+            "title": "Currency",
+            "type": "string",
+            "minimum": 3,
+            "maximum": 3
+          },
+          "defaults": {
+            "additionalProperties": true,
+            "properties": {
+              "balanceDaysBeforeArrival": {
+                "default": 0,
+                "description": "How many days before arrival must the guest pay their remaining balance",
+                "exclusiveMaximum": false,
+                "exclusiveMinimum": false,
+                "title": "Days before Arrival for Balance Payment",
+                "type": "integer"
+              },
+              "damageDeposit": {
+                "default": 0,
+                "description": "How much damage deposit should be charged",
+                "exclusiveMaximum": false,
+                "exclusiveMinimum": false,
+                "title": "Damage Deposit",
+                "type": "number"
+              },
+              "damageDepositCalculationMethod": {
+                "default": "fixed",
+                "description": "How the damage deposit is calculated, either a fixed amount or percentage",
+                "maxLength": 255,
+                "title": "Damage Deposit Calculation Method",
+                "type": "string",
+                "enum": ["fixed", "percentage"]
+              },
+              "damageDepositSplitMethod": {
+                "default": "ON_TOTAL",
+                "description": "Where to place the damage deposit amount. On total, balance or deposit",
+                "maxLength": 255,
+                "title": "Damage Deposit Location",
+                "type": "string",
+                "enum": ["ON_TOTAL", "ON_DEPOSIT", "ON_BALANCE"]
+              },
+              "depositSplitPercentage": {
+                "default": 0,
+                "description": "Deposit percentage amount the guest has to pay when making a booking",
+                "exclusiveMaximum": false,
+                "exclusiveMinimum": false,
+                "title": "Deposit Percentage",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "extraNightAlterationStrategyUseGlobalNights": {
+                "default": false,
+                "description": "When matching nightly brackets, use the total nights for each individual period",
+                "title": "Use Global Nights for Bracket Matching",
+                "type": "boolean"
+              },
+              "minimumNights": {
+                "default": 0,
+                "description": "Minimum nights a guest has to stay",
+                "exclusiveMaximum": false,
+                "exclusiveMinimum": false,
+                "title": "Minimum Nights",
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "taxes": {
+            "additionalItems": true,
+            "items": {
+              "additionalProperties": true,
+              "properties": {
+                "amount": {
+                  "required": true,
+                  "default": 0,
+                  "description": "Either a fixed amount or a percentage",
+                  "exclusiveMaximum": false,
+                  "exclusiveMinimum": false,
+                  "title": "Tax Amount",
+                  "type": "number",
+                  "minimum": 0
+                },
+                "calculationMethod": {
+                  "default": "percentage",
+                  "description": "How the tax amount is calculated either fixed or percentage based",
+                  "title": "Calculation Method",
+                  "type": "string",
+                  "enum": ["percentage", "fixed"]
+                },
+                "includeBasePrice": {
+                  "default": true,
+                  "description": "Whether to include the base price when calculating the tax",
+                  "title": "Include Base Price",
+                  "type": "boolean"
+                },
+                "name": {
+                  "required": true,
+                  "description": "What the tax is called",
+                  "maxLength": 255,
+                  "title": "Name",
+                  "type": "string"
+                },
+                "uuid": {
+                  "required": true,
+                  "description": "UUID of this tax, used for identifying it in other parts of the schema",
+                  "maxLength": 255,
+                  "title": "Tax UUID",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "uniqueItems": false
+          },
+          "modifiers": {
+            "additionalItems": true,
+            "items": {
+              "additionalProperties": true,
+              "properties": {
+                "description": {
+                  "description": "Name/Description of this modifier",
+                  "maxLength": 255,
+                  "title": "Name/Description",
+                  "type": "string"
+                },
+                "hidden": {
+                  "default": false,
+                  "description": "Places the amount into the base price instead of showing it separately",
+                  "title": "Hidden",
+                  "type": "boolean"
+                },
+                "splitMethod": {
+                  "default": "ON_TOTAL",
+                  "description": "Where to place this modifiers amount",
+                  "maxLength": 255,
+                  "title": "Split Method",
+                  "type": "string",
+                  "enum": ["ON_TOTAL", "ON_DEPOSIT", "ON_BALANCE"]
+                },
+                "type": {
+                  "default": "modifier",
+                  "description": "Type of controlItem (this should always be modifier inside the modifier object)",
+                  "maxLength": 255,
+                  "title": "Type",
+                  "type": "string"
+                },
+                "conditionOperand": {
+                  "default": "AND",
+                  "description": "Whether all conditions have to be satisfied or just one of them",
+                  "title": "Condition Operand",
+                  "type": "string",
+                  "enum": ["AND", "OR"]
+                },
+                "conditions": {
+                  "additionalItems": true,
+                  "minItems": 0,
+                  "maxItems": 128,
+                  "items": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "arrivalDays": {
+                        "additionalItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "departureDays": {
+                        "additionalItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "weekdays": {
+                        "additionalItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                        },
+                        "type": "array",
+                        "uniqueItems": true
+                      },
+                      "endDate": {
+                        "description": "ISO 8601 Date",
+                        "minLength": 10,
+                        "maxLength": 10,
+                        "title": "End Date",
+                        "type": "string"
+                      },
+                      "startDate": {
+                        "description": "ISO 8601 Date",
+                        "minLength": 10,
+                        "maxLength": 10,
+                        "title": "Start Date",
+                        "type": "string"
+                      },
+                      "modifyRatePerUnit": {
+                        "default": false,
+                        "description": "Instead of a fixed amount, the amount of units will be multiplied against the set amount",
+                        "title": "Modify Rate Per Unit",
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "description": "The type of condition",
+                        "maxLength": 255,
+                        "title": "Condition Type",
+                        "type": "string",
+                        "enum": []
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "uniqueItems": false
+                },
+                "rate": {
+                  "additionalProperties": true,
+                  "properties": {
+                    "amount": {
+                      "required": true,
+                      "description": "The base amount for this period",
+                      "exclusiveMaximum": false,
+                      "exclusiveMinimum": false,
+                      "title": "Amount",
+                      "type": "number"
+                    },
+                    "taxable": {
+                      "default": false,
+                      "description": "Whether this modifier is taxable or not",
+                      "title": "Taxable",
+                      "type": "boolean"
+                    },
+                    "applicableTaxes": {
+                      "additionalItems": true,
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array",
+                      "title": "Applicable Taxes",
+                      "description": "Lit of Tax UUID's that this modifier can be taxed on",
+                      "uniqueItems": true
+                    },
+                    "calculationMethod": {
+                      "default": "fixed",
+                      "description": "How this modifier is calculated either a fixed amount or percentage based",
+                      "maxLength": 255,
+                      "title": "Calculation Method",
+                      "type": "string",
+                      "enum": ["fixed", "percentage"]
+                    },
+                    "calculationOperand": {
+                      "default": "subtraction",
+                      "description": "Whether the calculated amount should added or subtracted from the price",
+                      "maxLength": 255,
+                      "title": "Calculation Operand",
+                      "type": "string",
+                      "enum": ["addition", "subtraction"]
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "uniqueItems": false
+          },
+          "periods": {
+            "additionalItems": true,
+            "items": {
+              "additionalProperties": true,
+              "properties": {
+                "conditionOperand": {
+                  "default": "AND",
+                  "description": "Whether all conditions have to be satisfied or just one of them",
+                  "title": "Condition Operand",
+                  "type": "string",
+                  "enum": ["AND", "OR"]
+                },
+                "conditions": {
+                  "additionalItems": true,
+                  "minItems": 1,
+                  "maxItems": 1,
+                  "items": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "arrivalDays": {
+                        "additionalItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                      },
+                      "departureDays": {
+                        "additionalItems": true,
+                        "items": {
+                          "type": "string",
+                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                        },
+                        "type": "array",
+                        "uniqueItems": false
+                      },
+                      "endDate": {
+                        "required": true,
+                        "description": "ISO 8601 Date",
+                        "minLength": 10,
+                        "maxLength": 10,
+                        "title": "End Date",
+                        "type": "string"
+                      },
+                      "startDate": {
+                        "required": true,
+                        "description": "ISO 8601",
+                        "minLength": 10,
+                        "maxLength": 10,
+                        "title": "Start Date",
+                        "type": "string"
+                      },
+                      "modifyRatePerUnit": {
+                        "default": false,
+                        "description": "Instead of a fixed amount, the amount of units will be multipled against the set amount",
+                        "title": "Modify Rate Per Unit",
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "description": "The type of condition",
+                        "maxLength": 255,
+                        "title": "Condition Type",
+                        "type": "string",
+                        "enum": []
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "uniqueItems": false
+                },
+                "description": {
+                  "required": true,
+                  "description": "Name/Description of this Period",
+                  "maxLength": 255,
+                  "title": "Name",
+                  "type": "string"
+                },
+                "rate": {
+                  "additionalProperties": true,
+                  "properties": {
+                    "amount": {
+                      "required": true,
+                      "description": "The base amount for this period",
+                      "title": "Amount",
+                      "type": "number"
+                    },
+                    "damageDeposit": {
+                      "default": null,
+                      "description": "Override the damage deposit amount for this period",
+                      "title": "Damage Deposit",
+                      "type": "number"
+                    },
+                    "type": {
+                      "default": "nightly",
+                      "description": "Whether this rate is a nightly or weekly price",
+                      "maxLength": 255,
+                      "title": "Rate Type",
+                      "type": "string",
+                      "enum": ["nightly", "weekly"]
+                    },
+                    "strategy": {
+                      "additionalProperties": true,
+                      "properties": {
+                        "extraNightsAlteration": {
+                          "additionalProperties": true,
+                          "properties": {
+                            "applyToTotal": {
+                              "default": false,
+                              "description": "Whether to apply the final matched bracket to all nights in this period",
+                              "title": "Apply To All Nights",
+                              "type": "boolean"
+                            },
+                            "calculationMethod": {
+                              "default": "fixed",
+                              "description": "Whether the brackets will be fixed amounts or percentage based",
+                              "maxLength": 255,
+                              "title": "Calculation Method",
+                              "type": "string",
+                              "enum": ["fixed", "percentage"]
+                            },
+                            "calculationOperand": {
+                              "default": "equals",
+                              "description": "How this strategy affects the base price",
+                              "maxLength": 255,
+                              "title": "Calculation Operand",
+                              "type": "string",
+                              "enum": ["equals", "addition", "subtraction"]
+                            },
+                            "makePreviousNightsSameRate": {
+                              "default": false,
+                              "description": "When matching brackets, if true use the last matched bracket as the amount for every matched bracket",
+                              "title": "Make All Matched Brackets Same Amount",
+                              "type": "boolean"
+                            },
+                            "brackets": {
+                              "$ref": "#/definitions/brackets"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "partialWeekAlteration": {
+                          "additionalProperties": true,
+                          "properties": {
+                            "minimum": {
+                                "description": "Minimum amount of weeks to match",
+                                "title": "Minimum",
+                                "type": "integer"
+                            },
+                            "maximum": {
+                              "description": "Maximum amount of weeks to match",
+                              "title": "Maximum",
+                              "type": "integer"
+                            },
+                            "applyToTotal": {
+                              "default": false,
+                              "description": "Whether to apply the final matched bracket to all nights in this period",
+                              "title": "Apply To All Nights",
+                              "type": "boolean"
+                            },
+                            "calculationMethod": {
+                              "default": "fixed",
+                              "description": "Whether the brackets will be fixed amounts or percentage based",
+                              "maxLength": 255,
+                              "title": "Calculation Method",
+                              "type": "string",
+                              "enum": ["fixed", "percentage"]
+                            },
+                            "calculationOperand": {
+                              "default": "equals",
+                              "description": "How this strategy affects the base price",
+                              "maxLength": 255,
+                              "title": "Calculation Operand",
+                              "type": "string",
+                              "enum": ["equals", "addition", "subtraction"]
+                            },
+                            "makePreviousNightsSameRate": {
+                              "default": false,
+                              "description": "When matching brackets, if true use the last matched bracket as the amount for every matched bracket",
+                              "title": "Make All Matched Brackets Same Amount",
+                              "type": "boolean"
+                            },
+                            "brackets": {
+                              "$ref": "#/definitions/brackets"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "daysOfWeekAlteration": {
+                          "additionalProperties": true,
+                          "properties": {
+                            "unmatchedNightAmount": {
+                              "default": null,
+                              "description": "If no days are matched, use this amount if provided",
+                              "title": "Unmatched Day Amount",
+                              "type": "number"
+                            },
+                            "useWeeklyPriceIfExceeded": {
+                              "default": false,
+                              "description": "If the calculated amount costs more than the standard week then use that amount",
+                              "title": "Use Weekly Price If Exceeded",
+                              "type": "boolean"
+                            },
+                            "applyToTotal": {
+                              "default": false,
+                              "description": "Whether to apply the final matched bracket to all nights in this period",
+                              "title": "Apply To All Nights",
+                              "type": "boolean"
+                            },
+                            "calculationMethod": {
+                              "default": "fixed",
+                              "description": "Whether the brackets will be fixed amounts or percentage based",
+                              "maxLength": 255,
+                              "title": "Calculation Method",
+                              "type": "string",
+                              "enum": ["fixed", "percentage"]
+                            },
+                            "calculationOperand": {
+                              "default": "equals",
+                              "description": "How this strategy affects the base price",
+                              "maxLength": 255,
+                              "title": "Calculation Operand",
+                              "type": "string",
+                              "enum": ["equals", "addition", "subtraction"]
+                            },
+                            "makePreviousNightsSameRate": {
+                              "default": false,
+                              "description": "When matching brackets, if true use the last matched bracket as the amount for every matched bracket",
+                              "title": "Make All Matched Brackets Same Amount",
+                              "type": "boolean"
+                            },
+                            "brackets": {
+                              "$ref": "#/definitions/brackets"
+                            }
+                          },
+                          "type": "object"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "uniqueItems": false
+          }
+        },
+        "type": "object"
+      },
+      "type": "array",
+      "uniqueItems": false
+    },
+    "meta": {
+      "additionalItems": true,
+      "items": {},
+      "minItems": 0,
+      "type": "array",
+      "uniqueItems": false
+    },
+    "name": {
+      "default": "Pricing",
+      "description": "Usually defaults to 'Pricing'",
+      "maxLength": 255,
+      "minLength": 3,
+      "title": "Name",
+      "type": "string"
+    },
+    "schema": {
+      "default": "upp-schema",
+      "description": "What schema has been used for this configuration",
+      "maxLength": 255,
+      "title": "Schema",
+      "type": "string"
+    },
+    "version": {
+      "default": "0.0.1",
+      "description": "Used to determine how to parse / generate a price from this configuration",
+      "maxLength": 1,
+      "minLength": 1,
+      "title": "Price Configuration Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "data",
+    "version",
+    "meta",
+    "name",
+    "schema"
+  ],
+  "type": "object"
+}
