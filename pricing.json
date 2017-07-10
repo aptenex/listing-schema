@@ -17,7 +17,15 @@
             "additionalItems": true,
             "items": {
               "type": "string",
-              "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+              "enum": [
+                "monday",
+                "tuesday",
+                "wednesday",
+                "thursday",
+                "friday",
+                "saturday",
+                "sunday"
+              ]
             },
             "type": "array",
             "uniqueItems": true
@@ -25,8 +33,6 @@
           "matchAmount": {
             "default": 0,
             "description": "The amount of nights to match when using days",
-            "exclusiveMaximum": false,
-            "exclusiveMinimum": false,
             "title": "Day Match Amount",
             "type": "integer"
           },
@@ -45,6 +51,36 @@
   },
   "id": "https://www.procuro.io/schemas/upp-schema-01.json",
   "properties": {
+    "name": {
+      "default": "Pricing",
+      "description": "Usually defaults to 'Pricing'",
+      "maxLength": 255,
+      "minLength": 3,
+      "title": "Name",
+      "type": "string"
+    },
+    "meta": {
+      "additionalItems": true,
+      "items": {},
+      "minItems": 0,
+      "type": "array",
+      "uniqueItems": false
+    },
+    "schema": {
+      "default": "upp-schema",
+      "description": "What schema has been used for this configuration",
+      "maxLength": 255,
+      "title": "Schema",
+      "type": "string"
+    },
+    "version": {
+      "default": "0.0.1",
+      "description": "Used to determine how to parse / generate a price from this configuration",
+      "maxLength": 16,
+      "minLength": 1,
+      "title": "Price Configuration Version",
+      "type": "string"
+    },
     "data": {
       "additionalItems": true,
       "items": {
@@ -65,16 +101,12 @@
               "balanceDaysBeforeArrival": {
                 "default": 0,
                 "description": "How many days before arrival must the guest pay their remaining balance",
-                "exclusiveMaximum": false,
-                "exclusiveMinimum": false,
                 "title": "Days before Arrival for Balance Payment",
                 "type": "integer"
               },
               "damageDeposit": {
                 "default": 0,
                 "description": "How much damage deposit should be charged",
-                "exclusiveMaximum": false,
-                "exclusiveMinimum": false,
                 "title": "Damage Deposit",
                 "type": "number"
               },
@@ -84,7 +116,10 @@
                 "maxLength": 255,
                 "title": "Damage Deposit Calculation Method",
                 "type": "string",
-                "enum": ["fixed", "percentage"]
+                "enum": [
+                  "fixed",
+                  "percentage"
+                ]
               },
               "damageDepositSplitMethod": {
                 "default": "ON_TOTAL",
@@ -92,13 +127,15 @@
                 "maxLength": 255,
                 "title": "Damage Deposit Location",
                 "type": "string",
-                "enum": ["ON_TOTAL", "ON_DEPOSIT", "ON_BALANCE"]
+                "enum": [
+                  "ON_TOTAL",
+                  "ON_DEPOSIT",
+                  "ON_BALANCE"
+                ]
               },
               "depositSplitPercentage": {
                 "default": 0,
                 "description": "Deposit percentage amount the guest has to pay when making a booking",
-                "exclusiveMaximum": false,
-                "exclusiveMinimum": false,
                 "title": "Deposit Percentage",
                 "type": "number",
                 "minimum": 0,
@@ -113,8 +150,6 @@
               "minimumNights": {
                 "default": 0,
                 "description": "Minimum nights a guest has to stay",
-                "exclusiveMaximum": false,
-                "exclusiveMinimum": false,
                 "title": "Minimum Nights",
                 "type": "integer"
               }
@@ -125,13 +160,11 @@
             "additionalItems": true,
             "items": {
               "additionalProperties": true,
+              "required": ["amount", "calculationMethod", "name", "uuid"],
               "properties": {
                 "amount": {
-                  "required": true,
                   "default": 0,
                   "description": "Either a fixed amount or a percentage",
-                  "exclusiveMaximum": false,
-                  "exclusiveMinimum": false,
                   "title": "Tax Amount",
                   "type": "number",
                   "minimum": 0
@@ -141,7 +174,10 @@
                   "description": "How the tax amount is calculated either fixed or percentage based",
                   "title": "Calculation Method",
                   "type": "string",
-                  "enum": ["percentage", "fixed"]
+                  "enum": [
+                    "percentage",
+                    "fixed"
+                  ]
                 },
                 "includeBasePrice": {
                   "default": true,
@@ -150,14 +186,12 @@
                   "type": "boolean"
                 },
                 "name": {
-                  "required": true,
                   "description": "What the tax is called",
                   "maxLength": 255,
                   "title": "Name",
                   "type": "string"
                 },
                 "uuid": {
-                  "required": true,
                   "description": "UUID of this tax, used for identifying it in other parts of the schema",
                   "maxLength": 255,
                   "title": "Tax UUID",
@@ -192,7 +226,11 @@
                   "maxLength": 255,
                   "title": "Split Method",
                   "type": "string",
-                  "enum": ["ON_TOTAL", "ON_DEPOSIT", "ON_BALANCE"]
+                  "enum": [
+                    "ON_TOTAL",
+                    "ON_DEPOSIT",
+                    "ON_BALANCE"
+                  ]
                 },
                 "type": {
                   "default": "modifier",
@@ -206,7 +244,10 @@
                   "description": "Whether all conditions have to be satisfied or just one of them",
                   "title": "Condition Operand",
                   "type": "string",
-                  "enum": ["AND", "OR"]
+                  "enum": [
+                    "AND",
+                    "OR"
+                  ]
                 },
                 "conditions": {
                   "additionalItems": true,
@@ -219,7 +260,15 @@
                         "additionalItems": true,
                         "items": {
                           "type": "string",
-                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                          "enum": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday",
+                            "saturday",
+                            "sunday"
+                          ]
                         },
                         "type": "array",
                         "uniqueItems": true
@@ -228,7 +277,15 @@
                         "additionalItems": true,
                         "items": {
                           "type": "string",
-                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                          "enum": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday",
+                            "saturday",
+                            "sunday"
+                          ]
                         },
                         "type": "array",
                         "uniqueItems": true
@@ -237,7 +294,15 @@
                         "additionalItems": true,
                         "items": {
                           "type": "string",
-                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                          "enum": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday",
+                            "saturday",
+                            "sunday"
+                          ]
                         },
                         "type": "array",
                         "uniqueItems": true
@@ -267,7 +332,7 @@
                         "maxLength": 255,
                         "title": "Condition Type",
                         "type": "string",
-                        "enum": []
+                        "enum": ["date", "nights", "guests", "booking_days", "weekdays"]
                       }
                     },
                     "type": "object"
@@ -277,12 +342,10 @@
                 },
                 "rate": {
                   "additionalProperties": true,
+                  "required": ["amount", "calculationMethod", "calculationOperand"],
                   "properties": {
                     "amount": {
-                      "required": true,
                       "description": "The base amount for this period",
-                      "exclusiveMaximum": false,
-                      "exclusiveMinimum": false,
                       "title": "Amount",
                       "type": "number"
                     },
@@ -308,7 +371,10 @@
                       "maxLength": 255,
                       "title": "Calculation Method",
                       "type": "string",
-                      "enum": ["fixed", "percentage"]
+                      "enum": [
+                        "fixed",
+                        "percentage"
+                      ]
                     },
                     "calculationOperand": {
                       "default": "subtraction",
@@ -316,7 +382,10 @@
                       "maxLength": 255,
                       "title": "Calculation Operand",
                       "type": "string",
-                      "enum": ["addition", "subtraction"]
+                      "enum": [
+                        "addition",
+                        "subtraction"
+                      ]
                     }
                   },
                   "type": "object"
@@ -331,13 +400,17 @@
             "additionalItems": true,
             "items": {
               "additionalProperties": true,
+              "required": ["description"],
               "properties": {
                 "conditionOperand": {
                   "default": "AND",
                   "description": "Whether all conditions have to be satisfied or just one of them",
                   "title": "Condition Operand",
                   "type": "string",
-                  "enum": ["AND", "OR"]
+                  "enum": [
+                    "AND",
+                    "OR"
+                  ]
                 },
                 "conditions": {
                   "additionalItems": true,
@@ -345,12 +418,21 @@
                   "maxItems": 1,
                   "items": {
                     "additionalProperties": true,
+                    "required": ["startDate", "endDate"],
                     "properties": {
                       "arrivalDays": {
                         "additionalItems": true,
                         "items": {
                           "type": "string",
-                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                          "enum": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday",
+                            "saturday",
+                            "sunday"
+                          ]
                         },
                         "type": "array",
                         "uniqueItems": false
@@ -359,13 +441,20 @@
                         "additionalItems": true,
                         "items": {
                           "type": "string",
-                          "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+                          "enum": [
+                            "monday",
+                            "tuesday",
+                            "wednesday",
+                            "thursday",
+                            "friday",
+                            "saturday",
+                            "sunday"
+                          ]
                         },
                         "type": "array",
                         "uniqueItems": false
                       },
                       "endDate": {
-                        "required": true,
                         "description": "ISO 8601 Date",
                         "minLength": 10,
                         "maxLength": 10,
@@ -373,7 +462,6 @@
                         "type": "string"
                       },
                       "startDate": {
-                        "required": true,
                         "description": "ISO 8601",
                         "minLength": 10,
                         "maxLength": 10,
@@ -391,7 +479,7 @@
                         "maxLength": 255,
                         "title": "Condition Type",
                         "type": "string",
-                        "enum": []
+                        "enum": ["date"]
                       }
                     },
                     "type": "object"
@@ -400,7 +488,6 @@
                   "uniqueItems": false
                 },
                 "description": {
-                  "required": true,
                   "description": "Name/Description of this Period",
                   "maxLength": 255,
                   "title": "Name",
@@ -408,9 +495,9 @@
                 },
                 "rate": {
                   "additionalProperties": true,
+                  "required": ["amount", "type"],
                   "properties": {
                     "amount": {
-                      "required": true,
                       "description": "The base amount for this period",
                       "title": "Amount",
                       "type": "number"
@@ -427,7 +514,10 @@
                       "maxLength": 255,
                       "title": "Rate Type",
                       "type": "string",
-                      "enum": ["nightly", "weekly"]
+                      "enum": [
+                        "nightly",
+                        "weekly"
+                      ]
                     },
                     "strategy": {
                       "additionalProperties": true,
@@ -447,7 +537,10 @@
                               "maxLength": 255,
                               "title": "Calculation Method",
                               "type": "string",
-                              "enum": ["fixed", "percentage"]
+                              "enum": [
+                                "fixed",
+                                "percentage"
+                              ]
                             },
                             "calculationOperand": {
                               "default": "equals",
@@ -455,7 +548,11 @@
                               "maxLength": 255,
                               "title": "Calculation Operand",
                               "type": "string",
-                              "enum": ["equals", "addition", "subtraction"]
+                              "enum": [
+                                "equals",
+                                "addition",
+                                "subtraction"
+                              ]
                             },
                             "makePreviousNightsSameRate": {
                               "default": false,
@@ -473,9 +570,9 @@
                           "additionalProperties": true,
                           "properties": {
                             "minimum": {
-                                "description": "Minimum amount of weeks to match",
-                                "title": "Minimum",
-                                "type": "integer"
+                              "description": "Minimum amount of weeks to match",
+                              "title": "Minimum",
+                              "type": "integer"
                             },
                             "maximum": {
                               "description": "Maximum amount of weeks to match",
@@ -494,7 +591,10 @@
                               "maxLength": 255,
                               "title": "Calculation Method",
                               "type": "string",
-                              "enum": ["fixed", "percentage"]
+                              "enum": [
+                                "fixed",
+                                "percentage"
+                              ]
                             },
                             "calculationOperand": {
                               "default": "equals",
@@ -502,7 +602,11 @@
                               "maxLength": 255,
                               "title": "Calculation Operand",
                               "type": "string",
-                              "enum": ["equals", "addition", "subtraction"]
+                              "enum": [
+                                "equals",
+                                "addition",
+                                "subtraction"
+                              ]
                             },
                             "makePreviousNightsSameRate": {
                               "default": false,
@@ -543,7 +647,10 @@
                               "maxLength": 255,
                               "title": "Calculation Method",
                               "type": "string",
-                              "enum": ["fixed", "percentage"]
+                              "enum": [
+                                "fixed",
+                                "percentage"
+                              ]
                             },
                             "calculationOperand": {
                               "default": "equals",
@@ -551,7 +658,11 @@
                               "maxLength": 255,
                               "title": "Calculation Operand",
                               "type": "string",
-                              "enum": ["equals", "addition", "subtraction"]
+                              "enum": [
+                                "equals",
+                                "addition",
+                                "subtraction"
+                              ]
                             },
                             "makePreviousNightsSameRate": {
                               "default": false,
@@ -582,36 +693,6 @@
       },
       "type": "array",
       "uniqueItems": false
-    },
-    "meta": {
-      "additionalItems": true,
-      "items": {},
-      "minItems": 0,
-      "type": "array",
-      "uniqueItems": false
-    },
-    "name": {
-      "default": "Pricing",
-      "description": "Usually defaults to 'Pricing'",
-      "maxLength": 255,
-      "minLength": 3,
-      "title": "Name",
-      "type": "string"
-    },
-    "schema": {
-      "default": "upp-schema",
-      "description": "What schema has been used for this configuration",
-      "maxLength": 255,
-      "title": "Schema",
-      "type": "string"
-    },
-    "version": {
-      "default": "0.0.1",
-      "description": "Used to determine how to parse / generate a price from this configuration",
-      "maxLength": 1,
-      "minLength": 1,
-      "title": "Price Configuration Version",
-      "type": "string"
     }
   },
   "required": [
