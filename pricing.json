@@ -2,6 +2,11 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "additionalProperties": true,
   "definitions": {
+    "mixin": {
+      "type": "string",
+      "title": "Mixin Identifier",
+      "description": "The Mixin Pointer"
+    },
     "brackets": {
       "additionalItems": true,
       "items": {
@@ -157,51 +162,63 @@
             "type": "object"
           },
           "taxes": {
-            "additionalItems": true,
-            "items": {
-              "additionalProperties": true,
-              "required": ["amount", "calculationMethod", "name", "uuid"],
-              "properties": {
-                "amount": {
-                  "default": 0,
-                  "description": "Either a fixed amount or a percentage",
-                  "title": "Tax Amount",
-                  "type": "number",
-                  "minimum": 0
-                },
-                "calculationMethod": {
-                  "default": "percentage",
-                  "description": "How the tax amount is calculated either fixed or percentage based",
-                  "title": "Calculation Method",
-                  "type": "string",
-                  "enum": [
-                    "percentage",
-                    "fixed"
-                  ]
-                },
-                "includeBasePrice": {
-                  "default": true,
-                  "description": "Whether to include the base price when calculating the tax",
-                  "title": "Include Base Price",
-                  "type": "boolean"
-                },
-                "name": {
-                  "description": "What the tax is called",
-                  "maxLength": 255,
-                  "title": "Name",
-                  "type": "string"
-                },
-                "uuid": {
-                  "description": "UUID of this tax, used for identifying it in other parts of the schema",
-                  "maxLength": 255,
-                  "title": "Tax UUID",
-                  "type": "string"
-                }
+            "oneOf": [
+              {
+                "$ref": "#/definitions/mixin"
               },
-              "type": "object"
-            },
-            "type": "array",
-            "uniqueItems": false
+              {
+                "additionalItems": true,
+                "items": {
+                  "additionalProperties": true,
+                  "required": [
+                    "amount",
+                    "calculationMethod",
+                    "name",
+                    "uuid"
+                  ],
+                  "properties": {
+                    "amount": {
+                      "default": 0,
+                      "description": "Either a fixed amount or a percentage",
+                      "title": "Tax Amount",
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "calculationMethod": {
+                      "default": "percentage",
+                      "description": "How the tax amount is calculated either fixed or percentage based",
+                      "title": "Calculation Method",
+                      "type": "string",
+                      "enum": [
+                        "percentage",
+                        "fixed"
+                      ]
+                    },
+                    "includeBasePrice": {
+                      "default": true,
+                      "description": "Whether to include the base price when calculating the tax",
+                      "title": "Include Base Price",
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "description": "What the tax is called",
+                      "maxLength": 255,
+                      "title": "Name",
+                      "type": "string"
+                    },
+                    "uuid": {
+                      "description": "UUID of this tax, used for identifying it in other parts of the schema",
+                      "maxLength": 255,
+                      "title": "Tax UUID",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array",
+                "uniqueItems": false
+              }
+            ]
           },
           "modifiers": {
             "additionalItems": true,
@@ -332,7 +349,13 @@
                         "maxLength": 255,
                         "title": "Condition Type",
                         "type": "string",
-                        "enum": ["date", "nights", "guests", "booking_days", "weekdays"]
+                        "enum": [
+                          "date",
+                          "nights",
+                          "guests",
+                          "booking_days",
+                          "weekdays"
+                        ]
                       }
                     },
                     "type": "object"
@@ -342,7 +365,11 @@
                 },
                 "rate": {
                   "additionalProperties": true,
-                  "required": ["amount", "calculationMethod", "calculationOperand"],
+                  "required": [
+                    "amount",
+                    "calculationMethod",
+                    "calculationOperand"
+                  ],
                   "properties": {
                     "amount": {
                       "description": "The base amount for this period",
@@ -400,7 +427,9 @@
             "additionalItems": true,
             "items": {
               "additionalProperties": true,
-              "required": ["description"],
+              "required": [
+                "description"
+              ],
               "properties": {
                 "conditionOperand": {
                   "default": "AND",
@@ -418,7 +447,10 @@
                   "maxItems": 1,
                   "items": {
                     "additionalProperties": true,
-                    "required": ["startDate", "endDate"],
+                    "required": [
+                      "startDate",
+                      "endDate"
+                    ],
                     "properties": {
                       "arrivalDays": {
                         "additionalItems": true,
@@ -479,7 +511,9 @@
                         "maxLength": 255,
                         "title": "Condition Type",
                         "type": "string",
-                        "enum": ["date"]
+                        "enum": [
+                          "date"
+                        ]
                       }
                     },
                     "type": "object"
@@ -495,7 +529,10 @@
                 },
                 "rate": {
                   "additionalProperties": true,
-                  "required": ["amount", "type"],
+                  "required": [
+                    "amount",
+                    "type"
+                  ],
                   "properties": {
                     "amount": {
                       "description": "The base amount for this period",
