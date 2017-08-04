@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.0.5",
+    "description": "Schema for Rentals v0.0.6",
     "properties": {
         "_debug": {},
         "$id": {
@@ -59,6 +59,10 @@
         },
         "flags": {
             "properties": {
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Designates if this property is active."
+                },
                 "isInstantBookable": {
                     "type": "boolean",
                     "description": "Designates if this property is instant bookable and can accept payments online."
@@ -72,9 +76,6 @@
                     "description": "Designates if this property is available to be published to external channels."
                 }
             }
-        },
-        "suitability": {
-            "$ref": "#/definitions/suitability"
         },
         "texts": {
             "$ref": "#/definitions/texts"
@@ -362,8 +363,8 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "static" : {
-                    "type" : "object",
+                "static": {
+                    "type": "object",
                     "additionalProperties": true
                 },
                 "visual": {
@@ -540,143 +541,6 @@
                 }
             }
         },
-        "suitability": {
-            "type": "array",
-            "additionalProperties": false,
-            "items": {
-                "type": [{
-                    "type": "object",
-                    "format": "table",
-                    "title": "Pets and Smoking with Restrictions",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "description": "The Suitability TYPE",
-                            "type": "string",
-                            "enum": [
-                                "SUITABILITY_SMOKING",
-                                "SUITABILITY_PETS"
-                            ]
-                        },
-                        "value": {
-                            "type": "string",
-                            "enum": [
-                                "SUITABLE",
-                                "SUITABLE_WITH_RESTRICTIONS",
-                                "NOT_SUITABLE"
-                            ]
-                        },
-                        "maxAllowed": {
-                            "type": "integer",
-                            "default": 1,
-                            "minimum": 0,
-                            "maximum": 10
-                        }
-                    },
-                    "required": [
-                        "value",
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "People",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "description": "The Suitability TYPE",
-                            "type": "string",
-                            "enum": [
-                                "SUITABILITY_CHILDREN",
-                                "SUITABILITY_INFANTS",
-                                "SUITABILITY_ELDERLY",
-                                "SUITABILITY_WHEELCHAIR"
-                            ]
-                        },
-                        "value": {
-                            "type": "string",
-                            "enum": [
-                                "GREAT_SUITABILITY",
-                                "SUITABLE",
-                                "SUITABLE_WITH_RESTRICTIONS",
-                                "NOT_SUITABLE"
-                            ]
-                        },
-                        "details": {
-                            "$ref": "#/definitions/translatableContent"
-                        }
-                    },
-                    "required": [
-                        "value",
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "Groups and Events",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "description": "The Suitability TYPE",
-                            "type": "string",
-                            "enum": [
-                                "SUITABILITY_GROUPS",
-                                "SUITABILITY_WEDDINGS",
-                                "SUITABILITY_EVENTS"
-                            ]
-                        },
-                        "value": {
-                            "type": "string",
-                            "enum": [
-                                "ASK_OWNER",
-                                "SUITABLE",
-                                "NOT_SUITABLE"
-                            ]
-                        },
-                        "maxAllowed": {
-                            "type": "integer",
-                            "description": "What is the maximum capacity for the venue or rental listing?",
-                            "default": 1,
-                            "minimum": 0,
-                            "maximum": 1000
-                        },
-                        "details": {
-                            "$ref": "#/definitions/translatableContent"
-                        }
-                    },
-                    "required": [
-                        "value",
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "Ideal Suitability or Hide",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "description": "The Suitability TYPE",
-                            "type": "string",
-                            "enum": [
-                                "SUITABILITY_SAME_SEX"
-                            ]
-                        },
-                        "value": {
-                            "type": [
-                                "string"
-                            ],
-                            "enum": [
-                                "GREAT_SUITABILITY"
-                            ]
-                        },
-                        "details": {
-                            "$ref": "#/definitions/translatableContent"
-                        }
-                    },
-                    "required": [
-                        "value",
-                        "type"
-                    ]
-                }]
-            }
-        },
         "rooms": {
             "type": "array",
             "additionalProperties": false,
@@ -703,7 +567,7 @@
                             "type": "boolean"
                         },
                         "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
+                            "$ref": "#/definitions/translatableContent"
                         },
                         "blueprint": {
                             "type": "array",
@@ -752,11 +616,14 @@
                         "isSharedSpace": {
                             "type": "boolean"
                         },
+                        "isEnSuite": {
+                            "type": "boolean"
+                        },
                         "isLockable": {
                             "type": "boolean"
                         },
                         "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
+                            "$ref": "#/definitions/translatableContent"
                         },
                         "blueprint": {
                             "type": "array",
@@ -790,41 +657,60 @@
             "items": {
                 "type": [{
                     "type": "object",
-                    "title": "Suitability",
+                    "title": "Pets",
                     "additionalProperties": false,
                     "properties": {
                         "type": {
                             "type": "string",
                             "enum": [
-                                "SUITABILITY_CHILDREN_ASK",
-                                "SUITABILITY_CHILDREN_WELCOME",
-                                "SUITABILITY_CHILDREN_NOT_ALLOWED",
                                 "SUITABILITY_PETS_ALLOWED",
                                 "SUITABILITY_PETS_ASK",
                                 "SUITABILITY_PETS_ALLOWED_WITH_RESTRICTIONS",
-                                "SUITABILITY_PETS_NOT_ALLOWED",
-                                "SUITABILITY_SMOKING_ASK",
-                                "SUITABILITY_SMOKING_ALLOWED",
-                                "SUITABILITY_SMOKING_ALLOWED_WITH_RESTRICTIONS",
-                                "SUITABILITY_SMOKING_NOT_ALLOWED",
-                                "SUITABILITY_ACCESSIBILITY_ASK",
-                                "SUITABILITY_ACCESSIBILITY_ELDERLY_GREAT",
-                                "SUITABILITY_ACCESSIBILITY_ELDERLY_LIMITED_ACCESSIBILITY",
-                                "SUITABILITY_ACCESSIBILITY_ELDERLY_NOT_RECOMMENDED",
-                                "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_GREAT",
-                                "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_LIMITED_ACCESSIBILITY",
-                                "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_NOT_ACCESSIBLE",
-                                "SUITABILITY_SENIOR_ADULTS_ONLY",
-                                "SUITABILITY_GREAT_FOR_SAME_SEX",
-                                "SUITABILITY_EVENTS_CONSIDERED",
-                                "SUITABILITY_EVENTS_ALLOWED",
-                                "SUITABILITY_WEDDINGS_CONSIDERED",
-                                "SUITABILITY_WEDDINGS_WELCOME",
-                                "SUITABILITY_LONG_TERM_RENTERS",
-                                "SUITABILITY_GROUPS_ALLOWED",
-                                "SUITABILITY_GROUPS_ASK",
-                                "SUITABILITY_GROUPS_NOT_ALLOWED"
+                                "SUITABILITY_PETS_NOT_ALLOWED"
                             ]
+                        },
+                        "species": {
+                            "type": "string",
+                            "enum": [
+                                "DOGS_ALLOWED",
+                                "CATS_ALLOWED",
+                                "FERRETS_ALLOWED",
+                                "BIRDS_ALLOWED",
+                                "HORSES_ALLOWED"
+                            ]
+                        },
+                        "restrictions": {
+                            "type": "string",
+                            "enum": [
+                                "RESTRICTIONS_ONLY_SERVICE_DOGS_ALLOWED",
+                                "RESTRICTIONS_LONG_HAIR_ALLOWED",
+                                "RESTRICTIONS_LONG_HAIR_NOT_ALLOWED",
+                                "RESTRICTIONS_LONG_HAIR_ASK",
+                                "RESTRICTIONS_SHORT_HAIR_ALLOWED",
+                                "RESTRICTIONS_SHORT_HAIR_NOT_ALLOWED",
+                                "RESTRICTIONS_SHORT_HAIR_ASK",
+                                "RESTRICTIONS_VACCINATIONS_REQUIRED",
+                                "RESTRICTIONS_MICROCHIPPED_REQUIRED",
+                                "RESTRICTIONS_PET_ALONE_MAY_BE_LEFT",
+                                "RESTRICTIONS_PET_ALONE_MAY_NOT_BE_LEFT",
+                                "RESTRICTIONS_PET_ALONE_ASK_TO_LEAVE",
+                                "RESTRICTIONS_PET_ACCESS_ALLOWED_IN_ENTIRE_BUILDING",
+                                "RESTRICTIONS_PET_ACCESS_NOT_ALLOWED_IN_MAIN_BUILDING",
+                                "RESTRICTIONS_PET_ACCESS_LIMITED_TO_CERTAIN_ROOMS"
+                            ]
+                        },
+                        "supplied": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "POO_BAGS",
+                                    "BASIC_DOG_TREATS",
+                                    "DOG_BED_SUPPLIED",
+                                    "DOG_TOYS_SUPPLIED",
+                                    "DOG_TOWELS_SUPPLIED"
+                                ]
+                            }
                         },
                         "category": {
                             "type": "string",
@@ -853,664 +739,789 @@
                         "category",
                         "type"
                     ]
-                }, {
-                    "type": "object",
-                    "title": "Feature",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "ACCESSIBILITY_DOWNSTAIRS_BEDROOMS",
-                                "ACCESSIBILITY_INSIDE_HAS_STAIRS",
-                                "ACCESSIBILITY_ENTRANCE_HAS_STAIRS",
-                                "ACCESSIBILITY_DOWNSTAIRS_TOILET",
-                                "ACCESSIBILITY_DISABLED_TOILET",
-                                "ACCESSIBILITY_DOWNSTAIRS_BATHROOM",
-                                "ACCESSIBILITY_WALKIN_SHOWER",
-
-                                "ATTRACTIONS_CASINO",
-                                "ATTRACTIONS_LOCAL_MARKETS",
-                                "ATTRACTIONS_ARCHAEOLOGICAL_SITES",
-                                "ATTRACTIONS_BASEBALL_PARK",
-                                "ATTRACTIONS_HISTORICAL_MONUMENTS",
-                                "ATTRACTIONS_HISTORICAL_RUINS",
-                                "ATTRACTIONS_MUSEUM",
-                                "ATTRACTIONS_NATIONAL_HERITAGE",
-                                "ATTRACTIONS_NATIONAL_PARK",
-                                "ATTRACTIONS_PLANETARIUM",
-                                "ATTRACTIONS_PUBLIC_VILLAS_GARDENS",
-                                "ATTRACTIONS_THEME_PARK",
-                                "ATTRACTIONS_WATER_THEME_PARK",
-                                "ATTRACTIONS_WATERFALLS",
-                                "ATTRACTIONS_ZOO",
-
-                                "ATTRACTIONS_ARBORETUM",
-                                "ATTRACTIONS_BOTANICAL_GARDEN",
-                                "ATTRACTIONS_CAVE",
-                                "ATTRACTIONS_FESTIVALS",
-                                "ATTRACTIONS_NUDE_BEACH",
-                                "ATTRACTIONS_RAIN_FORESTS",
-                                "ATTRACTIONS_REEF",
-                                "ATTRACTIONS_VOLCANO",
-
-                                "COMMUNICATION_COMPUTER_AVAILABLE",
-                                "COMMUNICATION_FAX_MACHINE",
-                                "COMMUNICATION_INTERNET",
-                                "COMMUNICATION_INTERNET_CABLED",
-                                "COMMUNICATION_INTERNET_DIAL_UP",
-                                "COMMUNICATION_INTERNET_DONGLE",
-                                "COMMUNICATION_INTERNET_HIGHSPEED",
-                                "COMMUNICATION_INTERNET_WIFI",
-                                "COMMUNICATION_TELEPHONE",
-                                "ENTERTAINMENT_AMAZON_ECHO",
-                                "ENTERTAINMENT_BOARD_GAMES",
-                                "ENTERTAINMENT_BOOKS_LIBRARY",
-                                "ENTERTAINMENT_CABLE_TV",
-                                "ENTERTAINMENT_CHILDRENS_TOYS",
-                                "ENTERTAINMENT_DIGITAL_TV",
-                                "ENTERTAINMENT_DVD_PLAYER",
-                                "ENTERTAINMENT_FOOSBALL",
-                                "ENTERTAINMENT_GAMES_CONSOLE",
-                                "ENTERTAINMENT_GAMES_CONSOLE",
-                                "ENTERTAINMENT_GAMES_ROOM",
-                                "ENTERTAINMENT_GOOGLE_HOME",
-                                "ENTERTAINMENT_HIGH_DEFINITION_TV",
-                                "ENTERTAINMENT_HOME_CINEMA",
-                                "ENTERTAINMENT_IPOD_DOCKING",
-                                "ENTERTAINMENT_KIDS_TOYS",
-                                "ENTERTAINMENT_MOVIE_VIDEO_LIBRARY",
-                                "ENTERTAINMENT_MUSIC_KEYBOARD",
-                                "ENTERTAINMENT_MUSIC_LIBRARY",
-                                "ENTERTAINMENT_MUSIC_PIANO",
-                                "ENTERTAINMENT_POOL_TABLE",
-                                "ENTERTAINMENT_RADIO",
-                                "ENTERTAINMENT_CD_PLAYER",
-                                "ENTERTAINMENT_SATELLITE_TV",
-                                "ENTERTAINMENT_SNOOKER_TABLE",
-                                "ENTERTAINMENT_STANDARD_DEFINITION_TV",
-                                "ENTERTAINMENT_STEREO_SYSTEM",
-                                "ENTERTAINMENT_TABLE_TENNIS",
-                                "ENTERTAINMENT_VCR_PLAYER",
-                                "ENTERTAINMENT_VIDEO_GAME_LIBRARY",
-                                "GENERAL_AIR_CONDITIONING",
-                                "GENERAL_TOWELS_SUPPLIED",
-                                "GENERAL_LIVING_ROOM",
-                                "GENERAL_FITNESS_ROOM",
-                                "GENERAL_BED_LINEN_INCLUDED",
-                                "GENERAL_BED_LINEN_NOT_INCLUDED",
-                                "GENERAL_BOAT_MOORING",
-                                "GENERAL_BREAKFAST_AVAILABLE",
-                                "GENERAL_BUILDING_HAS_DOORMAN",
-                                "GENERAL_CATERED",
-                                "GENERAL_CELLPHONE_SIGNAL",
-                                "GENERAL_CEILING_FAN",
-                                "GENERAL_CENTRAL_HEATING",
-                                "GENERAL_CLOTHES_HORSE",
-                                "GENERAL_CONCIERGE_SERVICE",
-                                "GENERAL_COOK_AVAILABLE",
-                                "GENERAL_COOK_INCLUDED",
-                                "GENERAL_COT_AVAILABLE",
-                                "GENERAL_COT_SUPPLIED",
-                                "GENERAL_HIGHCHAIR_SUPPLIED",
-                                "GENERAL_HIGHCHAIR_AVAILABLE",
-                                "GENERAL_COURTYARD",
-                                "GENERAL_DINING_ROOM",
-                                "GENERAL_ECO_FRIENDLY",
-                                "GENERAL_ELECTRIC_RADIATORS",
-                                "GENERAL_ELEVATOR",
-                                "GENERAL_EXTRA_BED_AVAILABLE",
-                                "GENERAL_FIREPLACE",
-                                "GENERAL_FIREWOOD_SUPPLIED",
-                                "GENERAL_FRONT_DESK",
-                                "GENERAL_GARDEN",
-                                "GENERAL_GARDEN_SHARED",
-                                "GENERAL_GROUND_FLOOR_BATHROOM",
-                                "GENERAL_GROUND_FLOOR_BEDROOM_FACILITIES",
-                                "GENERAL_GROUND_FLOOR_SHOWER_ROOM",
-                                "GENERAL_GROUND_FLOOR_WC",
-                                "GENERAL_HAIRDRYER",
-                                "GENERAL_HEATED_TOWEL_RAIL",
-                                "GENERAL_HELIPAD",
-                                "GENERAL_IRON_IRONING_BOARD",
-                                "GENERAL_LAUNDRY_FACILITIES",
-                                "GENERAL_LIFT_ELEVATOR",
-                                "GENERAL_LOUNGE_DINER",
-                                "GENERAL_METERED_AIR_CONDITIONING",
-                                "GENERAL_METERED_ELECTRICITY",
-                                "GENERAL_ON_SITE_STAFF",
-                                "GENERAL_PARKING_SPACE",
-                                "GENERAL_PERSONAL_WELCOME",
-                                "GENERAL_PET_FRIENDLY",
-                                "GENERAL_SUITABLE_FOR_ELDERLY",
-                                "GENERAL_PORTABLE_FAN",
-                                "GENERAL_SECURITY_SAFE",
-                                "GENERAL_SKI_STORAGE",
-                                "GENERAL_BICYCLE_STORAGE",
-                                "GENERAL_SOAP_SHAMPOO_SUPPLIED",
-                                "GENERAL_SOLAR_HEATING",
-                                "GENERAL_STORAGE_HEATERS",
-                                "GENERAL_TUMBLE_DRYER",
-                                "GENERAL_UNDER_FLOOR_HEATING",
-                                "GENERAL_UNIVERSAL_SHAVER_PLUG",
-                                "GENERAL_UTILITY_ROOM",
-                                "GENERAL_WASHER_DRYER",
-                                "GENERAL_WASHING_MACHINE",
-                                "KITCHEN_AGA_COOKER",
-                                "KITCHEN_AMERICAN_FRIDGE",
-                                "KITCHEN_BLENDER",
-                                "KITCHEN_CAFETIERE",
-                                "KITCHEN_COFFEE_GRINDER",
-                                "KITCHEN_COFFEE_MACHINE",
-                                "KITCHEN_COFFEE_PERCOLATOR",
-                                "KITCHEN_DISHWASHER",
-
-                                "KITCHEN_ELECTRIC_HOB",
-                                "KITCHEN_ELECTRIC_KETTLE",
-                                "KITCHEN_FOOD_PROCESSOR",
-                                "KITCHEN_FREEZER_STANDALONE",
-                                "KITCHEN_FREEZER_STANDALONE",
-                                "KITCHEN_FRIDGE_FREEZER",
-                                "KITCHEN_FRIDGE_STANDALONE",
-                                "KITCHEN_FULL_CROCKERY_SET",
-                                "KITCHEN_FULL_CUTLERY_UTENSIL_KIT",
-                                "KITCHEN_GAS_HOB",
-                                "KITCHEN_GRIDDLE_GRILL",
-                                "KITCHEN_ICEMAKER",
-                                "KITCHEN_INDUCTION_HOB",
-                                "KITCHEN_JUICER",
-
-                                "KITCHEN_KITCHEN_DINER",
-                                "KITCHEN_KITCHEN_FULL",
-                                "KITCHEN_KITCHENETTE",
-                                "KITCHEN_MICROWAVE",
-                                "KITCHEN_OVEN",
-                                "KITCHEN_OVEN_GRILL",
-                                "KITCHEN_PAPER_TOWELS",
-                                "KITCHEN_RANGE_COOKER",
-                                "KITCHEN_STONE_PIZZA_OVEN",
-                                "KITCHEN_TOASTER",
-                                "KITCHEN_WAFFLE_MAKER",
-                                "KITCHEN_WASTE_DISPOSAL",
-                                "KITCHEN_WATER_COOLER",
-                                "KITCHEN_WINE_COOLER",
-                                "LEISURE_FLOAT_PLANE_HELICOPTER",
-                                "LEISURE_HAMMOCK",
-                                "LEISURE_HIKING",
-                                "LEISURE_HIKING",
-                                "LEISURE_HORSEBACK_RIDING",
-                                "LEISURE_SOLARIUM",
-                                "LEISURE_SWING_SET",
-                                "LIVINGSPACE_ARMCHAIRS",
-                                "LIVINGSPACE_CEILING_FAN",
-                                "LIVINGSPACE_CHAISE_LONGUE",
-                                "LIVINGSPACE_COFFEE_TABLES",
-                                "LIVINGSPACE_DINING_TABLE_CHAIRS",
-                                "LIVINGSPACE_FIREPLACE_COAL_WOOD",
-                                "LIVINGSPACE_FIREPLACE_GAS_ELECTRIC",
-                                "LIVINGSPACE_FLOORING_CARPET",
-                                "LIVINGSPACE_FLOORING_OTHER",
-                                "LIVINGSPACE_FLOORING_STONE",
-                                "LIVINGSPACE_FLOORING_WOOD",
-                                "LIVINGSPACE_RECLINERS",
-                                "LIVINGSPACE_SOFA_POUFFE",
-                                "LIVINGSPACE_SOFAS_COUCHES",
-                                "LIVINGSPACE_WOOD_BURNING_STOVE",
-                                "LOCAL_ANTIQUEING",
-                                "LOCAL_ARCHAEOLOGICAL_SITES",
-                                "LOCAL_BADMINTON",
-                                "LOCAL_BASEBALL_PARK",
-                                "LOCAL_BEACH",
-                                "LOCAL_BEACHCOMBING",
-                                "LOCAL_BIKE_RENTALS",
-                                "LOCAL_BIRD_WATCHING",
-                                "LOCAL_BIRD_WATCHING",
-                                "LOCAL_BOAT_MOORING",
-                                "LOCAL_BOAT_RENTALS",
-                                "LOCAL_BOTANICAL_GARDENS",
-                                "LOCAL_BOWLS_GREEN",
-                                "LOCAL_CABLE_CAR",
-                                "LOCAL_CANOE_KAYAK",
-                                "LOCAL_CANOEING_KAYAKING",
-                                "LOCAL_CASINO",
-                                "LOCAL_CHILDRENS_PLAYGROUND",
-                                "LOCAL_CHURCH",
-                                "LOCAL_CINEMA",
-                                "LOCAL_CLIMBING",
-                                "LOCAL_CONCERT_HALL",
-                                "LOCAL_CONSERVATION_AREA",
-                                "LOCAL_CROSS_COUNTRY_SKIING",
-                                "LOCAL_CURLING",
-                                "LOCAL_FOOTBALL_STADIUM",
-                                "LOCAL_FUNICULAR_RAILWAY",
-                                "LOCAL_GALLERIES",
-                                "LOCAL_GO_KARTING",
-                                "LOCAL_GOLF",
-                                "LOCAL_GROCERY_SHOPPING_NEARBY",
-                                "LOCAL_GYM",
-                                "LOCAL_HISTORICAL_MONUMENTS",
-                                "LOCAL_HISTORICAL_RUINS",
-                                "LOCAL_HOT_AIR_BALLOON_RIDES",
-                                "LOCAL_HOT_SPRINGS",
-                                "LOCAL_ICE_CLIMBING",
-                                "LOCAL_ICE_HOCKEY",
-                                "LOCAL_ICE_RINK",
-                                "LOCAL_JETSKI_PERSONAL_WATERCRAFT",
-                                "LOCAL_LIBRARY",
-                                "LOCAL_LIBRARY",
-                                "LOCAL_LIGHTHOUSE",
-                                "LOCAL_MARKETS",
-                                "LOCAL_MINIATURE_GOLF",
-                                "LOCAL_MOUNTAIN_BIKING",
-                                "LOCAL_MOVIE_THEATRE",
-                                "LOCAL_MUSEUM",
-                                "LOCAL_NATIONAL_HERITAGE",
-                                "LOCAL_NATIONAL_PARK",
-                                "LOCAL_NATIONAL_TRUST_PROPERTIES",
-                                "LOCAL_NATURE_RESERVE",
-                                "LOCAL_PADDLE_BOARDING",
-                                "LOCAL_PARASAILING",
-                                "LOCAL_PARK",
-                                "LOCAL_PARK_GREEN_SPACE",
-                                "LOCAL_PLANETARIUM",
-                                "LOCAL_PUBLIC_VILLAS_GARDENS",
-                                "LOCAL_RELIGIOUS_CENTRE",
-                                "LOCAL_ROWING_BOATS",
-                                "LOCAL_SAILING",
-                                "LOCAL_SAILING_DINGHY",
-                                "LOCAL_SKIDOO",
-                                "LOCAL_SKIDOO_SNOW_MOBILE",
-                                "LOCAL_SKIING",
-                                "LOCAL_SNORKELLING",
-                                "LOCAL_SNOW_BOARDING",
-                                "LOCAL_SNOW_BOARDING",
-                                "LOCAL_SPA_WELLNESS_CENTRE",
-                                "LOCAL_SURFING",
-                                "LOCAL_SYNAGOGUE",
-                                "LOCAL_TABLE_TENNIS",
-                                "LOCAL_TEMPLE",
-                                "LOCAL_TENPIN_BOWLING",
-                                "LOCAL_THEATRE",
-                                "LOCAL_TOBOGGANING",
-                                "LOCAL_WATER_SKIING",
-                                "LOCAL_WATER_THEME_PARK",
-                                "LOCAL_WATERFALLS",
-                                "LOCAL_WELLNESS_CENTRE",
-                                "LOCAL_WHALE_WATCHING",
-                                "LOCAL_WHITE_WATER_RAFTING",
-                                "LOCAL_WILDLIFE_CENTRE",
-                                "LOCAL_WILDLIFE_VIEWING",
-                                "LOCAL_WIND_SURFING",
-                                "LOCAL_ZOO",
-
-                                "LOCAL_GAMBLING",
-                                "LOCAL_SCENIC_DRIVES",
-                                "LOCAL_SIGHT_SEEING",
-                                "LOCAL_WALKING",
-                                "LOCAL_BOATING",
-                                "LOCAL_WATER_SPORTS",
-                                "LOCAL_ATM_BANK",
-                                "LOCAL_HOSPITAL",
-                                "LOCAL_LAUNDROMAT",
-                                "LOCAL_MASSAGE_THERAPIST",
-                                "LOCAL_MEDICAL_SERVICES",
-
-
-                                "LOCALITY_BEACH",
-                                "LOCALITY_BEACH_VIEWS",
-                                "LOCALITY_BEACH_FRONT",
-                                "LOCALITY_CITY",
-                                "LOCALITY_CITY_CENTRE",
-                                "LOCALITY_CITY_SKYLINE_VIEWS",
-                                "LOCALITY_CLOSE_TO_NIGHTLIFE",
-                                "LOCALITY_CLOSE_TO_SKIING",
-                                "LOCALITY_COASTAL",
-                                "LOCALITY_COUNTRYSIDE",
-                                "LOCALITY_FOREST",
-                                "LOCALITY_GOLF_COURSE",
-                                "LOCALITY_GOLF_COURSE_VIEWS",
-                                "LOCALITY_LAKE_FRONT",
-                                "LOCALITY_LAKE_VIEWS",
-                                "LOCALITY_LAKESIDE_TOWN",
-                                "LOCALITY_LOCH_VIEWS",
-                                "LOCALITY_MOORLAND",
-                                "LOCALITY_MOUNTAIN_RETREAT",
-                                "LOCALITY_MOUNTAIN_VIEWS",
-                                "LOCALITY_MONUMENT_VIEWS",
-                                "LOCALITY_OCEAN_VIEWS",
-                                "LOCALITY_OCEAN_FRONT",
-                                "LOCALITY_PRIVATE_PARKING",
-                                "LOCALITY_RIVER_VIEWS",
-                                "LOCALITY_RURAL",
-                                "LOCALITY_SEA_WATERFRONT",
-                                "LOCALITY_SEASIDE_TOWN",
-                                "LOCALITY_SKI_IN_SKI_OUT",
-                                "LOCALITY_TOWN",
-                                "LOCALITY_TOWN_CENTRE",
-                                "LOCALITY_TROPICAL",
-                                "LOCALITY_VALLEY_VIEWS",
-                                "LOCALITY_VILLAGE",
-                                "LOCALITY_WATER_VIEWS",
-                                "LOCALITY_WATER_FRONT",
-                                "LOCALITY_WITHIN_NATIONAL_PARK",
-                                "LOCALITY_WOODED_SURROUNDINGS",
-                                "ONSITE_AIR_HOCKEY",
-                                "ONSITE_BADMINTON",
-                                "ONSITE_BEACH",
-                                "ONSITE_BICYCLES",
-                                "ONSITE_BIKE_RENTALS",
-                                "ONSITE_BIRD_WATCHING",
-                                "ONSITE_BOAT_RENTALS",
-                                "ONSITE_BODY_BOARD",
-                                "ONSITE_BOTANICAL_GARDENS",
-                                "ONSITE_BOWLS_GREEN",
-                                "ONSITE_CANOE_KAYAK",
-                                "ONSITE_CAR_SUPPLIED",
-                                "ONSITE_CASINO",
-                                "ONSITE_CHILDRENS_PLAYGROUND",
-                                "ONSITE_CINEMA",
-                                "ONSITE_CLIMBING",
-                                "ONSITE_CRECHE",
-                                "ONSITE_CROSS_COUNTRY_SKIING",
-                                "ONSITE_FISHING_GEAR",
-                                "ONSITE_FLOAT_PLANE_HELICOPTER",
-                                "ONSITE_GAMES_ROOM",
-                                "ONSITE_GOLF",
-                                "ONSITE_GOLF_CART",
-                                "ONSITE_GOLF_FULL_BAGGED_SET",
-                                "ONSITE_GROCERY_SHOPPING_NEARBY",
-                                "ONSITE_GYM",
-                                "ONSITE_HOT_AIR_BALLOON_RIDES",
-                                "ONSITE_ICE_RINK",
-                                "ONSITE_ICE_SKATING",
-                                "ONSITE_INFLATABLE_DINGHY",
-                                "ONSITE_JETSKI_PERSONAL_WATERCRAFT",
-                                "ONSITE_KAYAK_SUPPLIED",
-                                "ONSITE_LIBRARY",
-                                "ONSITE_MINIATURE_GOLF",
-                                "ONSITE_MOUNTAIN_BIKING",
-                                "ONSITE_MOVIE_THEATRE",
-                                "ONSITE_NATURE_RESERVE",
-                                "ONSITE_PADDLE_BOARDING",
-                                "ONSITE_PARASAILING",
-                                "ONSITE_POOL_TABLE",
-                                "ONSITE_QUAD_BIKE",
-                                "ONSITE_ROWING_BOATS",
-                                "ONSITE_SAILING",
-                                "ONSITE_SAILING_DINGHY",
-                                "ONSITE_SCUBA_DIVING",
-                                "ONSITE_SKI_BOOT_HEATER",
-                                "ONSITE_SKIDOO",
-                                "ONSITE_SKIDOO_SNOW_MOBILE",
-                                "ONSITE_SKIDOO_SNOW_MOBILE",
-                                "ONSITE_SPA_WELLNESS_CENTRE",
-                                "ONSITE_SQUASH",
-                                "ONSITE_SURF_BOARD",
-                                "ONSITE_TABLE_TENNIS",
-                                "ONSITE_TENNIS_COURT",
-                                "ONSITE_TENPIN_BOWLING",
-                                "ONSITE_TOBOGGANING",
-                                "ONSITE_WATER_SKIS",
-                                "ONSITE_WELLNESS_CENTRE",
-                                "ONSITE_WIND_SURFING",
-                                "OUTDOOR_BALCONY",
-                                "OUTDOOR_BARBECUE",
-                                "OUTDOOR_BOAT_MOORING",
-                                "OUTDOOR_BOAT_SLIP_DOCK",
-                                "OUTDOOR_DECK",
-                                "OUTDOOR_DOG_PEN_KENNEL",
-                                "OUTDOOR_GARAGE",
-                                "OUTDOOR_GARDEN",
-                                "GENERAL_GARDEN_ENCLOSED",
-                                "OUTDOOR_GARDEN_FURNITURE",
-                                "OUTDOOR_GAZEBO",
-                                "OUTDOOR_GYM",
-                                "OUTDOOR_HAMMOCK",
-                                "OUTDOOR_LANAI",
-                                "OUTDOOR_OUTDOOR_DINING",
-                                "OUTDOOR_OUTDOOR_SHOWER",
-                                "OUTDOOR_OUTSIDE_STONE_PIZZA_OVEN",
-                                "OUTDOOR_PATIO",
-                                "OUTDOOR_PERGOLA",
-                                "OUTDOOR_PRIVATE_PARKING",
-                                "OUTDOOR_SOLARIUM",
-                                "OUTDOOR_SUMMER_HOUSE",
-                                "OUTDOOR_SWING_SET",
-                                "OUTDOOR_TABLE_AND_CHAIRS",
-                                "OUTDOOR_TERRACE",
-                                "SAFETY_FENCED_PERIMETER",
-                                "SAFETY_SECURITY_ALARM_SYSTEM",
-                                "SAFETY_STAIR_GATES",
-                                "SITUATION_CITY",
-                                "SITUATION_CITY_CENTRE",
-                                "SITUATION_COASTAL",
-                                "SITUATION_COUNTRYSIDE",
-                                "SITUATION_FOREST",
-                                "SITUATION_LAKESIDE_TOWN",
-                                "SITUATION_MOORLAND",
-                                "SITUATION_MOUNTAIN_RETREAT",
-                                "SITUATION_RURAL",
-                                "SITUATION_SEASIDE_TOWN",
-                                "SITUATION_TOWN",
-                                "SITUATION_TOWN_CENTRE",
-                                "SITUATION_TROPICAL",
-                                "SITUATION_VILLAGE",
-                                "SPA_POOL_FULL_GYM",
-                                "SPA_POOL_GYM_EQUIPMENT",
-                                "SPA_POOL_HEALTH_FACILITIES",
-                                "SPA_POOL_JACUZZI_HOT_TUB",
-                                "SPA_POOL_MASSAGE",
-                                "SPA_POOL_OUTDOOR_TOWELS_NOT_SUPPLIED",
-                                "SPA_POOL_OUTDOOR_TOWELS_SUPPLIED",
-                                "SPA_POOL_POOL_COMMUNAL",
-                                "SPA_POOL_POOL_HEATED",
-                                "SPA_POOL_POOL_INDOOR",
-                                "SPA_POOL_POOL_INFANT",
-                                "SPA_POOL_POOL_PRIVATE",
-                                "SPA_POOL_POOL_UNHEATED",
-                                "SPA_POOL_SAUNA",
-                                "SPA_POOL_STEAM_SHOWER",
-                                "SPA_POOL_SUN_LOUNGERS",
-                                "SPA_POOL_SWIMMING_POOL",
-                                "SPA_POOL_WHIRLPOOL",
-                                "SPA_WHIRLPOOL_TUB",
-                                "SPORTS_BASKETBALL_COURT",
-                                "SPORTS_CYCLING",
-                                "SPORTS_HUNTING",
-                                "SPORTS_MOUNTAINEERING",
-                                "SPORTS_PARAGLIDING",
-                                "SPORTS_RAFTING",
-                                "SPORTS_ROLLER_BLADING",
-                                "SPORTS_SKI_LIFT_PRIVILEDGES",
-                                "SPORTS_SKI_LIFT_PRIVILEDGES_OPTIONAL",
-                                "SPORTS_SKI_LIFT_PRIVILEGES",
-                                "SPORTS_SKI_LIFT_PRIVILEGES_OPTIONAL",
-                                "SPORTS_CLIMBING",
-                                "SPORTS_CROSS_COUNTRY_SKIING",
-                                "SPORTS_FISHING",
-                                "SPORTS_FISHING_FLY",
-                                "SPORTS_FISHING_FRESHWATER",
-                                "SPORTS_GOLF",
-                                "SPORTS_HIKING",
-                                "SPORTS_HORSEBACK_RIDING",
-                                "SPORTS_ICE_CLIMBING",
-                                "SPORTS_ICE_SKATING",
-                                "SPORTS_KAYAK_SUPPLIED",
-                                "SPORTS_PARASAILING",
-                                "SPORTS_SAILING",
-                                "SPORTS_SCUBA_DIVING",
-                                "SPORTS_SCUBA_DIVING",
-                                "SPORTS_SKIDOO_SNOW_MOBILE",
-                                "SPORTS_SKIING",
-                                "SPORTS_SNOW_BOARDING",
-                                "SPORTS_SQUASH",
-                                "SPORTS_SURFING",
-                                "SPORTS_TENNIS_COURT",
-                                "SPORTS_WATER_SKIING",
-                                "SPORTS_WIND_SURFING",
-                                "THEMES_ADVENTURE",
-                                "THEMES_BUDGET",
-                                "THEMES_CORPORATE",
-                                "THEMES_EXCLUSIVE",
-                                "THEMES_EXPLORER",
-                                "THEMES_FAMILY_FUN",
-                                "THEMES_FOR_SALE",
-                                "THEMES_GAY_FRIENDLY",
-                                "THEMES_GAY_OWNER",
-                                "THEMES_GOLF",
-                                "THEMES_HEALTH",
-                                "THEMES_HENS",
-                                "THEMES_HISTORIC",
-                                "THEMES_LARGE_GROUPS",
-                                "THEMES_LONG_STAY",
-                                "THEMES_LUXURY",
-                                "THEMES_MONTHLY_RENTAL",
-                                "THEMES_GETTING_AWAY_FROM_IT_ALL",
-                                "THEMES_NIGHTLIFE",
-                                "THEMES_PROMOTIONAL",
-                                "THEMES_ROMANCE",
-                                "THEMES_SAME_SEX_GROUPS",
-                                "THEMES_SEA_SAND_SUN",
-                                "THEMES_SHOPPING",
-                                "THEMES_SHORT_STAY",
-                                "THEMES_SKIING",
-                                "THEMES_SPA",
-                                "THEMES_STAGS",
-                                "THEMES_TROPICAL",
-                                "THEMES_WILDERNESS",
-                                "THEMES_AWAY_FROM_IT_ALL",
-                                "THEMES_TOURIST_ATTRACTIONS",
-                                "THEMES_HOLIDAY_COMPLEX",
-                                "THEMES_SPORTS_ACTIVITIES",
-                                "TRAVEL_AIRPORT",
-                                "TRAVEL_CAR_ESSENTIAL",
-                                "TRAVEL_CAR_NOT_NECESSARY",
-                                "TRAVEL_CAR_RECOMMENDED",
-                                "TRAVEL_CAR_SUPPLIED",
-                                "TRAVEL_FERRY",
-                                "TRAVEL_PUBLIC_TRANSPORTATION",
-                                "TRAVEL_SKI_SHUTTLE",
-                                "TRAVEL_TAXIS",
-                                "TRAVEL_TRAIN_STATION",
-                                "TRAVEL_TRAMS",
-                                "TRAVEL_WATER_TAXI",
-                                "WALKABLE_PUB",
-                                "WALKABLE_SHOPPING",
-                                "WALKABLE_GROCERIES",
-                                "WALKABLE_TRANSPORT",
-                                "WALKABLE_BEACH",
-                                "WALKABLE_RESTAURANTS",
-                                "GENERAL_TOWELS_SUPPLIED"
-                            ]
-                        },
-                        "+mappedFrom": {
-                            "type": "object",
-                            "properties": {
-                                "cost": {
-                                    "type": "number"
-                                },
-                                "score": {
-                                    "type": "number"
-                                },
-                                "name": {
-                                    "type": "string"
+                },
+                    {
+                        "type": "object",
+                        "title": "Suitability",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "SUITABILITY_CHILDREN_ASK",
+                                    "SUITABILITY_CHILDREN_WELCOME",
+                                    "SUITABILITY_CHILDREN_NOT_ALLOWED",
+                                    "SUITABILITY_SMOKING_ASK",
+                                    "SUITABILITY_SMOKING_ALLOWED",
+                                    "SUITABILITY_SMOKING_ALLOWED_WITH_RESTRICTIONS",
+                                    "SUITABILITY_SMOKING_NOT_ALLOWED",
+                                    "SUITABILITY_ACCESSIBILITY_ELDERLY_ASK",
+                                    "SUITABILITY_ACCESSIBILITY_ELDERLY_GREAT",
+                                    "SUITABILITY_ACCESSIBILITY_ELDERLY_LIMITED_ACCESSIBILITY",
+                                    "SUITABILITY_ACCESSIBILITY_ELDERLY_NOT_RECOMMENDED",
+                                    "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_ASK",
+                                    "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_GREAT",
+                                    "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_LIMITED_ACCESSIBILITY",
+                                    "SUITABILITY_ACCESSIBILITY_WHEELCHAIR_NOT_ACCESSIBLE",
+                                    "SUITABILITY_SENIOR_ADULTS_ONLY",
+                                    "SUITABILITY_GREAT_FOR_SAME_SEX_COUPLES",
+                                    "SUITABILITY_EVENTS_CONSIDERED",
+                                    "SUITABILITY_EVENTS_ALLOWED",
+                                    "SUITABILITY_WEDDINGS_CONSIDERED",
+                                    "SUITABILITY_WEDDINGS_WELCOME",
+                                    "SUITABILITY_LONG_TERM_RENTERS",
+                                    "SUITABILITY_GROUPS_ALLOWED",
+                                    "SUITABILITY_GROUPS_ASK",
+                                    "SUITABILITY_GROUPS_NOT_ALLOWED"
+                                ]
+                            },
+                            "category": {
+                                "type": "string",
+                                "default": "Suitability",
+                                "pattern": "^(\\w+([\\\\])?)*"
+                            },
+                            "+mappedFrom": {
+                                "type": "object",
+                                "properties": {
+                                    "cost": {
+                                        "type": "number"
+                                    },
+                                    "score": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
                                 }
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
                             }
                         },
-                        "category": {
-                            "type": "string",
-                            "default": "Amenities",
-                            "pattern": "^(\\w+([\\\\])?)*"
-                        },
-                        "priority": {
-                            "type": "integer"
-                        },
-                        "quantity": {
-                            "type": "integer",
-                            "minimum": 0,
-                            "default": 1
-                        },
-                        "isSpecial": {
-                            "type": "boolean"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "category",
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "Distance",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "DISTANCE_TRAIN",
-                                "DISTANCE_SHOPS",
-                                "DISTANCE_BEACH",
-                                "DISTANCE_CITY_CENTER",
-                                "DISTANCE_METRO_STATION",
-                                "DISTANCE_AIRPORT",
-                                "DISTANCE_NIGHTLIFE",
-                                "DISTANCE_BUS_STOP",
-                                "DISTANCE_COACH_STATION"
-                            ]
-                        },
-                        "category": {
-                            "type": "string",
-                            "default": "Distance",
-                            "pattern": "^(\\w+([\\\\])?)*"
-                        },
-                        "distance": {
-                            "properties": {
-                                "value": {
-                                    "type": "number",
-                                    "multipleOf": 0.01
-                                },
-                                "unit": {
+                        "required": [
+                            "category",
+                            "type"
+                        ]
+                    }, {
+                        "type": "object",
+                        "title": "Feature",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "ACCESSIBILITY_DOWNSTAIRS_BEDROOMS",
+                                    "ACCESSIBILITY_INSIDE_HAS_STAIRS",
+                                    "ACCESSIBILITY_ENTRANCE_HAS_STAIRS",
+                                    "ACCESSIBILITY_DOWNSTAIRS_TOILET",
+                                    "ACCESSIBILITY_DISABLED_TOILET",
+                                    "ACCESSIBILITY_DOWNSTAIRS_BATHROOM",
+                                    "ACCESSIBILITY_WALKIN_SHOWER",
+                                    "ACCESSIBILITY_WHEELCHAIR_LIFT",
+
+                                    "ATTRACTIONS_CASINO",
+                                    "ATTRACTIONS_LOCAL_MARKETS",
+                                    "ATTRACTIONS_ARCHAEOLOGICAL_SITES",
+                                    "ATTRACTIONS_BASEBALL_PARK",
+                                    "ATTRACTIONS_HISTORICAL_MONUMENTS",
+                                    "ATTRACTIONS_HISTORICAL_RUINS",
+                                    "ATTRACTIONS_MUSEUM",
+                                    "ATTRACTIONS_NATIONAL_HERITAGE",
+                                    "ATTRACTIONS_NATIONAL_PARK",
+                                    "ATTRACTIONS_PLANETARIUM",
+                                    "ATTRACTIONS_PUBLIC_VILLAS_GARDENS",
+                                    "ATTRACTIONS_THEME_PARK",
+                                    "ATTRACTIONS_WATER_THEME_PARK",
+                                    "ATTRACTIONS_WATERFALLS",
+                                    "ATTRACTIONS_ZOO",
+
+                                    "ATTRACTIONS_ARBORETUM",
+                                    "ATTRACTIONS_BOTANICAL_GARDEN",
+                                    "ATTRACTIONS_CAVE",
+                                    "ATTRACTIONS_FESTIVALS",
+                                    "ATTRACTIONS_NUDE_BEACH",
+                                    "ATTRACTIONS_RAIN_FORESTS",
+                                    "ATTRACTIONS_REEF",
+                                    "ATTRACTIONS_VOLCANO",
+
+                                    "CHILDREN_BABY_BATH",
+                                    "CHILDREN_BABY_DEN",
+                                    "CHILDREN_BABY_MONITOR",
+
+                                    "CHILDREN_BABY_BATH_TOYS",
+                                    "CHILDREN_BABY_BED_GUARDS",
+                                    "CHILDREN_BABY_BED_GUARDS",
+                                    "CHILDREN_BABY_BOOSTER_SEAT",
+                                    "CHILDREN_BABY_CHANGING_MAT",
+                                    "CHILDREN_BABY_CHANGING_TABLE",
+                                    "CHILDREN_BABY_CHANGING_MAT",
+                                    "CHILDREN_BABY_LOO_SEAT",
+                                    "CHILDREN_BABY_DVDS",
+                                    "CHILDREN_BABY_ELECTRIC_SOCKET_GUARDS",
+                                    "CHILDREN_BABY_STAIRGATE",
+                                    "CHILDREN_BABY_KITCHEN_STERILSER",
+
+                                    "CHILDREN_BABY_INDOOR_TOYS",
+                                    "CHILDREN_BABY_KIDS_CLUB_AVAILABLE",
+                                    "CHILDREN_BABY_NIGHTLIGHT",
+                                    "CHILDREN_BABY_ANTI_SLIP_BATH_MAT",
+                                    "CHILDREN_BABY_KITCHEN_FOOD_BLENDER",
+                                    "CHILDREN_BABY_KITCHEN_PLASTIC_CROCKERY",
+
+                                    "CHILDREN_BABY_COT_AVAILABLE",
+                                    "CHILDREN_BABY_HIGHCHAIR_AVAILABLE",
+                                    "CHILDREN_BABY_CRECH_AVAILABLE",
+                                    "CHILDREN_BABY_COT_LINEN_AVAILABLE",
+                                    "CHILDREN_BABY_SITTING_AVAILABLE",
+
+                                    "COMMUNICATION_COMPUTER_AVAILABLE",
+                                    "COMMUNICATION_FAX_MACHINE",
+                                    "COMMUNICATION_INTERNET",
+                                    "COMMUNICATION_INTERNET_CABLED",
+                                    "COMMUNICATION_INTERNET_DIAL_UP",
+                                    "COMMUNICATION_INTERNET_DONGLE",
+                                    "COMMUNICATION_INTERNET_HIGHSPEED",
+                                    "COMMUNICATION_INTERNET_WIFI",
+                                    "COMMUNICATION_TELEPHONE",
+                                    "ENTERTAINMENT_AMAZON_ECHO",
+                                    "ENTERTAINMENT_BOARD_GAMES",
+                                    "ENTERTAINMENT_BOOKS_LIBRARY",
+                                    "ENTERTAINMENT_CABLE_TV",
+                                    "ENTERTAINMENT_CHILDRENS_TOYS",
+                                    "ENTERTAINMENT_DIGITAL_TV",
+                                    "ENTERTAINMENT_DVD_PLAYER",
+                                    "ENTERTAINMENT_FOOSBALL",
+                                    "ENTERTAINMENT_GAMES_CONSOLE",
+                                    "ENTERTAINMENT_GAMES_CONSOLE",
+                                    "ENTERTAINMENT_GAMES_ROOM",
+                                    "ENTERTAINMENT_GOOGLE_HOME",
+                                    "ENTERTAINMENT_HIGH_DEFINITION_TV",
+                                    "ENTERTAINMENT_HOME_CINEMA",
+                                    "ENTERTAINMENT_IPOD_DOCKING",
+                                    "ENTERTAINMENT_KIDS_TOYS",
+                                    "ENTERTAINMENT_MOVIE_VIDEO_LIBRARY",
+                                    "ENTERTAINMENT_MUSIC_KEYBOARD",
+                                    "ENTERTAINMENT_MUSIC_LIBRARY",
+                                    "ENTERTAINMENT_MUSIC_PIANO",
+                                    "ENTERTAINMENT_POOL_TABLE",
+                                    "ENTERTAINMENT_RADIO",
+                                    "ENTERTAINMENT_CD_PLAYER",
+                                    "ENTERTAINMENT_SATELLITE_TV",
+                                    "ENTERTAINMENT_SNOOKER_TABLE",
+                                    "ENTERTAINMENT_STANDARD_DEFINITION_TV",
+                                    "ENTERTAINMENT_STEREO_SYSTEM",
+                                    "ENTERTAINMENT_TABLE_TENNIS",
+                                    "ENTERTAINMENT_VCR_PLAYER",
+                                    "ENTERTAINMENT_VIDEO_GAME_LIBRARY",
+                                    "GENERAL_AIR_CONDITIONING",
+                                    "GENERAL_TOWELS_AVAILABLE",
+                                    "GENERAL_LIVING_ROOM",
+                                    "GENERAL_FITNESS_ROOM",
+                                    "GENERAL_BED_LINEN_INCLUDED",
+                                    "GENERAL_BED_LINEN_NOT_INCLUDED",
+                                    "GENERAL_BOAT_MOORING",
+                                    "GENERAL_BREAKFAST_AVAILABLE",
+                                    "GENERAL_BUILDING_HAS_DOORMAN",
+                                    "GENERAL_CATERED",
+                                    "GENERAL_CELLPHONE_SIGNAL",
+                                    "GENERAL_CEILING_FAN",
+                                    "GENERAL_CENTRAL_HEATING",
+                                    "GENERAL_CLOTHES_HORSE",
+                                    "GENERAL_CONCIERGE_SERVICE",
+                                    "GENERAL_COOK_AVAILABLE",
+                                    "GENERAL_COOK_INCLUDED",
+
+                                    "GENERAL_COURTYARD",
+                                    "GENERAL_DINING_ROOM",
+                                    "GENERAL_ECO_FRIENDLY",
+                                    "GENERAL_ELECTRIC_RADIATORS",
+                                    "GENERAL_ELEVATOR",
+                                    "GENERAL_EXTRA_BED_AVAILABLE",
+                                    "GENERAL_FIREPLACE",
+                                    "GENERAL_FIREWOOD_SUPPLIED",
+                                    "GENERAL_FRONT_DESK",
+                                    "GENERAL_GARDEN",
+                                    "GENERAL_GARDEN_SHARED",
+                                    "GENERAL_GROUND_FLOOR_BATHROOM",
+                                    "GENERAL_GROUND_FLOOR_BEDROOM_FACILITIES",
+                                    "GENERAL_GROUND_FLOOR_SHOWER_ROOM",
+                                    "GENERAL_GROUND_FLOOR_WC",
+                                    "GENERAL_HAIRDRYER",
+                                    "GENERAL_HEATED_TOWEL_RAIL",
+                                    "GENERAL_HELIPAD",
+                                    "GENERAL_IRON_IRONING_BOARD",
+                                    "GENERAL_LAUNDRY_FACILITIES",
+                                    "GENERAL_LIFT_ELEVATOR",
+                                    "GENERAL_LOUNGE_DINER",
+                                    "GENERAL_METERED_AIR_CONDITIONING",
+                                    "GENERAL_METERED_ELECTRICITY",
+                                    "GENERAL_ON_SITE_STAFF",
+                                    "GENERAL_PARKING_SPACE",
+                                    "GENERAL_PERSONAL_WELCOME",
+                                    "GENERAL_PET_FRIENDLY",
+                                    "GENERAL_SUITABLE_FOR_ELDERLY",
+                                    "GENERAL_PORTABLE_FAN",
+                                    "GENERAL_SECURITY_SAFE",
+                                    "GENERAL_SKI_STORAGE",
+                                    "GENERAL_BICYCLE_STORAGE",
+                                    "GENERAL_SOAP_SHAMPOO_SUPPLIED",
+                                    "GENERAL_SOLAR_HEATING",
+                                    "GENERAL_STORAGE_HEATERS",
+                                    "GENERAL_TUMBLE_DRYER",
+                                    "GENERAL_UNDER_FLOOR_HEATING",
+                                    "GENERAL_UNIVERSAL_SHAVER_PLUG",
+                                    "GENERAL_UTILITY_ROOM",
+                                    "GENERAL_WASHER_DRYER",
+                                    "GENERAL_WASHING_MACHINE",
+                                    "KITCHEN_AGA_COOKER",
+                                    "KITCHEN_AMERICAN_FRIDGE",
+                                    "KITCHEN_BLENDER",
+                                    "KITCHEN_CAFETIERE",
+                                    "KITCHEN_COFFEE_GRINDER",
+                                    "KITCHEN_COFFEE_MACHINE",
+                                    "KITCHEN_COFFEE_PERCOLATOR",
+                                    "KITCHEN_DISHWASHER",
+
+                                    "KITCHEN_ELECTRIC_HOB",
+                                    "KITCHEN_ELECTRIC_KETTLE",
+                                    "KITCHEN_FOOD_PROCESSOR",
+                                    "KITCHEN_FREEZER_STANDALONE",
+                                    "KITCHEN_FREEZER_STANDALONE",
+                                    "KITCHEN_FRIDGE_FREEZER",
+                                    "KITCHEN_FRIDGE_STANDALONE",
+                                    "KITCHEN_FULL_CROCKERY_SET",
+                                    "KITCHEN_FULL_CUTLERY_UTENSIL_KIT",
+                                    "KITCHEN_GAS_HOB",
+                                    "KITCHEN_GRIDDLE_GRILL",
+                                    "KITCHEN_ICEMAKER",
+                                    "KITCHEN_INDUCTION_HOB",
+                                    "KITCHEN_JUICER",
+
+                                    "KITCHEN_KITCHEN_DINER",
+                                    "KITCHEN_KITCHEN_FULL",
+                                    "KITCHEN_KITCHENETTE",
+                                    "KITCHEN_MICROWAVE",
+                                    "KITCHEN_OVEN",
+                                    "KITCHEN_OVEN_GRILL",
+                                    "KITCHEN_PAPER_TOWELS",
+                                    "KITCHEN_RANGE_COOKER",
+                                    "KITCHEN_STONE_PIZZA_OVEN",
+                                    "KITCHEN_TOASTER",
+                                    "KITCHEN_WAFFLE_MAKER",
+                                    "KITCHEN_WASTE_DISPOSAL",
+                                    "KITCHEN_WATER_COOLER",
+                                    "KITCHEN_WINE_COOLER",
+                                    "LEISURE_FLOAT_PLANE_HELICOPTER",
+                                    "LEISURE_HAMMOCK",
+                                    "LEISURE_HIKING",
+                                    "LEISURE_HIKING",
+                                    "LEISURE_HORSEBACK_RIDING",
+                                    "LEISURE_SOLARIUM",
+                                    "LEISURE_SWING_SET",
+                                    "LIVINGSPACE_ARMCHAIRS",
+                                    "LIVINGSPACE_CEILING_FAN",
+                                    "LIVINGSPACE_CHAISE_LONGUE",
+                                    "LIVINGSPACE_COFFEE_TABLES",
+                                    "LIVINGSPACE_DINING_TABLE_CHAIRS",
+                                    "LIVINGSPACE_FIREPLACE_COAL_WOOD",
+                                    "LIVINGSPACE_FIREPLACE_GAS_ELECTRIC",
+                                    "LIVINGSPACE_FLOORING_CARPET",
+                                    "LIVINGSPACE_FLOORING_OTHER",
+                                    "LIVINGSPACE_FLOORING_STONE",
+                                    "LIVINGSPACE_FLOORING_WOOD",
+                                    "LIVINGSPACE_RECLINERS",
+                                    "LIVINGSPACE_SOFA_POUFFE",
+                                    "LIVINGSPACE_SOFAS_COUCHES",
+                                    "LIVINGSPACE_WOOD_BURNING_STOVE",
+                                    "LOCAL_ANTIQUEING",
+                                    "LOCAL_ARCHAEOLOGICAL_SITES",
+                                    "LOCAL_BADMINTON",
+                                    "LOCAL_BASEBALL_PARK",
+                                    "LOCAL_BEACH",
+                                    "LOCAL_BEACHCOMBING",
+                                    "LOCAL_BIKE_RENTALS",
+                                    "LOCAL_BIRD_WATCHING",
+                                    "LOCAL_BIRD_WATCHING",
+                                    "LOCAL_BOAT_MOORING",
+                                    "LOCAL_BOAT_RENTALS",
+                                    "LOCAL_BOTANICAL_GARDENS",
+                                    "LOCAL_BOWLS_GREEN",
+                                    "LOCAL_CABLE_CAR",
+                                    "LOCAL_CANOE_KAYAK",
+                                    "LOCAL_CANOEING_KAYAKING",
+                                    "LOCAL_CASINO",
+                                    "LOCAL_CHILDRENS_PLAYGROUND",
+                                    "LOCAL_CHURCH",
+                                    "LOCAL_CINEMA",
+                                    "LOCAL_CLIMBING",
+                                    "LOCAL_CONCERT_HALL",
+                                    "LOCAL_CONSERVATION_AREA",
+                                    "LOCAL_CROSS_COUNTRY_SKIING",
+                                    "LOCAL_CURLING",
+                                    "LOCAL_FOOTBALL_STADIUM",
+                                    "LOCAL_FUNICULAR_RAILWAY",
+                                    "LOCAL_GALLERIES",
+                                    "LOCAL_GO_KARTING",
+                                    "LOCAL_GOLF",
+                                    "LOCAL_GROCERY_SHOPPING_NEARBY",
+                                    "LOCAL_GYM",
+                                    "LOCAL_HISTORICAL_MONUMENTS",
+                                    "LOCAL_HISTORICAL_RUINS",
+                                    "LOCAL_HOT_AIR_BALLOON_RIDES",
+                                    "LOCAL_HOT_SPRINGS",
+                                    "LOCAL_ICE_CLIMBING",
+                                    "LOCAL_ICE_HOCKEY",
+                                    "LOCAL_ICE_RINK",
+                                    "LOCAL_JETSKI_PERSONAL_WATERCRAFT",
+                                    "LOCAL_LIBRARY",
+                                    "LOCAL_LIBRARY",
+                                    "LOCAL_LIGHTHOUSE",
+                                    "LOCAL_MARKETS",
+                                    "LOCAL_MINIATURE_GOLF",
+                                    "LOCAL_MOUNTAIN_BIKING",
+                                    "LOCAL_MOVIE_THEATRE",
+                                    "LOCAL_MUSEUM",
+                                    "LOCAL_NATIONAL_HERITAGE",
+                                    "LOCAL_NATIONAL_PARK",
+                                    "LOCAL_NATIONAL_TRUST_PROPERTIES",
+                                    "LOCAL_NATURE_RESERVE",
+                                    "LOCAL_PADDLE_BOARDING",
+                                    "LOCAL_PARASAILING",
+                                    "LOCAL_PARK",
+                                    "LOCAL_PARK_GREEN_SPACE",
+                                    "LOCAL_PLANETARIUM",
+                                    "LOCAL_PUBLIC_VILLAS_GARDENS",
+                                    "LOCAL_RELIGIOUS_CENTRE",
+                                    "LOCAL_ROWING_BOATS",
+                                    "LOCAL_SAILING",
+                                    "LOCAL_SAILING_DINGHY",
+                                    "LOCAL_SKIDOO",
+                                    "LOCAL_SKIDOO_SNOW_MOBILE",
+                                    "LOCAL_SKIING",
+                                    "LOCAL_SNORKELLING",
+                                    "LOCAL_SNOW_BOARDING",
+                                    "LOCAL_SNOW_BOARDING",
+                                    "LOCAL_SPA_WELLNESS_CENTRE",
+                                    "LOCAL_SURFING",
+                                    "LOCAL_SYNAGOGUE",
+                                    "LOCAL_TABLE_TENNIS",
+                                    "LOCAL_TEMPLE",
+                                    "LOCAL_TENPIN_BOWLING",
+                                    "LOCAL_THEATRE",
+                                    "LOCAL_TOBOGGANING",
+                                    "LOCAL_WATER_SKIING",
+                                    "LOCAL_WATER_THEME_PARK",
+                                    "LOCAL_WATERFALLS",
+                                    "LOCAL_WELLNESS_CENTRE",
+                                    "LOCAL_WHALE_WATCHING",
+                                    "LOCAL_WHITE_WATER_RAFTING",
+                                    "LOCAL_WILDLIFE_CENTRE",
+                                    "LOCAL_WILDLIFE_VIEWING",
+                                    "LOCAL_WIND_SURFING",
+                                    "LOCAL_ZOO",
+
+                                    "LOCAL_GAMBLING",
+                                    "LOCAL_SCENIC_DRIVES",
+                                    "LOCAL_SIGHT_SEEING",
+                                    "LOCAL_WALKING",
+                                    "LOCAL_BOATING",
+                                    "LOCAL_WATER_SPORTS",
+                                    "LOCAL_ATM_BANK",
+                                    "LOCAL_HOSPITAL",
+                                    "LOCAL_LAUNDROMAT",
+                                    "LOCAL_MASSAGE_THERAPIST",
+                                    "LOCAL_MEDICAL_SERVICES",
+
+
+                                    "LOCALITY_BEACH",
+                                    "LOCALITY_BEACH_VIEWS",
+                                    "LOCALITY_BEACH_FRONT",
+                                    "LOCALITY_CITY",
+                                    "LOCALITY_CITY_CENTRE",
+                                    "LOCALITY_CITY_SKYLINE_VIEWS",
+                                    "LOCALITY_CLOSE_TO_NIGHTLIFE",
+                                    "LOCALITY_CLOSE_TO_SKIING",
+                                    "LOCALITY_COASTAL",
+                                    "LOCALITY_COUNTRYSIDE",
+                                    "LOCALITY_FOREST",
+                                    "LOCALITY_GOLF_COURSE",
+                                    "LOCALITY_GOLF_COURSE_VIEWS",
+                                    "LOCALITY_LAKE_FRONT",
+                                    "LOCALITY_LAKE_VIEWS",
+                                    "LOCALITY_LAKESIDE_TOWN",
+                                    "LOCALITY_LOCH_VIEWS",
+                                    "LOCALITY_MOORLAND",
+                                    "LOCALITY_MOUNTAIN_RETREAT",
+                                    "LOCALITY_MOUNTAIN_VIEWS",
+                                    "LOCALITY_MONUMENT_VIEWS",
+                                    "LOCALITY_OCEAN_VIEWS",
+                                    "LOCALITY_OCEAN_FRONT",
+                                    "LOCALITY_PRIVATE_PARKING",
+                                    "LOCALITY_RIVER_VIEWS",
+                                    "LOCALITY_RURAL",
+                                    "LOCALITY_SEA_WATERFRONT",
+                                    "LOCALITY_SEASIDE_TOWN",
+                                    "LOCALITY_SKI_IN_SKI_OUT",
+                                    "LOCALITY_TOWN",
+                                    "LOCALITY_TOWN_CENTRE",
+                                    "LOCALITY_TROPICAL",
+                                    "LOCALITY_VALLEY_VIEWS",
+                                    "LOCALITY_VILLAGE",
+                                    "LOCALITY_WATER_VIEWS",
+                                    "LOCALITY_WATER_FRONT",
+                                    "LOCALITY_WITHIN_NATIONAL_PARK",
+                                    "LOCALITY_WOODED_SURROUNDINGS",
+                                    "ONSITE_AIR_HOCKEY",
+                                    "ONSITE_BADMINTON",
+                                    "ONSITE_BEACH",
+                                    "ONSITE_BICYCLES",
+                                    "ONSITE_BIKE_RENTALS",
+                                    "ONSITE_BIRD_WATCHING",
+                                    "ONSITE_BOAT_RENTALS",
+                                    "ONSITE_BODY_BOARD",
+                                    "ONSITE_BOTANICAL_GARDENS",
+                                    "ONSITE_BOWLS_GREEN",
+                                    "ONSITE_CANOE_KAYAK",
+                                    "ONSITE_CAR_SUPPLIED",
+                                    "ONSITE_CASINO",
+                                    "ONSITE_CHILDRENS_PLAYGROUND",
+                                    "ONSITE_CINEMA",
+                                    "ONSITE_CLIMBING",
+                                    "ONSITE_CRECHE",
+                                    "ONSITE_CROSS_COUNTRY_SKIING",
+                                    "ONSITE_FISHING_GEAR",
+                                    "ONSITE_FLOAT_PLANE_HELICOPTER",
+                                    "ONSITE_GAMES_ROOM",
+                                    "ONSITE_GOLF",
+                                    "ONSITE_GOLF_CART",
+                                    "ONSITE_GOLF_FULL_BAGGED_SET",
+                                    "ONSITE_GROCERY_SHOPPING_NEARBY",
+                                    "ONSITE_GYM",
+                                    "ONSITE_HOT_AIR_BALLOON_RIDES",
+                                    "ONSITE_ICE_RINK",
+                                    "ONSITE_ICE_SKATING",
+                                    "ONSITE_INFLATABLE_DINGHY",
+                                    "ONSITE_JETSKI_PERSONAL_WATERCRAFT",
+                                    "ONSITE_KAYAK_SUPPLIED",
+                                    "ONSITE_LIBRARY",
+                                    "ONSITE_MINIATURE_GOLF",
+                                    "ONSITE_MOUNTAIN_BIKING",
+                                    "ONSITE_MOVIE_THEATRE",
+                                    "ONSITE_NATURE_RESERVE",
+                                    "ONSITE_PADDLE_BOARDING",
+                                    "ONSITE_PARASAILING",
+                                    "ONSITE_POOL_TABLE",
+                                    "ONSITE_QUAD_BIKE",
+                                    "ONSITE_ROWING_BOATS",
+                                    "ONSITE_SAILING",
+                                    "ONSITE_SAILING_DINGHY",
+                                    "ONSITE_SCUBA_DIVING",
+                                    "ONSITE_SKI_BOOT_HEATER",
+                                    "ONSITE_SKIDOO",
+                                    "ONSITE_SKIDOO_SNOW_MOBILE",
+                                    "ONSITE_SKIDOO_SNOW_MOBILE",
+                                    "ONSITE_SPA_WELLNESS_CENTRE",
+                                    "ONSITE_SQUASH",
+                                    "ONSITE_SURF_BOARD",
+                                    "ONSITE_TABLE_TENNIS",
+                                    "ONSITE_TENNIS_COURT",
+                                    "ONSITE_TENPIN_BOWLING",
+                                    "ONSITE_TOBOGGANING",
+                                    "ONSITE_WATER_SKIS",
+                                    "ONSITE_WELLNESS_CENTRE",
+                                    "ONSITE_WIND_SURFING",
+                                    "OUTDOOR_BALCONY",
+                                    "OUTDOOR_BARBECUE",
+                                    "OUTDOOR_BOAT_MOORING",
+                                    "OUTDOOR_BOAT_SLIP_DOCK",
+                                    "OUTDOOR_DECK",
+                                    "OUTDOOR_DOG_PEN_KENNEL",
+                                    "OUTDOOR_GARAGE",
+                                    "OUTDOOR_GARDEN",
+                                    "SAFETY_GARDEN_SECURED_WITH_PARTIAL_BOUNDARY",
+                                    "SAFETY_GARDEN_ENCLOSED",
+                                    "SAFETY_GARDEN_SECURED_WITH_FULL_BOUNDARY_FENCED",
+                                    "SAFETY_GARDEN_NOT_SECURED",
+                                    "OUTDOOR_GARDEN_FURNITURE",
+                                    "OUTDOOR_GAZEBO",
+                                    "OUTDOOR_GYM",
+                                    "OUTDOOR_HAMMOCK",
+                                    "OUTDOOR_LANAI",
+                                    "OUTDOOR_OUTDOOR_DINING",
+                                    "OUTDOOR_OUTDOOR_SHOWER",
+                                    "OUTDOOR_OUTSIDE_STONE_PIZZA_OVEN",
+                                    "OUTDOOR_PATIO",
+                                    "OUTDOOR_PERGOLA",
+                                    "OUTDOOR_PRIVATE_PARKING",
+                                    "OUTDOOR_SOLARIUM",
+                                    "OUTDOOR_SUMMER_HOUSE",
+                                    "OUTDOOR_SWING_SET",
+                                    "OUTDOOR_TABLE_AND_CHAIRS",
+                                    "OUTDOOR_TERRACE",
+                                    "SAFETY_FENCED_PERIMETER",
+                                    "SAFETY_SECURITY_ALARM_SYSTEM",
+                                    "SAFETY_STAIR_GATES",
+                                    "SITUATION_CITY",
+                                    "SITUATION_CITY_CENTRE",
+                                    "SITUATION_COASTAL",
+                                    "SITUATION_COUNTRYSIDE",
+                                    "SITUATION_FOREST",
+                                    "SITUATION_LAKESIDE_TOWN",
+                                    "SITUATION_MOORLAND",
+                                    "SITUATION_MOUNTAIN_RETREAT",
+                                    "SITUATION_RURAL",
+                                    "SITUATION_SEASIDE_TOWN",
+                                    "SITUATION_TOWN",
+                                    "SITUATION_TOWN_CENTRE",
+                                    "SITUATION_TROPICAL",
+                                    "SITUATION_VILLAGE",
+                                    "SPA_POOL_FULL_GYM",
+                                    "SPA_POOL_GYM_EQUIPMENT",
+                                    "SPA_POOL_HEALTH_FACILITIES",
+                                    "SPA_POOL_JACUZZI_HOT_TUB",
+                                    "SPA_POOL_MASSAGE",
+                                    "SPA_POOL_OUTDOOR_TOWELS_NOT_SUPPLIED",
+                                    "SPA_POOL_OUTDOOR_TOWELS_SUPPLIED",
+                                    "SPA_POOL_POOL_COMMUNAL",
+                                    "SPA_POOL_POOL_HEATED",
+                                    "SPA_POOL_POOL_INDOOR",
+                                    "SPA_POOL_POOL_INFANT",
+                                    "SPA_POOL_POOL_PRIVATE",
+                                    "SPA_POOL_POOL_UNHEATED",
+                                    "SPA_POOL_SAUNA",
+                                    "SPA_POOL_STEAM_SHOWER",
+                                    "SPA_POOL_SUN_LOUNGERS",
+                                    "SPA_POOL_SWIMMING_POOL",
+                                    "SPA_POOL_WHIRLPOOL",
+                                    "SPA_WHIRLPOOL_TUB",
+                                    "SPORTS_BASKETBALL_COURT",
+                                    "SPORTS_CYCLING",
+                                    "SPORTS_HUNTING",
+                                    "SPORTS_MOUNTAINEERING",
+                                    "SPORTS_PARAGLIDING",
+                                    "SPORTS_RAFTING",
+                                    "SPORTS_ROLLER_BLADING",
+                                    "SPORTS_SKI_LIFT_PRIVILEDGES",
+                                    "SPORTS_SKI_LIFT_PRIVILEDGES_OPTIONAL",
+                                    "SPORTS_SKI_LIFT_PRIVILEGES",
+                                    "SPORTS_SKI_LIFT_PRIVILEGES_OPTIONAL",
+                                    "SPORTS_CLIMBING",
+                                    "SPORTS_CROSS_COUNTRY_SKIING",
+                                    "SPORTS_FISHING",
+                                    "SPORTS_FISHING_FLY",
+                                    "SPORTS_FISHING_FRESHWATER",
+                                    "SPORTS_GOLF",
+                                    "SPORTS_HIKING",
+                                    "SPORTS_HORSEBACK_RIDING",
+                                    "SPORTS_ICE_CLIMBING",
+                                    "SPORTS_ICE_SKATING",
+                                    "SPORTS_KAYAK_SUPPLIED",
+                                    "SPORTS_PARASAILING",
+                                    "SPORTS_SAILING",
+                                    "SPORTS_SCUBA_DIVING",
+                                    "SPORTS_SCUBA_DIVING",
+                                    "SPORTS_SKIDOO_SNOW_MOBILE",
+                                    "SPORTS_SKIING",
+                                    "SPORTS_SNOW_BOARDING",
+                                    "SPORTS_SQUASH",
+                                    "SPORTS_SURFING",
+                                    "SPORTS_TENNIS_COURT",
+                                    "SPORTS_WATER_SKIING",
+                                    "SPORTS_WIND_SURFING",
+                                    "THEMES_ADVENTURE",
+                                    "THEMES_BUDGET",
+                                    "THEMES_CORPORATE",
+                                    "THEMES_EXCLUSIVE",
+                                    "THEMES_EXPLORER",
+                                    "THEMES_FAMILY_FUN",
+                                    "THEMES_FOR_SALE",
+                                    "THEMES_GAY_FRIENDLY",
+                                    "THEMES_GAY_OWNER",
+                                    "THEMES_GOLF",
+                                    "THEMES_HEALTH",
+                                    "THEMES_HENS",
+                                    "THEMES_HISTORIC",
+                                    "THEMES_LARGE_GROUPS",
+                                    "THEMES_LONG_STAY",
+                                    "THEMES_LUXURY",
+                                    "THEMES_MONTHLY_RENTAL",
+                                    "THEMES_GETTING_AWAY_FROM_IT_ALL",
+                                    "THEMES_NIGHTLIFE",
+                                    "THEMES_PROMOTIONAL",
+                                    "THEMES_ROMANCE",
+                                    "THEMES_SAME_SEX_GROUPS",
+                                    "THEMES_SEA_SAND_SUN",
+                                    "THEMES_SHOPPING",
+                                    "THEMES_SHORT_STAY",
+                                    "THEMES_SKIING",
+                                    "THEMES_SPA",
+                                    "THEMES_STAGS",
+                                    "THEMES_TROPICAL",
+                                    "THEMES_WILDERNESS",
+                                    "THEMES_AWAY_FROM_IT_ALL",
+                                    "THEMES_TOURIST_ATTRACTIONS",
+                                    "THEMES_HOLIDAY_COMPLEX",
+                                    "THEMES_SPORTS_ACTIVITIES",
+                                    "TRAVEL_AIRPORT",
+                                    "TRAVEL_CAR_ESSENTIAL",
+                                    "TRAVEL_CAR_NOT_NECESSARY",
+                                    "TRAVEL_CAR_RECOMMENDED",
+                                    "TRAVEL_FERRY",
+                                    "TRAVEL_PUBLIC_TRANSPORTATION",
+                                    "TRAVEL_SKI_SHUTTLE",
+                                    "TRAVEL_TAXIS",
+                                    "TRAVEL_TRAIN_STATION",
+                                    "TRAVEL_TRAMS",
+                                    "TRAVEL_WATER_TAXI",
+                                    "WALKABLE_PUB",
+                                    "WALKABLE_SHOPPING",
+                                    "WALKABLE_GROCERIES",
+                                    "WALKABLE_TRANSPORT",
+                                    "WALKABLE_BEACH",
+                                    "WALKABLE_RESTAURANTS"
+                                ]
+                            },
+                            "+mappedFrom": {
+                                "type": "object",
+                                "properties": {
+                                    "cost": {
+                                        "type": "number"
+                                    },
+                                    "score": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "protectedBy": {
+                                "type": "array",
+                                "items": {
                                     "type": "string",
                                     "enum": [
-                                        "MILES",
-                                        "KILOMETERS"
+                                        "SPA_POOL_PROTECTED_BY_GATE",
+                                        "SPA_POOL_PROTECTED_BY_FENCE",
+                                        "SPA_POOL_PROTECTED_BY_SAFETY_COVER",
+                                        "SPA_POOL_PROTECTED_BY_SHIFT_LIFEGUARD",
+                                        "SPA_POOL_PROTECTED_BY_ELECTRIC_SAFETY_COVER",
+                                        "SPA_POOL_PROTECTED_BY_INFRARED_SENSOR_ALARM",
+                                        "SPA_POOL_PROTECTED_BY_PERSONAL_IMMERSION_DETECTOR"
                                     ]
                                 }
                             },
-                            "required": [
-                                "value",
-                                "unit"
-                            ]
-                        },
-                        "+mappedFrom": {
-                            "type": "object",
-                            "properties": {
-                                "cost": {
-                                    "type": "number"
-                                },
-                                "score": {
-                                    "type": "number"
-                                },
-                                "name": {
-                                    "type": "string"
-                                }
+                            "category": {
+                                "type": "string",
+                                "default": "Amenities",
+                                "pattern": "^(\\w+([\\\\])?)*"
+                            },
+                            "priority": {
+                                "type": "integer"
+                            },
+                            "quantity": {
+                                "type": "integer",
+                                "minimum": 0,
+                                "default": 1
+                            },
+                            "isSpecial": {
+                                "type": "boolean"
+                            },
+                            "limitedAvailability": {
+                                "type": "boolean"
+                            },
+                            "chargeApplies": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
                             }
                         },
-                        "priority": {
-                            "type": "integer"
+                        "required": [
+                            "category",
+                            "type"
+                        ]
+                    }, {
+                        "type": "object",
+                        "title": "Distance",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "DISTANCE_TRAIN",
+                                    "DISTANCE_SHOPS",
+                                    "DISTANCE_BEACH",
+                                    "DISTANCE_CITY_CENTER",
+                                    "DISTANCE_METRO_STATION",
+                                    "DISTANCE_AIRPORT",
+                                    "DISTANCE_NIGHTLIFE",
+                                    "DISTANCE_BUS_STOP",
+                                    "DISTANCE_LOCAL_PUB",
+                                    "DISTANCE_PET_WALKING",
+                                    "DISTANCE_PARK",
+                                    "DISTANCE_PARK_DOG_FRIENDLY",
+                                    "DISTANCE_BEACH_DOG_FRIENDLY",
+                                    "DISTANCE_HOSPITAL",
+                                    "DISTANCE_DOCTORS",
+                                    "DISTANCE_PHARMACY_CHEMIST_APOTHECARY",
+                                    "DISTANCE_COACH_STATION"
+                                ]
+                            },
+                            "category": {
+                                "type": "string",
+                                "default": "Distance",
+                                "pattern": "^(\\w+([\\\\])?)*"
+                            },
+                            "distance": {
+                                "properties": {
+                                    "value": {
+                                        "type": "number",
+                                        "multipleOf": 0.01
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "enum": [
+                                            "METERS",
+                                            "MILES",
+                                            "MINUTES BY CAR",
+                                            "MINUTES BY FOOT",
+                                            "KILOMETERS"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "value",
+                                    "unit"
+                                ]
+                            },
+                            "+mappedFrom": {
+                                "type": "object",
+                                "properties": {
+                                    "cost": {
+                                        "type": "number"
+                                    },
+                                    "score": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "priority": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
                         },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "category",
-                        "distance",
-                        "type"
-                    ]
-                }]
+                        "required": [
+                            "category",
+                            "distance",
+                            "type"
+                        ]
+                    }
+                ]
             }
         },
         "texts": {
@@ -1530,8 +1541,14 @@
                                 "FAQ",
                                 "WELCOME",
                                 "HOUSE_RULES",
-                                "LISTING_DIRECTIONS"
+                                "LISTING_DIRECTIONS",
+                                "WHAT_IS_INCLUDED",
+                                "WHAT_IS_NOT_INCLUDED"
+
                             ]
+                        },
+                        "position": {
+                            "type": "integer"
                         },
                         "description": {
                             "$ref": "#/definitions/translatableContentWithTitle"
@@ -1675,6 +1692,23 @@
                                     "type": "number",
                                     "multipleOf": 0.1
                                 },
+                                "origin": {
+                                    "type": "string",
+                                    "enum": [
+                                        "SELF_ASSIGNED",
+                                        "NATIONAL_TOURISM_BOARD",
+                                        "HOTREC",
+                                        "AVROA",
+                                        "UNSPECIFIED_ORGANISATION",
+                                        "FORBES_TRAVEL_GUIDE",
+                                        "AAA"
+                                    ]
+                                },
+                                "certificationUrl": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "pattern": "^(https?)://"
+                                },
                                 "max": {
                                     "type": "number",
                                     "multipleOf": 0.1
@@ -1750,6 +1784,7 @@
                         "LISTING_TYPE_BUNGALOW",
                         "LISTING_TYPE_CHATEAU",
                         "LISTING_TYPE_CARAVAN",
+                        "LISTING_TYPE_PITCH",
                         "LISTING_TYPE_PENTHOUSE",
                         "LISTING_TYPE_CAMPER_VAN"
                     ],
@@ -1763,6 +1798,27 @@
                         "ROOM_SHARED_FACILITIES"
                     ],
                     "default": "ENTIRE_LISTING"
+                },
+                "meals": {
+                    "type": "string",
+                    "enum": [
+                        "NON_PROVIDED",
+                        "BREAKFAST_AVAILABLE",
+                        "LUNCH_AVAILABLE",
+                        "DINNER_AVAILABLE",
+                        "BREAKFAST_DINNER_AVAILABLE",
+                        "FULL_MEALS_AVAILABLE"
+                    ],
+                    "default": "NON_PROVIDED"
+                },
+                "housekeeping": {
+                    "type": "string",
+                    "enum": [
+                        "NON_PROVIDED",
+                        "HOUSEKEEPING_SUPPLIED",
+                        "HOUSEKEEPING_AVAILABLE"
+                    ],
+                    "default": "NON_PROVIDED"
                 },
                 "floor": {
                     "type": "integer",
@@ -1832,6 +1888,10 @@
         "address": {
             "type": "object",
             "properties": {
+                "addressUnitNameNumber": {
+                    "type": "string",
+                    "maxLength": 255
+                },
                 "addressLine1": {
                     "type": "string",
                     "maxLength": 255
