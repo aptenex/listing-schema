@@ -59,17 +59,17 @@
         },
         "flags": {
             "properties": {
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Designates if this property is active."
-                },
                 "isInstantBookable": {
                     "type": "boolean",
                     "description": "Designates if this property is instant bookable and can accept payments online."
                 },
-                "isDeleted": {
+                "isDraft": {
                     "type": "boolean",
-                    "description": "Designates if this property is deleted and should not be visible by public."
+                    "description": "Designates if this property is a draft and should not be published yet."
+                },
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Designates if this property is active and can be published and receive booking enquiries."
                 },
                 "isPublishedToChannels": {
                     "type": "boolean",
@@ -541,6 +541,7 @@
                 }
             }
         },
+
         "rooms": {
             "type": "array",
             "additionalProperties": false,
