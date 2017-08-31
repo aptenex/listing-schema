@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.0.6",
+    "description": "Schema for Rentals v0.0.7",
     "properties": {
         "_debug": {},
         "$id": {
@@ -59,6 +59,10 @@
         },
         "flags": {
             "properties": {
+                "isActive": {
+                    "type": "boolean",
+                    "description": "Designates if this property is active."
+                },
                 "isInstantBookable": {
                     "type": "boolean",
                     "description": "Designates if this property is instant bookable and can accept payments online."
@@ -66,10 +70,6 @@
                 "isDraft": {
                     "type": "boolean",
                     "description": "Designates if this property is a draft and should not be published yet."
-                },
-                "isActive": {
-                    "type": "boolean",
-                    "description": "Designates if this property is active and can be published and receive booking enquiries."
                 },
                 "isPublishedToChannels": {
                     "type": "boolean",
@@ -670,6 +670,43 @@
                                 "SUITABILITY_PETS_NOT_ALLOWED"
                             ]
                         },
+                        "maxPets" :  {
+                            "type": "integer",
+                            "multipleOf": 1,
+                            "maximum": 6,
+                            "minimum": 1,
+                            "default": 1
+                        },
+                        "sizesAllowed": {
+                            "type": "object",
+                            "properties": {
+                                "PET_SIZE_EXTRA_LARGE": {
+                                    "default": 1,
+                                    "multipleOf": 1,
+                                    "type": "integer"
+                                },
+                                "PET_SIZE_LARGE": {
+                                    "default": 1,
+                                    "multipleOf": 1,
+                                    "type": "integer"
+                                },
+                                "PET_SIZE_MEDIUM": {
+                                    "default": 1,
+                                    "multipleOf": 1,
+                                    "type": "integer"
+                                },
+                                "PET_SIZE_SMALL": {
+                                    "default": 1,
+                                    "multipleOf": 1,
+                                    "type": "integer"
+                                },
+                                "PET_SIZE_TOY": {
+                                    "default": 1,
+                                    "multipleOf": 1,
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "species": {
                             "type": "string",
                             "enum": [
@@ -768,9 +805,13 @@
                                     "SUITABILITY_GREAT_FOR_SAME_SEX_COUPLES",
                                     "SUITABILITY_EVENTS_CONSIDERED",
                                     "SUITABILITY_EVENTS_ALLOWED",
+                                    "SUITABILITY_EVENTS_NOT_ALLOWED",
                                     "SUITABILITY_WEDDINGS_CONSIDERED",
                                     "SUITABILITY_WEDDINGS_WELCOME",
-                                    "SUITABILITY_LONG_TERM_RENTERS",
+                                    "SUITABILITY_WEDDINGS_NOT_ALLOWED",
+                                    "SUITABILITY_LONG_TERM_RENTERS_ASK",
+                                    "SUITABILITY_LONG_TERM_RENTERS_ALLOWED",
+                                    "SUITABILITY_LONG_TERM_RENTERS_NOT_ALLOWED",
                                     "SUITABILITY_GROUPS_ALLOWED",
                                     "SUITABILITY_GROUPS_ASK",
                                     "SUITABILITY_GROUPS_NOT_ALLOWED"
@@ -1791,6 +1832,25 @@
                     ],
                     "default": "APARTMENT"
                 },
+                "size": {
+                    "properties": {
+                        "value": {
+                            "type": "number",
+                            "multipleOf": 0.01
+                        },
+                        "unit": {
+                            "type": "string",
+                            "enum": [
+                                "METERS_SQUARED",
+                                "FEET_SQUARED"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "value",
+                        "unit"
+                    ]
+                },
                 "arrangement": {
                     "type": "string",
                     "enum": [
@@ -1825,6 +1885,12 @@
                     "type": "integer",
                     "multipleOf": 1,
                     "maximum": 200,
+                    "minimum": 0
+                },
+                "beds": {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "maximum": 100,
                     "minimum": 0
                 },
                 "bedrooms": {
