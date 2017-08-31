@@ -1834,6 +1834,10 @@
                     ],
                     "default": "APARTMENT"
                 },
+                "unitAllocatedReference": {
+                    "type": "string",
+                    "description": "If this listing is on a complex or a bed and breakfast, or a pitch on a site, it will usually have a reference ID or an allocation number."
+                },
                 "size": {
                     "properties": {
                         "value": {
