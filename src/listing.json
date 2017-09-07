@@ -281,54 +281,6 @@
     },
     "additionalProperties": false,
     "definitions": {
-        "image" : {
-            "type": "object",
-            "title": "Photo",
-            "properties": {
-                "$id": {
-                    "type": "string"
-                },
-                "$provider": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string",
-                    "enum": [
-                        "URI",
-                        "BASE64"
-                    ]
-                },
-                "category": {
-                    "type": "string",
-                    "enum": [
-                        "ICON",
-                        "PHOTO",
-                        "FLOORPLAN"
-                    ]
-                },
-                "uri": {
-                    "type": "string",
-                    "format": "uri"
-                },
-                "data": {
-                    "type": "string",
-                    "pattern": "^data:image/[.*]"
-                },
-                "position": {
-                    "type": "integer"
-                },
-                "isFeatured": {
-                    "type": "boolean"
-                },
-                "description": {
-                    "$ref": "#/definitions/translatableContentWithTitle"
-                }
-            },
-            "required": [
-                "type",
-                "category"
-            ]
-        },
         "contacts": {
             "type": "array",
             "items": {
@@ -369,7 +321,54 @@
         "media": {
             "type": "array",
             "items": {
-                "type": [ { "$ref": "#/definitions/image" }
+                "type": [ {
+                    "type": "object",
+                    "title": "Photo",
+                    "properties": {
+                        "$id": {
+                            "type": "string"
+                        },
+                        "$provider": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "URI",
+                                "BASE64"
+                            ]
+                        },
+                        "category": {
+                            "type": "string",
+                            "enum": [
+                                "ICON",
+                                "PHOTO",
+                                "FLOORPLAN"
+                            ]
+                        },
+                        "uri": {
+                            "type": "string",
+                            "format": "uri"
+                        },
+                        "data": {
+                            "type": "string",
+                            "pattern": "^data:image/[.*]"
+                        },
+                        "position": {
+                            "type": "integer"
+                        },
+                        "isFeatured": {
+                            "type": "boolean"
+                        },
+                        "description": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "category"
+                    ]
+                }
                 , {
                     "type": "object",
                     "title": "Video",
