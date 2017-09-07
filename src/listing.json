@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.1.0",
+    "description": "Schema for Rentals v0.1.1",
     "properties": {
         "_debug": {},
         "$id": {
@@ -182,35 +182,45 @@
                     },
                     "required" : [ "startDate", "endDate"]
                 },
-                "availability": {
-                    "description": "Availability Information using Y to specify availability, and N to specify not available.",
-                    "type": "string",
-                    "pattern": "^[YN]+"
-                },
-                "instantBookable": {
-                    "description": "Specifies if the property is instant bookable for the given date range. Y= Can be instantable booked. N= Requires confirmation from owner or enquiry only.",
-                    "type": "string",
-                    "pattern": "^[YN]+"
-                },
-                "changeover": {
-                    "description": "Preloaded changeover Information. 3 = can arrive and depart on date. 2 = can depart only. 1 = can arrive only. 0 = unavailable for anything.",
-                    "type": "string",
-                    "pattern": "^[1023]+"
-                },
-                "minStay": {
-                    "description": "Minimum Stay Information",
-                    "type": "string",
-                    "pattern": "^[\\d\\,]+"
-                },
-                "maxStay": {
-                    "description": "Max Stay Information",
-                    "type": "string",
-                    "pattern": "^[\\d\\,]+"
-                },
-                "minPriorNotify": {
-                    "description": "The number of minimum number of nights before the check-in that the property owner must be notified. For example, if the minPriorNotify is set to =1 then same-day check in arrivals are not available. However, if it is set to 0, then same day are allowed.",
-                    "type": "string",
-                    "pattern": "^[\\d\\,]+"
+                "configuration" : {
+                    "type" : "object",
+                    "properties" : {
+                        "availability": {
+                            "description": "Availability Information using Y to specify availability, and N to specify not available.",
+                            "type": "string",
+                            "pattern": "^[YN]+"
+                        },
+                        "unitsAvailable": {
+                            "description": "How many units are available for each day.",
+                            "type": "string",
+                            "pattern": "^[\\d\\,]+"
+                        },
+                        "instantBookable": {
+                            "description": "Specifies if the property is instant bookable for the given date range. Y= Can be instantable booked. N= Requires confirmation from owner or enquiry only.",
+                            "type": "string",
+                            "pattern": "^[YN]+"
+                        },
+                        "changeover": {
+                            "description": "Preloaded changeover Information. 3 = can arrive and depart on date. 2 = can depart only. 1 = can arrive only. 0 = unavailable for anything.",
+                            "type": "string",
+                            "pattern": "^[1023]+"
+                        },
+                        "minStay": {
+                            "description": "Minimum Stay Information",
+                            "type": "string",
+                            "pattern": "^[\\d\\,]+"
+                        },
+                        "maxStay": {
+                            "description": "Max Stay Information",
+                            "type": "string",
+                            "pattern": "^[\\d\\,]+"
+                        },
+                        "minPriorNotify": {
+                            "description": "The number of minimum number of nights before the check-in that the property owner must be notified. For example, if the minPriorNotify is set to =1 then same-day check in arrivals are not available. However, if it is set to 0, then same day are allowed.",
+                            "type": "string",
+                            "pattern": "^[\\d\\,]+"
+                        }
+                    }
                 }
             }
         },
