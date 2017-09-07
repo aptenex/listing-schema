@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.0.7",
+    "description": "Schema for Rentals v0.1.0",
     "properties": {
         "_debug": {},
         "$id": {
@@ -133,6 +133,87 @@
                 }
             }
         },
+        "unitAvailability" : {
+            "type": "object",
+            "properties": {
+                "availabilityDefault" : {
+                    "type" : "string",
+                    "enum": ["Y", "N", "Q"]
+                },
+                "changeoverDefault" : {
+                    "type" : "string",
+                    "enum": ["0", "1", "2", "3"]
+                },
+                "instantBookableDefault" : {
+                    "type" : "string",
+                    "enum": ["Y", "N"]
+                },
+                "maxStayDefault" :  {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "maximum": 365,
+                    "minimum": 0,
+                    "default": 0
+                },
+                "minPriorNotifyDefault" :  {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "minimum": 0,
+                    "default": 0
+                },
+                "minStayDefault" :  {
+                    "type": "integer",
+                    "multipleOf": 1,
+                    "maximum": 365,
+                    "minimum": 0,
+                    "default": 0
+                },
+                "dateRange" : {
+                    "type" : "object",
+                    "properties" : {
+                        "startDate" : {
+                            "type": "string",
+                            "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                        },
+                        "endDate" : {
+                            "type": "string",
+                            "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                        }
+                    },
+                    "required" : [ "startDate", "endDate"]
+                },
+                "availability": {
+                    "description": "Availability Information using Y to specify availability, and N to specify not available.",
+                    "type": "string",
+                    "pattern": "^[YN]+"
+                },
+                "instantBookable": {
+                    "description": "Specifies if the property is instant bookable for the given date range. Y= Can be instantable booked. N= Requires confirmation from owner or enquiry only.",
+                    "type": "string",
+                    "pattern": "^[YN]+"
+                },
+                "changeover": {
+                    "description": "Preloaded changeover Information. 3 = can arrive and depart on date. 2 = can depart only. 1 = can arrive only. 0 = unavailable for anything.",
+                    "type": "string",
+                    "pattern": "^[1023]+"
+                },
+                "minStay": {
+                    "description": "Minimum Stay Information",
+                    "type": "string",
+                    "pattern": "^[\\d\\,]+"
+                },
+                "maxStay": {
+                    "description": "Max Stay Information",
+                    "type": "string",
+                    "pattern": "^[\\d\\,]+"
+                },
+                "minPriorNotify": {
+                    "description": "The number of minimum number of nights before the check-in that the property owner must be notified. For example, if the minPriorNotify is set to =1 then same-day check in arrivals are not available. However, if it is set to 0, then same day are allowed.",
+                    "type": "string",
+                    "pattern": "^[\\d\\,]+"
+                }
+            }
+        },
         "advertisingDestination": {
             "type": "object",
             "properties": {
@@ -190,6 +271,54 @@
     },
     "additionalProperties": false,
     "definitions": {
+        "image" : {
+            "type": "object",
+            "title": "Photo",
+            "properties": {
+                "$id": {
+                    "type": "string"
+                },
+                "$provider": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "URI",
+                        "BASE64"
+                    ]
+                },
+                "category": {
+                    "type": "string",
+                    "enum": [
+                        "ICON",
+                        "PHOTO",
+                        "FLOORPLAN"
+                    ]
+                },
+                "uri": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "data": {
+                    "type": "string",
+                    "pattern": "^data:image/[.*]"
+                },
+                "position": {
+                    "type": "integer"
+                },
+                "isFeatured": {
+                    "type": "boolean"
+                },
+                "description": {
+                    "$ref": "#/definitions/translatableContentWithTitle"
+                }
+            },
+            "required": [
+                "type",
+                "category"
+            ]
+        },
         "contacts": {
             "type": "array",
             "items": {
@@ -230,53 +359,8 @@
         "media": {
             "type": "array",
             "items": {
-                "type": [{
-                    "type": "object",
-                    "title": "Photo",
-                    "properties": {
-                        "$id": {
-                            "type": "string"
-                        },
-                        "$provider": {
-                            "type": "string"
-                        },
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "URI",
-                                "BASE64"
-                            ]
-                        },
-                        "category": {
-                            "type": "string",
-                            "enum": [
-                                "PHOTOS",
-                                "FLOORPLAN"
-                            ]
-                        },
-                        "uri": {
-                            "type": "string",
-                            "format": "uri"
-                        },
-                        "data": {
-                            "type": "string",
-                            "pattern": "^data:image/[.*]"
-                        },
-                        "position": {
-                            "type": "integer"
-                        },
-                        "isFeatured": {
-                            "type": "boolean"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "type",
-                        "category"
-                    ]
-                }, {
+                "type": [ { "$ref": "#/definitions/image" }
+                , {
                     "type": "object",
                     "title": "Video",
                     "properties": {
