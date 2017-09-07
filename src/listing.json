@@ -958,7 +958,7 @@
                                     "ATTRACTIONS_CASINO",
                                     "ATTRACTIONS_LOCAL_MARKETS",
                                     "ATTRACTIONS_ARCHAEOLOGICAL_SITES",
-                                    "ATTRACTIONS_BASEBALL_PARK",
+
                                     "ATTRACTIONS_HISTORICAL_MONUMENTS",
                                     "ATTRACTIONS_HISTORICAL_RUINS",
                                     "ATTRACTIONS_MUSEUM",
@@ -1150,7 +1150,6 @@
                                     "LEISURE_SOLARIUM",
                                     "LEISURE_SWING_SET",
                                     "LIVINGSPACE_ARMCHAIRS",
-                                    "LIVINGSPACE_CEILING_FAN",
                                     "LIVINGSPACE_CHAISE_LONGUE",
                                     "LIVINGSPACE_COFFEE_TABLES",
                                     "LIVINGSPACE_DINING_TABLE_CHAIRS",
