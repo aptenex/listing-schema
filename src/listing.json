@@ -348,7 +348,7 @@
                         },
                         "uri": {
                             "type": "string",
-                            "format": "uri"
+                            "pattern": "^(https?)://"
                         },
                         "data": {
                             "type": "string",
@@ -393,7 +393,7 @@
                         },
                         "uri": {
                             "type": "string",
-                            "format": "uri"
+                            "pattern": "^(https?)://"
                         },
                         "position": {
                             "type": "integer"
@@ -433,7 +433,7 @@
                         },
                         "uri": {
                             "type": "string",
-                            "format": "uri"
+                            "pattern": "^(https?)://"
                         },
                         "isListingPage": {
                             "type": "boolean"
@@ -1827,7 +1827,6 @@
                                 },
                                 "certificationUrl": {
                                     "type": "string",
-                                    "format": "uri",
                                     "pattern": "^(https?)://"
                                 },
                                 "max": {
