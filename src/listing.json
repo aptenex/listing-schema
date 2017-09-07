@@ -534,7 +534,7 @@
                             "type": "object",
                             "properties": {
                                 "type": {
-                                    "description": "The Type of Descriptive Text.",
+                                    "description": "The Type of Descriptive Text Used.",
                                     "type": "string",
                                     "enum": [
                                         "KEY_COLLECTION",
