@@ -1592,7 +1592,10 @@
                                 "BOOKING_TERMS",
                                 "HOUSE_RULES",
                                 "GROUP_BOOKINGS",
-                                "OTHER"
+                                "OTHER",
+                                "CANCELLATION_TERMS",
+                                "RATE_INCLUDES",
+                                "RATE_EXCLUDES"
                             ]
                         },
                         "description": {
