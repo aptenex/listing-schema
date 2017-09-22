@@ -133,58 +133,58 @@
                 }
             }
         },
-        "unitAvailability" : {
+        "unitAvailability": {
             "type": "object",
             "properties": {
-                "availabilityDefault" : {
-                    "type" : "string",
+                "availabilityDefault": {
+                    "type": "string",
                     "enum": ["Y", "N", "Q"]
                 },
-                "changeoverDefault" : {
-                    "type" : "string",
+                "changeoverDefault": {
+                    "type": "string",
                     "enum": ["0", "1", "2", "3"]
                 },
-                "instantBookableDefault" : {
-                    "type" : "string",
+                "instantBookableDefault": {
+                    "type": "string",
                     "enum": ["Y", "N"]
                 },
-                "maxStayDefault" :  {
+                "maxStayDefault": {
                     "type": "integer",
                     "multipleOf": 1,
                     "maximum": 365,
                     "minimum": 0,
                     "default": 0
                 },
-                "minPriorNotifyDefault" :  {
+                "minPriorNotifyDefault": {
                     "type": "integer",
                     "multipleOf": 1,
                     "minimum": 0,
                     "default": 0
                 },
-                "minStayDefault" :  {
+                "minStayDefault": {
                     "type": "integer",
                     "multipleOf": 1,
                     "maximum": 365,
                     "minimum": 0,
                     "default": 0
                 },
-                "dateRange" : {
-                    "type" : "object",
-                    "properties" : {
-                        "startDate" : {
+                "dateRange": {
+                    "type": "object",
+                    "properties": {
+                        "startDate": {
                             "type": "string",
                             "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                         },
-                        "endDate" : {
+                        "endDate": {
                             "type": "string",
                             "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                         }
                     },
-                    "required" : [ "startDate", "endDate"]
+                    "required": ["startDate", "endDate"]
                 },
-                "configuration" : {
-                    "type" : "object",
-                    "properties" : {
+                "configuration": {
+                    "type": "object",
+                    "properties": {
                         "availability": {
                             "description": "Availability Information using Y to specify availability, and N to specify not available.",
                             "type": "string",
@@ -321,15 +321,21 @@
         "media": {
             "type": "array",
             "items": {
-                "type": [ {
+                "type": [{
                     "type": "object",
                     "title": "Photo",
                     "properties": {
                         "$id": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
                         "$provider": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
                         "type": {
                             "type": "string",
@@ -351,7 +357,10 @@
                             "pattern": "^(https?)://"
                         },
                         "data": {
-                            "type": "string",
+                            "type": [
+                                "string",
+                                "null"
+                            ],
                             "pattern": "^data:image/[.*]"
                         },
                         "position": {
@@ -368,16 +377,21 @@
                         "type",
                         "category"
                     ]
-                }
-                , {
+                }, {
                     "type": "object",
                     "title": "Video",
                     "properties": {
                         "$id": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
                         "$provider": {
-                            "type": "string"
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
                         "type": {
                             "type": "string",
@@ -665,27 +679,34 @@
                         },
                         "blueprint": {
                             "type": "array",
-                            "properties": {
-                                "quantity": {
-                                    "type": "integer"
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "enum": [
-                                        "SINGLE",
-                                        "TRIPLE_BUNK",
-                                        "DOUBLE_BUNK",
-                                        "KING",
-                                        "QUEEN",
-                                        "DOUBLE",
-                                        "SOFA_DOUBLE",
-                                        "SOFA_SINGLE",
-                                        "FOLDING",
-                                        "OTHER",
-                                        "INFLATABLE",
-                                        "WATER"
-                                    ]
-                                }
+                            "additionalProperties": false,
+                            "items": {
+                                "type": [{
+                                    "type": "object",
+                                    "title": "Bedroom",
+                                    "properties": {
+                                        "quantity": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "SINGLE",
+                                                "TRIPLE_BUNK",
+                                                "DOUBLE_BUNK",
+                                                "KING",
+                                                "QUEEN",
+                                                "DOUBLE",
+                                                "SOFA_DOUBLE",
+                                                "SOFA_SINGLE",
+                                                "FOLDING",
+                                                "OTHER",
+                                                "INFLATABLE",
+                                                "WATER"
+                                            ]
+                                        }
+                                    }
+                                }]
                             }
                         }
                     },
@@ -721,21 +742,28 @@
                         },
                         "blueprint": {
                             "type": "array",
-                            "properties": {
-                                "quantity": {
-                                    "type": "integer"
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "enum": [
-                                        "HOT_TUB",
-                                        "BATH",
-                                        "WHIRLPOOL",
-                                        "SHOWER",
-                                        "WASH_BASIN",
-                                        "BIDET"
-                                    ]
-                                }
+                            "additionalProperties": false,
+                            "items": {
+                                "type": [{
+                                    "type": "object",
+                                    "title": "Bedroom",
+                                    "properties": {
+                                        "quantity": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "HOT_TUB",
+                                                "BATH",
+                                                "WHIRLPOOL",
+                                                "SHOWER",
+                                                "WASH_BASIN",
+                                                "BIDET"
+                                            ]
+                                        }
+                                    }
+                                }]
                             }
                         }
                     },
@@ -763,7 +791,7 @@
                                 "SUITABILITY_PETS_NOT_ALLOWED"
                             ]
                         },
-                        "maxPets" :  {
+                        "maxPets": {
                             "type": "integer",
                             "multipleOf": 1,
                             "maximum": 6,
@@ -811,24 +839,27 @@
                             ]
                         },
                         "restrictions": {
-                            "type": "string",
-                            "enum": [
-                                "RESTRICTIONS_ONLY_SERVICE_DOGS_ALLOWED",
-                                "RESTRICTIONS_LONG_HAIR_ALLOWED",
-                                "RESTRICTIONS_LONG_HAIR_NOT_ALLOWED",
-                                "RESTRICTIONS_LONG_HAIR_ASK",
-                                "RESTRICTIONS_SHORT_HAIR_ALLOWED",
-                                "RESTRICTIONS_SHORT_HAIR_NOT_ALLOWED",
-                                "RESTRICTIONS_SHORT_HAIR_ASK",
-                                "RESTRICTIONS_VACCINATIONS_REQUIRED",
-                                "RESTRICTIONS_MICROCHIPPED_REQUIRED",
-                                "RESTRICTIONS_PET_ALONE_MAY_BE_LEFT",
-                                "RESTRICTIONS_PET_ALONE_MAY_NOT_BE_LEFT",
-                                "RESTRICTIONS_PET_ALONE_ASK_TO_LEAVE",
-                                "RESTRICTIONS_PET_ACCESS_ALLOWED_IN_ENTIRE_BUILDING",
-                                "RESTRICTIONS_PET_ACCESS_NOT_ALLOWED_IN_MAIN_BUILDING",
-                                "RESTRICTIONS_PET_ACCESS_LIMITED_TO_CERTAIN_ROOMS"
-                            ]
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "RESTRICTIONS_ONLY_SERVICE_DOGS_ALLOWED",
+                                    "RESTRICTIONS_LONG_HAIR_ALLOWED",
+                                    "RESTRICTIONS_LONG_HAIR_NOT_ALLOWED",
+                                    "RESTRICTIONS_LONG_HAIR_ASK",
+                                    "RESTRICTIONS_SHORT_HAIR_ALLOWED",
+                                    "RESTRICTIONS_SHORT_HAIR_NOT_ALLOWED",
+                                    "RESTRICTIONS_SHORT_HAIR_ASK",
+                                    "RESTRICTIONS_VACCINATIONS_REQUIRED",
+                                    "RESTRICTIONS_MICROCHIPPED_REQUIRED",
+                                    "RESTRICTIONS_PET_ALONE_MAY_BE_LEFT",
+                                    "RESTRICTIONS_PET_ALONE_MAY_NOT_BE_LEFT",
+                                    "RESTRICTIONS_PET_ALONE_ASK_TO_LEAVE",
+                                    "RESTRICTIONS_PET_ACCESS_ALLOWED_IN_ENTIRE_BUILDING",
+                                    "RESTRICTIONS_PET_ACCESS_NOT_ALLOWED_IN_MAIN_BUILDING",
+                                    "RESTRICTIONS_PET_ACCESS_LIMITED_TO_CERTAIN_ROOMS"
+                                ]
+                            }
                         },
                         "supplied": {
                             "type": "array",
