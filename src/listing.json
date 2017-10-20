@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.2.1",
+    "description": "Schema for Rentals v0.2.2",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -817,6 +817,9 @@
                         "$ref": "#/definitions/features/feature"
                     },
                     {
+                        "$ref": "#/definitions/features/custom"
+                    },
+                    {
                         "$ref": "#/definitions/features/distance"
                     }
                 ]
@@ -1002,6 +1005,71 @@
                                 "type": "string"
                             }
                         }
+                    },
+                    "description": {
+                        "$ref": "#/definitions/translatableContentWithTitle"
+                    }
+                },
+                "required": [
+                    "category",
+                    "type"
+                ]
+            },
+            "custom": {
+                "type": "object",
+                "title": "Custom Feature",
+                "additionalProperties": true,
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "pattern": "^CUSTOM_([A-Z_]+)+"
+                    },
+                    "+mappedFrom": {
+                        "type": "object",
+                        "properties": {
+                            "cost": {
+                                "type": "number"
+                            },
+                            "score": {
+                                "type": "number"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "category": {
+                        "type": "string",
+                        "default": "Amenities",
+                        "pattern": "^(\\w+([\\\\])?)*"
+                    },
+                    "priority": {
+                        "type": "integer"
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "isSpecial": {
+                        "type": "boolean"
+                    },
+                    "isOnsite": {
+                        "type": "boolean"
+                    },
+                    "availability": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "SUPPLIED_WITHOUT_CHARGE",
+                                "CHARGES_APPLY",
+                                "AVAILABLE_ON_REQUEST",
+                                "NOT_AVAILABLE"
+                            ]
+                        }
+                    },
+                    "limitedAvailability": {
+                        "type": "boolean"
                     },
                     "description": {
                         "$ref": "#/definitions/translatableContentWithTitle"
