@@ -1,10 +1,9 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.1.3",
+    "description": "Schema for Rentals v0.2.0",
     "properties": {
         "_debug": {},
-        "$id": {
+        "$providerListingId": {
             "type": [
                 "string",
                 "integer"
@@ -100,10 +99,16 @@
             "type": "object",
             "properties": {
                 "latitude": {
-                    "type": "number"
+                    "type": [
+                        "string",
+                        "number"
+                    ]
                 },
                 "longitude": {
-                    "type": "number"
+                    "type": [
+                        "string",
+                        "number"
+                    ]
                 },
                 "displayExactLocation": {
                     "type": "boolean",
@@ -144,15 +149,27 @@
             "properties": {
                 "availabilityDefault": {
                     "type": "string",
-                    "enum": ["Y", "N", "Q"]
+                    "enum": [
+                        "Y",
+                        "N",
+                        "Q"
+                    ]
                 },
                 "changeoverDefault": {
                     "type": "string",
-                    "enum": ["0", "1", "2", "3"]
+                    "enum": [
+                        "0",
+                        "1",
+                        "2",
+                        "3"
+                    ]
                 },
                 "instantBookableDefault": {
                     "type": "string",
-                    "enum": ["Y", "N"]
+                    "enum": [
+                        "Y",
+                        "N"
+                    ]
                 },
                 "maxStayDefault": {
                     "type": "integer",
@@ -186,7 +203,10 @@
                             "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                         }
                     },
-                    "required": ["startDate", "endDate"]
+                    "required": [
+                        "startDate",
+                        "endDate"
+                    ]
                 },
                 "configuration": {
                     "type": "object",
@@ -290,186 +310,183 @@
         "contacts": {
             "type": "array",
             "items": {
-                "type": [{
-                    "properties": {
-                        "name": {
-                            "type": "string"
-                        },
-                        "isPublic": {
-                            "type": "boolean"
-                        },
-                        "email": {
-                            "type": "string",
-                            "format": "email"
-                        },
-                        "sendEnquiries": {
-                            "type": "boolean"
-                        },
-                        "phone": {
-                            "type": "string"
-                        },
-                        "countryISO2": {
-                            "type": "string",
-                            "maxLength": 2
-                        },
-                        "speaks": {
-                            "type": "array",
-                            "items": {
-                                "description": "ISO 639-1 code. For example: en, fr, de, es.",
+                "anyOf": [
+                    {
+                        "properties": {
+                            "name": {
                                 "type": "string"
                             },
-                            "uniqueItems": true
+                            "isPublic": {
+                                "type": "boolean"
+                            },
+                            "email": {
+                                "type": "string",
+                                "format": "email"
+                            },
+                            "sendEnquiries": {
+                                "type": "boolean"
+                            },
+                            "phone": {
+                                "type": "string"
+                            },
+                            "countryISO2": {
+                                "type": "string",
+                                "maxLength": 2
+                            },
+                            "speaks": {
+                                "type": "array",
+                                "items": {
+                                    "description": "ISO 639-1 code. For example: en, fr, de, es.",
+                                    "type": "string"
+                                },
+                                "uniqueItems": true
+                            }
                         }
                     }
-                }]
+                ]
             }
         },
         "media": {
             "type": "array",
             "items": {
-                "type": [{
-                    "type": "object",
-                    "title": "Photo",
-                    "properties": {
-                        "$id": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "title": "Photo",
+                        "properties": {
+                            "$id": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "$provider": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "URI",
+                                    "BASE64"
+                                ]
+                            },
+                            "category": {
+                                "type": "string",
+                                "enum": [
+                                    "ICON",
+                                    "PHOTO",
+                                    "FLOORPLAN"
+                                ]
+                            },
+                            "uri": {
+                                "type": "string",
+                                "pattern": "^(https?)://"
+                            },
+                            "data": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "pattern": "^data:image/[.*]"
+                            },
+                            "position": {
+                                "type": ["integer",
+                                    "string"]
+                            },
+                            "isFeatured": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
                         },
-                        "$provider": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "URI",
-                                "BASE64"
-                            ]
-                        },
-                        "category": {
-                            "type": "string",
-                            "enum": [
-                                "ICON",
-                                "PHOTO",
-                                "FLOORPLAN"
-                            ]
-                        },
-                        "uri": {
-                            "type": "string",
-                            "pattern": "^(https?)://"
-                        },
-                        "data": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "pattern": "^data:image/[.*]"
-                        },
-                        "position": {
-                            "type": "integer"
-                        },
-                        "isFeatured": {
-                            "type": "boolean"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
+                        "required": [
+                            "type",
+                            "category"
+                        ]
                     },
-                    "required": [
-                        "type",
-                        "category"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "Video",
-                    "properties": {
-                        "$id": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
+                    {
+                        "type": "object",
+                        "title": "Video",
+                        "properties": {
+                            "$id": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "$provider": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "type": {
+                                "const": "URI"
+                            },
+                            "category": {
+                                "const": "VIDEO"
+                            },
+                            "uri": {
+                                "type": "string",
+                                "pattern": "^(https?)://"
+                            },
+                            "position": {
+                                "type": ["integer",
+                                    "string"]
+                            },
+                            "isFeatured": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
                         },
-                        "$provider": {
-                            "type": [
-                                "string",
-                                "null"
-                            ]
-                        },
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "URI"
-                            ]
-                        },
-                        "category": {
-                            "type": "string",
-                            "enum": [
-                                "VIDEO"
-                            ]
-                        },
-                        "uri": {
-                            "type": "string",
-                            "pattern": "^(https?)://"
-                        },
-                        "position": {
-                            "type": "integer"
-                        },
-                        "isFeatured": {
-                            "type": "boolean"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
+                        "required": [
+                            "type",
+                            "category"
+                        ]
                     },
-                    "required": [
-                        "type",
-                        "category"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "Web Link",
-                    "properties": {
-                        "$id": {
-                            "type": "string"
+                    {
+                        "type": "object",
+                        "title": "Web Link",
+                        "properties": {
+                            "$id": {
+                                "type": "string"
+                            },
+                            "$provider": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "const": "URI"
+                            },
+                            "category": {
+                                "const": "LINK"
+                            },
+                            "uri": {
+                                "type": "string",
+                                "pattern": "^(https?)://"
+                            },
+                            "isListingPage": {
+                                "type": "boolean"
+                            },
+                            "position": {
+                                "type": ["integer",
+                                    "string"]
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
                         },
-                        "$provider": {
-                            "type": "string"
-                        },
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "URI"
-                            ]
-                        },
-                        "category": {
-                            "type": "string",
-                            "enum": [
-                                "LINK"
-                            ]
-                        },
-                        "uri": {
-                            "type": "string",
-                            "pattern": "^(https?)://"
-                        },
-                        "isListingPage": {
-                            "type": "boolean"
-                        },
-                        "position": {
-                            "type": "integer"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "type",
-                        "category"
-                    ]
-                }]
+                        "required": [
+                            "type",
+                            "category"
+                        ]
+                    }
+                ]
             }
         },
         "pricing": {
@@ -487,24 +504,31 @@
                             "$ref": "#/definitions/currency"
                         },
                         "weeklyLow": {
-                            "type": "number",
-                            "multipleOf": 0.01
+                            "type": [
+                                "number",
+                                "string"
+                            ]
                         },
                         "weeklyHigh": {
-                            "type": "number",
-                            "multipleOf": 0.01
+                            "type": [
+                                "number",
+                                "string"
+                            ]
                         },
                         "nightlyLow": {
-                            "type": "number",
-                            "multipleOf": 0.01
+                            "type": [
+                                "number",
+                                "string"
+                            ]
                         },
                         "nightlyHigh": {
-                            "type": "number",
-                            "multipleOf": 0.01
+                            "type": [
+                                "number",
+                                "string"
+                            ]
                         }
                     },
                     "dependencies": {
-
                         "weeklyLow": [
                             "currency",
                             "weeklyHigh"
@@ -550,26 +574,28 @@
                     "type": "array",
                     "additionalProperties": false,
                     "items": {
-                        "type": [{
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "description": "The Type of Descriptive Text Used.",
-                                    "type": "string",
-                                    "enum": [
-                                        "KEY_COLLECTION",
-                                        "ARRIVAL_INSTRUCTIONS"
-                                    ]
+                        "anyOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "description": "The Type of Descriptive Text Used.",
+                                        "type": "string",
+                                        "enum": [
+                                            "KEY_COLLECTION",
+                                            "ARRIVAL_INSTRUCTIONS"
+                                        ]
+                                    },
+                                    "description": {
+                                        "$ref": "#/definitions/translatableContentWithTitle"
+                                    }
                                 },
-                                "description": {
-                                    "$ref": "#/definitions/translatableContentWithTitle"
-                                }
-                            },
-                            "required": [
-                                "description",
-                                "type"
-                            ]
-                        }]
+                                "required": [
+                                    "description",
+                                    "type"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "checkInTime": {
@@ -592,8 +618,8 @@
                         }
                     },
                     "dependencies": {
-                        "amount": "currency",
-                        "currency": "amount"
+                        "amount": ["currency"],
+                        "currency": ["amount"]
                     }
                 }
             }
@@ -605,26 +631,28 @@
                     "type": "array",
                     "additionalProperties": false,
                     "items": {
-                        "type": [{
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "description": "The Type of Descriptive Text",
-                                    "type": "string",
-                                    "enum": [
-                                        "KEY_RETURN",
-                                        "DEPARTURE_INSTRUCTIONS"
-                                    ]
+                        "anyOf": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "description": "The Type of Descriptive Text",
+                                        "type": "string",
+                                        "enum": [
+                                            "KEY_RETURN",
+                                            "DEPARTURE_INSTRUCTIONS"
+                                        ]
+                                    },
+                                    "description": {
+                                        "$ref": "#/definitions/translatableContentWithTitle"
+                                    }
                                 },
-                                "description": {
-                                    "$ref": "#/definitions/translatableContentWithTitle"
-                                }
-                            },
-                            "required": [
-                                "description",
-                                "type"
-                            ]
-                        }]
+                                "required": [
+                                    "description",
+                                    "type"
+                                ]
+                            }
+                        ]
                     }
                 },
                 "lateCheckOut": {
@@ -644,8 +672,8 @@
                         }
                     },
                     "dependencies": {
-                        "amount": "currency",
-                        "currency": "amount"
+                        "amount": ["currency"],
+                        "currency": ["amount"]
                     }
                 },
                 "checkOutTime": {
@@ -654,260 +682,261 @@
                 }
             }
         },
-
         "rooms": {
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "type": [{
-                    "type": "object",
-                    "title": "Bedroom",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "BEDROOM"
-                            ],
-                            "default": "BEDROOM"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "isSharedSpace": {
-                            "type": "boolean"
-                        },
-                        "isLockable": {
-                            "type": "boolean"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContent"
-                        },
-                        "blueprint": {
-                            "type": "array",
-                            "additionalProperties": false,
-                            "items": {
-                                "type": [{
-                                    "type": "object",
-                                    "title": "Bedroom",
-                                    "properties": {
-                                        "quantity": {
-                                            "type": "integer"
-                                        },
-                                        "type": {
-                                            "type": "string",
-                                            "enum": [
-                                                "SINGLE",
-                                                "TRIPLE_BUNK",
-                                                "DOUBLE_BUNK",
-                                                "KING",
-                                                "QUEEN",
-                                                "DOUBLE",
-                                                "SOFA_DOUBLE",
-                                                "SOFA_SINGLE",
-                                                "FOLDING",
-                                                "OTHER",
-                                                "INFLATABLE",
-                                                "WATER"
-                                            ]
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "title": "Bedroom",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "const": "BEDROOM",
+                                "default": "BEDROOM"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "isSharedSpace": {
+                                "type": "boolean"
+                            },
+                            "isLockable": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContent"
+                            },
+                            "blueprint": {
+                                "type": "array",
+                                "additionalProperties": false,
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "title": "Bedroom",
+                                            "properties": {
+                                                "quantity": {
+                                                    "type": "integer"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "SINGLE",
+                                                        "TRIPLE_BUNK",
+                                                        "DOUBLE_BUNK",
+                                                        "KING",
+                                                        "QUEEN",
+                                                        "DOUBLE",
+                                                        "SOFA_DOUBLE",
+                                                        "SOFA_SINGLE",
+                                                        "FOLDING",
+                                                        "OTHER",
+                                                        "INFLATABLE",
+                                                        "WATER"
+                                                    ]
+                                                }
+                                            }
                                         }
-                                    }
-                                }]
+                                    ]
+                                }
                             }
-                        }
+                        },
+                        "required": [
+                            "type"
+                        ]
                     },
-                    "required": [
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "title": "Bathroom",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "BATHROOM"
-                            ],
-                            "default": "BATHROOM"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "isSharedSpace": {
-                            "type": "boolean"
-                        },
-                        "isEnSuite": {
-                            "type": "boolean"
-                        },
-                        "isLockable": {
-                            "type": "boolean"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContent"
-                        },
-                        "blueprint": {
-                            "type": "array",
-                            "additionalProperties": false,
-                            "items": {
-                                "type": [{
-                                    "type": "object",
-                                    "title": "Bedroom",
-                                    "properties": {
-                                        "quantity": {
-                                            "type": "integer"
-                                        },
-                                        "type": {
-                                            "type": "string",
-                                            "enum": [
-                                                "HOT_TUB",
-                                                "BATH",
-                                                "WHIRLPOOL",
-                                                "SHOWER",
-                                                "WASH_BASIN",
-                                                "BIDET"
-                                            ]
+                    {
+                        "type": "object",
+                        "title": "Bathroom",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
+                                "const": "BATHROOM",
+                                "default": "BATHROOM"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "isSharedSpace": {
+                                "type": "boolean"
+                            },
+                            "isEnSuite": {
+                                "type": "boolean"
+                            },
+                            "isLockable": {
+                                "type": "boolean"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContent"
+                            },
+                            "blueprint": {
+                                "type": "array",
+                                "additionalProperties": false,
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "title": "Bedroom",
+                                            "properties": {
+                                                "quantity": {
+                                                    "type": "integer"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "enum": [
+                                                        "HOT_TUB",
+                                                        "BATH",
+                                                        "WHIRLPOOL",
+                                                        "SHOWER",
+                                                        "WASH_BASIN",
+                                                        "BIDET"
+                                                    ]
+                                                }
+                                            }
                                         }
-                                    }
-                                }]
+                                    ]
+                                }
                             }
-                        }
-                    },
-                    "required": [
-                        "type"
-                    ]
-                }]
+                        },
+                        "required": [
+                            "type"
+                        ]
+                    }
+                ]
             }
         },
         "features": {
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "type": [{
-                    "type": "object",
-                    "title": "Pets",
-                    "additionalProperties": false,
-                    "properties": {
-                        "type": {
-                            "type": "string",
-                            "enum": [
-                                "SUITABILITY_PETS_ALLOWED",
-                                "SUITABILITY_PETS_ASK",
-                                "SUITABILITY_PETS_ALLOWED_WITH_RESTRICTIONS",
-                                "SUITABILITY_PETS_NOT_ALLOWED"
-                            ]
-                        },
-                        "maxPets": {
-                            "type": "integer",
-                            "multipleOf": 1,
-                            "maximum": 6,
-                            "minimum": 1,
-                            "default": 1
-                        },
-                        "sizesAllowed": {
-                            "type": "object",
-                            "properties": {
-                                "PET_SIZE_EXTRA_LARGE": {
-                                    "default": 1,
-                                    "multipleOf": 1,
-                                    "type": "integer"
-                                },
-                                "PET_SIZE_LARGE": {
-                                    "default": 1,
-                                    "multipleOf": 1,
-                                    "type": "integer"
-                                },
-                                "PET_SIZE_MEDIUM": {
-                                    "default": 1,
-                                    "multipleOf": 1,
-                                    "type": "integer"
-                                },
-                                "PET_SIZE_SMALL": {
-                                    "default": 1,
-                                    "multipleOf": 1,
-                                    "type": "integer"
-                                },
-                                "PET_SIZE_TOY": {
-                                    "default": 1,
-                                    "multipleOf": 1,
-                                    "type": "integer"
-                                }
-                            }
-                        },
-                        "species": {
-                            "type": "string",
-                            "enum": [
-                                "DOGS_ALLOWED",
-                                "CATS_ALLOWED",
-                                "FERRETS_ALLOWED",
-                                "BIRDS_ALLOWED",
-                                "HORSES_ALLOWED"
-                            ]
-                        },
-                        "restrictions": {
-                            "type": "array",
-                            "items": {
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "title": "Pets",
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {
                                 "type": "string",
                                 "enum": [
-                                    "RESTRICTIONS_ONLY_SERVICE_DOGS_ALLOWED",
-                                    "RESTRICTIONS_LONG_HAIR_ALLOWED",
-                                    "RESTRICTIONS_LONG_HAIR_NOT_ALLOWED",
-                                    "RESTRICTIONS_LONG_HAIR_ASK",
-                                    "RESTRICTIONS_SHORT_HAIR_ALLOWED",
-                                    "RESTRICTIONS_SHORT_HAIR_NOT_ALLOWED",
-                                    "RESTRICTIONS_SHORT_HAIR_ASK",
-                                    "RESTRICTIONS_VACCINATIONS_REQUIRED",
-                                    "RESTRICTIONS_MICROCHIPPED_REQUIRED",
-                                    "RESTRICTIONS_PET_ALONE_MAY_BE_LEFT",
-                                    "RESTRICTIONS_PET_ALONE_MAY_NOT_BE_LEFT",
-                                    "RESTRICTIONS_PET_ALONE_ASK_TO_LEAVE",
-                                    "RESTRICTIONS_PET_ACCESS_ALLOWED_IN_ENTIRE_BUILDING",
-                                    "RESTRICTIONS_PET_ACCESS_NOT_ALLOWED_IN_MAIN_BUILDING",
-                                    "RESTRICTIONS_PET_ACCESS_LIMITED_TO_CERTAIN_ROOMS"
+                                    "SUITABILITY_PETS_ALLOWED",
+                                    "SUITABILITY_PETS_ASK",
+                                    "SUITABILITY_PETS_ALLOWED_WITH_RESTRICTIONS",
+                                    "SUITABILITY_PETS_NOT_ALLOWED"
                                 ]
-                            }
-                        },
-                        "supplied": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "maxPets": {
+                                "type": "integer",
+                                "multipleOf": 1,
+                                "maximum": 6,
+                                "minimum": 1,
+                                "default": 1
+                            },
+                            "sizesAllowed": {
+                                "type": "object",
+                                "properties": {
+                                    "PET_SIZE_EXTRA_LARGE": {
+                                        "default": 1,
+                                        "multipleOf": 1,
+                                        "type": "integer"
+                                    },
+                                    "PET_SIZE_LARGE": {
+                                        "default": 1,
+                                        "multipleOf": 1,
+                                        "type": "integer"
+                                    },
+                                    "PET_SIZE_MEDIUM": {
+                                        "default": 1,
+                                        "multipleOf": 1,
+                                        "type": "integer"
+                                    },
+                                    "PET_SIZE_SMALL": {
+                                        "default": 1,
+                                        "multipleOf": 1,
+                                        "type": "integer"
+                                    },
+                                    "PET_SIZE_TOY": {
+                                        "default": 1,
+                                        "multipleOf": 1,
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "species": {
                                 "type": "string",
                                 "enum": [
-                                    "POO_BAGS",
-                                    "BASIC_DOG_TREATS",
-                                    "DOG_BED_SUPPLIED",
-                                    "DOG_TOYS_SUPPLIED",
-                                    "DOG_TOWELS_SUPPLIED"
+                                    "DOGS_ALLOWED",
+                                    "CATS_ALLOWED",
+                                    "FERRETS_ALLOWED",
+                                    "BIRDS_ALLOWED",
+                                    "HORSES_ALLOWED"
                                 ]
-                            }
-                        },
-                        "category": {
-                            "type": "string",
-                            "default": "Suitability",
-                            "pattern": "^(\\w+([\\\\])?)*"
-                        },
-                        "+mappedFrom": {
-                            "type": "object",
-                            "properties": {
-                                "cost": {
-                                    "type": "number"
-                                },
-                                "score": {
-                                    "type": "number"
-                                },
-                                "name": {
-                                    "type": "string"
+                            },
+                            "restrictions": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "RESTRICTIONS_ONLY_SERVICE_DOGS_ALLOWED",
+                                        "RESTRICTIONS_LONG_HAIR_ALLOWED",
+                                        "RESTRICTIONS_LONG_HAIR_NOT_ALLOWED",
+                                        "RESTRICTIONS_LONG_HAIR_ASK",
+                                        "RESTRICTIONS_SHORT_HAIR_ALLOWED",
+                                        "RESTRICTIONS_SHORT_HAIR_NOT_ALLOWED",
+                                        "RESTRICTIONS_SHORT_HAIR_ASK",
+                                        "RESTRICTIONS_VACCINATIONS_REQUIRED",
+                                        "RESTRICTIONS_MICROCHIPPED_REQUIRED",
+                                        "RESTRICTIONS_PET_ALONE_MAY_BE_LEFT",
+                                        "RESTRICTIONS_PET_ALONE_MAY_NOT_BE_LEFT",
+                                        "RESTRICTIONS_PET_ALONE_ASK_TO_LEAVE",
+                                        "RESTRICTIONS_PET_ACCESS_ALLOWED_IN_ENTIRE_BUILDING",
+                                        "RESTRICTIONS_PET_ACCESS_NOT_ALLOWED_IN_MAIN_BUILDING",
+                                        "RESTRICTIONS_PET_ACCESS_LIMITED_TO_CERTAIN_ROOMS"
+                                    ]
                                 }
+                            },
+                            "supplied": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "POO_BAGS",
+                                        "BASIC_DOG_TREATS",
+                                        "DOG_BED_SUPPLIED",
+                                        "DOG_TOYS_SUPPLIED",
+                                        "DOG_TOWELS_SUPPLIED"
+                                    ]
+                                }
+                            },
+                            "category": {
+                                "type": "string",
+                                "default": "Suitability",
+                                "pattern": "^(\\w+([\\\\])?)*"
+                            },
+                            "+mappedFrom": {
+                                "type": "object",
+                                "properties": {
+                                    "cost": {
+                                        "type": "number"
+                                    },
+                                    "score": {
+                                        "type": "number"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
                             }
                         },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
+                        "required": [
+                            "category",
+                            "type"
+                        ]
                     },
-                    "required": [
-                        "category",
-                        "type"
-                    ]
-                },
                     {
                         "type": "object",
                         "title": "Suitability",
@@ -974,7 +1003,8 @@
                             "category",
                             "type"
                         ]
-                    }, {
+                    },
+                    {
                         "type": "object",
                         "title": "Feature",
                         "additionalProperties": false,
@@ -1494,7 +1524,8 @@
                             "category",
                             "type"
                         ]
-                    }, {
+                    },
+                    {
                         "type": "object",
                         "title": "Distance",
                         "additionalProperties": false,
@@ -1582,197 +1613,200 @@
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "type": [{
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "description": "The Type of Descriptive Text",
-                            "type": "string",
-                            "enum": [
-                                "PRIMARY_DESCRIPTION",
-                                "ABOUT_NEIGHBOURHOOD",
-                                "ABOUT_DESTINATION",
-                                "FAQ",
-                                "WELCOME",
-                                "HOUSE_RULES",
-                                "LISTING_DIRECTIONS",
-                                "WHAT_IS_INCLUDED",
-                                "WHAT_IS_NOT_INCLUDED"
-
-                            ]
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "The Type of Descriptive Text",
+                                "type": "string",
+                                "enum": [
+                                    "PRIMARY_DESCRIPTION",
+                                    "ABOUT_NEIGHBOURHOOD",
+                                    "ABOUT_DESTINATION",
+                                    "FAQ",
+                                    "WELCOME",
+                                    "HOUSE_RULES",
+                                    "LISTING_DIRECTIONS",
+                                    "WHAT_IS_INCLUDED",
+                                    "WHAT_IS_NOT_INCLUDED"
+                                ]
+                            },
+                            "position": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
                         },
-                        "position": {
-                            "type": "integer"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "description",
-                        "type"
-                    ]
-                }]
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    }
+                ]
             }
         },
         "policies": {
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "type": [{
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "description": "The Type of Descriptive Text",
-                            "type": "string",
-                            "enum": [
-                                "BOOKING_TERMS",
-                                "HOUSE_RULES",
-                                "GROUP_BOOKINGS",
-                                "OTHER",
-                                "CANCELLATION_TERMS",
-                                "RATE_INCLUDES",
-                                "RATE_EXCLUDES"
-                            ]
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "description",
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "description": "Your payment schedules",
-                            "type": "string",
-                            "enum": [
-                                "PAYMENT_SCHEDULE"
-                            ]
-                        },
-                        "paymentPercentageAtTimeOfBooking": {
-                            "type": "number",
-                            "multipleOf": 0.01
-                        },
-                        "daysBeforeArrivalBalanceDue": {
-                            "type": "integer"
-                        },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
-                    },
-                    "required": [
-                        "description",
-                        "type"
-                    ]
-                }, {
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "description": "Your cancellcation policies",
-                            "type": "string",
-                            "enum": [
-                                "CANCELLATION_POLICY"
-                            ]
-                        },
-                        "rules": {
-                            "type": "array",
-                            "items": {
-                                "type": [{
-                                    "properties": {
-                                        "daysBeforeArrival": {
-                                            "type": "integer"
-                                        },
-                                        "percentageRefund": {
-                                            "type": "number",
-                                            "maximum": 100,
-                                            "minimum": 0,
-                                            "multipleOf": 0.01
-                                        },
-                                        "feesRefunded": {
-                                            "type": "boolean",
-                                            "default": true
-                                        }
-                                    }
-                                }]
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "The Type of Descriptive Text",
+                                "type": "string",
+                                "enum": [
+                                    "BOOKING_TERMS",
+                                    "HOUSE_RULES",
+                                    "GROUP_BOOKINGS",
+                                    "OTHER",
+                                    "CANCELLATION_TERMS",
+                                    "RATE_INCLUDES",
+                                    "RATE_EXCLUDES"
+                                ]
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
                             }
                         },
-                        "description": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        }
+                        "required": [
+                            "description",
+                            "type"
+                        ]
                     },
-                    "required": [
-                        "description",
-                        "type"
-                    ]
-                }]
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "Your payment schedules",
+                                "const": "PAYMENT_SCHEDULE"
+                            },
+                            "paymentPercentageAtTimeOfBooking": {
+                                "type": "number",
+                                "multipleOf": 0.01
+                            },
+                            "daysBeforeArrivalBalanceDue": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "description": "Your cancellcation policies",
+                                "const": "CANCELLATION_POLICY"
+                            },
+                            "rules": {
+                                "type": "array",
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "properties": {
+                                                "daysBeforeArrival": {
+                                                    "type": "integer"
+                                                },
+                                                "percentageRefund": {
+                                                    "type": "number",
+                                                    "maximum": 100,
+                                                    "minimum": 0,
+                                                    "multipleOf": 0.01
+                                                },
+                                                "feesRefunded": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            }
+                        },
+                        "required": [
+                            "description",
+                            "type"
+                        ]
+                    }
+                ]
             }
         },
         "reviews": {
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "type": [{
-                    "type": "object",
-                    "properties": {
-                        "review": {
-                            "$ref": "#/definitions/translatableContentWithTitle"
-                        },
-                        "reviewerName": {
-                            "type": "string"
-                        },
-                        "createdAt": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "format": "date-time"
-                        },
-                        "stayedAt": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "format": "date-time"
-                        },
-                        "stayDuration": {
-                            "type": "number",
-                            "multipleOf": 1
-                        },
-                        "rating": {
-                            "type": "object",
-                            "properties": {
-                                "score": {
-                                    "type": "number",
-                                    "multipleOf": 0.1
-                                },
-                                "origin": {
-                                    "type": "string",
-                                    "enum": [
-                                        "SELF_ASSIGNED",
-                                        "NATIONAL_TOURISM_BOARD",
-                                        "HOTREC",
-                                        "AVROA",
-                                        "UNSPECIFIED_ORGANISATION",
-                                        "FORBES_TRAVEL_GUIDE",
-                                        "AAA"
-                                    ]
-                                },
-                                "certificationUrl": {
-                                    "type": "string",
-                                    "pattern": "^(https?)://"
-                                },
-                                "max": {
-                                    "type": "number",
-                                    "multipleOf": 0.1
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "review": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            },
+                            "reviewerName": {
+                                "type": "string"
+                            },
+                            "createdAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "stayedAt": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ],
+                                "format": "date-time"
+                            },
+                            "stayDuration": {
+                                "type": "number",
+                                "multipleOf": 1
+                            },
+                            "rating": {
+                                "type": "object",
+                                "properties": {
+                                    "score": {
+                                        "type": "number",
+                                        "multipleOf": 0.1
+                                    },
+                                    "origin": {
+                                        "type": "string",
+                                        "enum": [
+                                            "SELF_ASSIGNED",
+                                            "NATIONAL_TOURISM_BOARD",
+                                            "HOTREC",
+                                            "AVROA",
+                                            "UNSPECIFIED_ORGANISATION",
+                                            "FORBES_TRAVEL_GUIDE",
+                                            "AAA"
+                                        ]
+                                    },
+                                    "certificationUrl": {
+                                        "type": "string",
+                                        "pattern": "^(https?)://"
+                                    },
+                                    "max": {
+                                        "type": "number",
+                                        "multipleOf": 0.1
+                                    }
                                 }
                             }
                         }
                     }
-                }]
+                ]
             }
         },
         "translatableContent": {
@@ -2015,21 +2049,24 @@
                 }
             },
             "dependencies": {
-                "addressLine2": "addressLine1"
+                "addressLine2": ["addressLine1"]
             }
         },
         "i18nContentWithTitle": {
-            "allOf": [{
-                "$ref": "#/definitions/i18nContent"
-            }, {
-                "properties": {
-                    "title": {
-                        "type": "string",
-                        "maxLength": 255
-                    }
+            "allOf": [
+                {
+                    "$ref": "#/definitions/i18nContent"
                 },
-                "required": []
-            }],
+                {
+                    "properties": {
+                        "title": {
+                            "type": "string",
+                            "maxLength": 255
+                        }
+                    },
+                    "required": []
+                }
+            ],
             "properties": {
                 "title": {
                     "type": "string",
