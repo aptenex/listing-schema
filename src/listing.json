@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.2.0",
+    "description": "Schema for Rentals v0.2.1",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -154,7 +154,8 @@
                         "Y",
                         "N",
                         "Q"
-                    ]
+                    ],
+                    "default": "N"
                 },
                 "changeoverDefault": {
                     "type": "string",
@@ -163,21 +164,23 @@
                         "1",
                         "2",
                         "3"
-                    ]
+                    ],
+                    "default": "3"
                 },
                 "instantBookableDefault": {
                     "type": "string",
                     "enum": [
                         "Y",
                         "N"
-                    ]
+                    ],
+                    "default": "N"
                 },
                 "maxStayDefault": {
                     "type": "integer",
                     "multipleOf": 1,
                     "maximum": 365,
                     "minimum": 0,
-                    "default": 0
+                    "default": 30
                 },
                 "minPriorNotifyDefault": {
                     "type": "integer",
@@ -836,8 +839,7 @@
                         "type": "integer",
                         "multipleOf": 1,
                         "maximum": 6,
-                        "minimum": 1,
-                        "default": 1
+                        "minimum": 1
                     },
                     "sizesAllowed": {
                         "type": "object",
@@ -1498,8 +1500,7 @@
                     },
                     "quantity": {
                         "type": "integer",
-                        "minimum": 0,
-                        "default": 1
+                        "minimum": 0
                     },
                     "isSpecial": {
                         "type": "boolean"
