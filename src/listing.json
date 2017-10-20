@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.2.2",
+    "description": "Schema for Rentals v0.2.3",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -498,6 +498,10 @@
             "additionalProperties": false,
             "properties": {
                 "static": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "dynamic": {
                     "type": "object",
                     "additionalProperties": true
                 },
