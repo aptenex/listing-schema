@@ -11,8 +11,12 @@ class Load {
 		return static::$instance;
 	}
 	
-	public function load(){
-		return file_get_contents(__DIR__ . '/listing.json');
+	public function load($path = null){
+		if($path) {
+			return file_get_contents($path);
+		} else {
+			return file_get_contents(__DIR__ . '/listing.json');
+		}
 	}
 	
 	protected function __construct()
