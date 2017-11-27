@@ -761,13 +761,13 @@
                                 "type": "string"
                             },
                             "isSharedSpace": {
-                                "type": "boolean"
+                                "type":  ["null", "boolean"]
                             },
                             "isEnSuite": {
-                                "type": "boolean"
+                                "type":  ["null", "boolean"]
                             },
                             "isLockable": {
-                                "type": "boolean"
+                                "type":  ["null", "boolean"]
                             },
                             "description": {
                                 "$ref": "#/definitions/translatableContent"
