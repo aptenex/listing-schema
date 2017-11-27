@@ -2035,7 +2035,7 @@
                     "type": "integer",
                     "multipleOf": 1,
                     "maximum": 100,
-                    "minimum": 1,
+                    "minimum": 0,
                     "default": 1
                 },
                 "maxOccupancy": {
@@ -2045,7 +2045,7 @@
                     ],
                     "multipleOf": 1,
                     "maximum": 100,
-                    "minimum": 1
+                    "minimum": 0
                 },
                 "touristLicense": {
                     "type": "string"
@@ -2161,8 +2161,6 @@
         }
     },
     "required": [
-        "$providerListingId",
-        "name",
-        "location"
+        "name"
     ]
 }
