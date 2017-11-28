@@ -1647,8 +1647,9 @@
                                 "enum": [
                                     "METERS",
                                     "MILES",
-                                    "MINUTES BY CAR",
-                                    "MINUTES BY FOOT",
+                                    "YARDS",
+                                    "MINUTES_BY_CAR",
+                                    "MINUTES_BY_FOOT",
                                     "KILOMETERS"
                                 ]
                             }
