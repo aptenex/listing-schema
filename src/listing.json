@@ -770,7 +770,7 @@
                                 "type":  ["null", "boolean"]
                             },
                             "description": {
-                                "$ref": "#/definitions/translatableContent"
+                                "$ref": "#/definitions/translatableContentWithTitle"
                             },
                             "blueprint": {
                                 "type": "array",
