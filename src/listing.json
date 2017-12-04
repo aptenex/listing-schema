@@ -1026,7 +1026,7 @@
                 "properties": {
                     "type": {
                         "type": "string",
-                        "pattern": "^CUSTOM_([A-Z_]+)+"
+                        "pattern": "^CUSTOM_([A-Z0-9_]+)+"
                     },
                     "+mappedFrom": {
                         "type": "object",
