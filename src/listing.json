@@ -905,7 +905,7 @@
                                 "RESTRICTIONS_VACCINATIONS_REQUIRED",
                                 "RESTRICTIONS_VACCINATIONS_DO_NOT_SHOW",
                                 "RESTRICTIONS_MICROCHIPPED_REQUIRED",
-                                "RESTRICTIONS_MICROCHIPPED_DO_NOW_SHOW",
+                                "RESTRICTIONS_MICROCHIPPED_DO_NOT_SHOW",
                                 "RESTRICTIONS_PET_ALONE_MAY_BE_LEFT",
                                 "RESTRICTIONS_PET_ALONE_MAY_NOT_BE_LEFT",
                                 "RESTRICTIONS_PET_ALONE_ASK_TO_LEAVE",
