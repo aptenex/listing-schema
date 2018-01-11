@@ -1543,8 +1543,7 @@
                                 "OUTDOOR_GYM",
                                 "HALF_GYM",
                                 "FULL_GYM",
-                                "CARDIO_GYM",
-
+                                "CARDIO_GYM"
                             ]
                         }
                     },
