@@ -257,6 +257,25 @@
         "advertisingDestination": {
             "type": "object",
             "properties": {
+
+                "custom": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "items": {
+                        "anyOf": [{
+                            "type": "object",
+                            "title": "Custom Place Destinations by Tags",
+                            "properties": {
+                                "key": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "$ref": "#/definitions/translatableContentWithTitle"
+                                }
+                            }
+                        }]
+                    }
+                },
                 "google": {
                     "type": "object",
                     "properties": {
