@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.3.0",
+    "description": "Schema for Rentals v0.3.1",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -2071,6 +2071,13 @@
                 },
                 "touristLicense": {
                     "type": "string"
+                },
+                "touristLicenseExpiry": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date"
                 },
                 "stateTax": {
                     "type": "string"
