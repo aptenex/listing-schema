@@ -1978,7 +1978,7 @@
                         "LISTING_TYPE_PENTHOUSE",
                         "LISTING_TYPE_CAMPER_VAN"
                     ],
-                    "default": "APARTMENT"
+                    "default": "LISTING_TYPE_APARTMENT"
                 },
                 "unitAllocatedReference": {
                     "type": "string",
