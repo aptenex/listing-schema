@@ -818,7 +818,7 @@
                                 "items": {
                                     "anyOf": [{
                                         "type": "object",
-                                        "title": "Bedroom",
+                                        "title": "Bathroom",
                                         "properties": {
                                             "quantity": {
                                                 "type": "integer"
@@ -831,7 +831,8 @@
                                                     "WHIRLPOOL",
                                                     "SHOWER",
                                                     "WASH_BASIN",
-                                                    "BIDET"
+                                                    "BIDET",
+                                                    "TOILET"
                                                 ]
                                             }
                                         }
