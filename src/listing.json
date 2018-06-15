@@ -1231,6 +1231,7 @@
                             "GENERAL_EXTRA_BED",
                             "GENERAL_FIREPLACE",
                             "GENERAL_FIREWOOD",
+                            "GENERAL_PRIVATE_ENTRANCE",
                             "GENERAL_FITNESS_ROOM",
                             "GENERAL_FRONT_DESK",
                             "GENERAL_GARDEN_SHARED",
