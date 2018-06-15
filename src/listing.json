@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.3.3",
+    "description": "Schema for Rentals v0.3.4",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -1184,6 +1184,7 @@
                             "CHILDREN_BABY_MONITOR",
                             "CHILDREN_BABY_NIGHTLIGHT",
                             "CHILDREN_BABY_PACK",
+                            "CHILDREN_BABY_PACK_N_PLAY_TRAVEL_CRIB",
                             "CHILDREN_BABY_SITTING",
                             "CHILDREN_BABY_STAIRGATE",
                             "COMMUNICATION_COMPUTER",
@@ -1255,6 +1256,7 @@
                             "GENERAL_UNIVERSAL_SHAVER_PLUG",
                             "GENERAL_UTILITY_ROOM",
                             "GENERAL_WASHER_DRYER",
+                            "GENERAL_BATHTUB",
                             "GENERAL_WASHING_MACHINE",
                             "GENERAL_WOOD_BURNING_STOVE",
                             "KITCHEN_AGA_COOKER",
@@ -1447,6 +1449,8 @@
                             "LOCALITY_WOODED_SURROUNDINGS",
                             "OUTDOOR_BALCONY",
                             "OUTDOOR_BARBECUE",
+                            "OUTDOOR_SURVEILLANCE_MONITORING",
+
 
                             "OUTDOOR_BOAT_SLIP_DOCK",
                             "OUTDOOR_DECK_PATIO",
@@ -1468,6 +1472,8 @@
                             "SAFETY_GARDEN_SECURED_WITH_FULL_BOUNDARY_FENCED",
                             "SAFETY_GARDEN_SECURED_WITH_PARTIAL_BOUNDARY",
                             "SAFETY_SECURITY_ALARM_SYSTEM",
+                            "SAFETY_SMOKE_DETECTOR",
+                            "SAFETY_CARBON_MONOXIDE_DETECTOR",
                             "SAFETY_STAIR_GATES",
 
                             "SPA_POOL_HEALTH_FACILITIES",
