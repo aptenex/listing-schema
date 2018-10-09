@@ -1245,6 +1245,7 @@
                             "GENERAL_ESSENTIALS_EQUIPPED",
                             "GENERAL_EXTRA_BED",
                             "GENERAL_FIREPLACE",
+                            "GENERAL_LOG_BURNER",
                             "GENERAL_FIREWOOD",
                             "GENERAL_PRIVATE_ENTRANCE",
                             "GENERAL_FITNESS_ROOM",
