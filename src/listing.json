@@ -2072,7 +2072,7 @@
                     "type": "integer",
                     "multipleOf": 1,
                     "maximum": 200,
-                    "minimum": 0
+                    "minimum": -10
                 },
                 "beds": {
                     "type": "integer",
