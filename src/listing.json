@@ -206,6 +206,16 @@
                     "minimum": 0,
                     "default": 0
                 },
+                "maxDaysNotice": {
+                    "type": "integer",
+                    "description": "This is essentially the booking window. A max days notice of zero, means block all future dates. A value of 30 means only bookings where the arrival date is within 30 day period.",
+                    "enum": [
+                        0,
+                        30,
+                        90,
+                        365
+                    ]
+                },
                 "minStayDefault": {
                     "type": "integer",
                     "multipleOf": 1,
