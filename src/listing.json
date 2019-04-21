@@ -618,12 +618,25 @@
                     },
                     "additionalProperties": false
                 },
+                "entryType": {
+                    "type": "string",
+                    "enum": [
+                        "DOORMAN_ENTRY",
+                        "LOCKBOX",
+                        "SMARTLOCK",
+                        "KEYPAD",
+                        "MEET_AND_GREET",
+                        "OTHER_CHECKIN"
+
+                    ]
+                },
                 "buildingEntryCode": {
                     "type": "string"
                 },
                 "unitEntryCode": {
                     "type": "string"
                 },
+
                 "texts": {
                     "type": "array",
                     "additionalProperties": false,
