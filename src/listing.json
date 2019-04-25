@@ -933,6 +933,9 @@
                     },
                     {
                         "$ref": "#/definitions/features/distance"
+                    },
+                    {
+                        "$ref": "#/definitions/features/deprecations"
                     }
                 ]
             },
@@ -1344,7 +1347,6 @@
                             "GENERAL_UTILITY_ROOM",
                             "GENERAL_ELECTRIC_VEHICLE_CHARGER",
                             "GENERAL_WASHER_DRYER",
-                            "GENERAL_BATHTUB",
                             "GENERAL_WASHING_MACHINE",
                             "GENERAL_WOOD_BURNING_STOVE",
                             "GENERAL_HANGERS",
