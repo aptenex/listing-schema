@@ -1764,7 +1764,15 @@
                             "LOCAL_GAMES_ROOM",
                             "LOCAL_TABLE_TENNIS",
                             "OUTDOOR_GARDEN_FURNITURE",
-                            "OUTDOOR_GARDEN"
+                            "OUTDOOR_GARDEN",
+                            "SPA_POOL_GYM_EQUIPMENT",
+                            "SPA_POOL_FULL_GYM",
+                            "OUTDOOR_BOAT_MOORING",
+                            "LOCAL_ARCHAEOLOGICAL_SITES",
+                            "LOCAL_SAILING_DINGHY",
+                            "LOCAL_WATER_THEME_PARK",
+                            "LOCAL_WATERFALLS",
+                            "SUITABILITY_ACCESSIBILITY_ASK"
                         ]
                     },
                     "category": {
