@@ -1484,7 +1484,6 @@
                             "LOCAL_SURF_BOARD",
                             "LOCAL_SURFING",
                             "LOCAL_SYNAGOGUE",
-
                             "LOCAL_TEMPLE",
                             "LOCAL_TENNIS_COURT",
                             "LOCAL_TENPIN_BOWLING",
@@ -1638,7 +1637,6 @@
                             "LOGISTICS_LUGGAGE_DROPOFF_ALLOWED",
                             "LOGISTICS_LONG_TERM_STAYS_ALLOWED",
                             "LOGISTICS_CLEANING_BEFORE_CHECKOUT",
-
                             "EXPECTATIONS_REQUIRED_STAIRS",
                             "EXPECTATIONS_POTENTIAL_NOISE",
                             "EXPECTATIONS_HAS_PETS",
