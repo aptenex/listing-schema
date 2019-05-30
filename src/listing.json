@@ -367,18 +367,55 @@
                 "anyOf": [
                     {
                         "properties": {
+                            "role" : {
+                                "type": "string",
+                                "enum" : [
+                                    "ROLE_BOOKING_CONTACT",
+                                    "ROLE_KEYHOLDER",
+                                    "ROLE_MANAGER",
+                                    "ROLE_OWNER",
+                                    "ROLE_CONCIERGE",
+                                    "ROLE_CHEF",
+                                    "ROLE_HOUSEKEEPER",
+                                    "ROLE_TRANSPORT_AND_LOGISTICS"
+                                 ]
+                            },
+                            "description": {
+                                "$ref": "#/definitions/translatableContentWithTitle"
+                            },
+                            "interactions": {
+                                "type": "object",
+                                "properties": {
+                                    "guestMakeContactXDaysBeforeArrival": {
+                                        "description": "For certain roles we may want to ask the guest to contact this person X days before arrival to ensure that they are prepared for the guests arrival.",
+                                        "type": "string"
+                                    },
+                                    "sendEnquiries": {
+                                        "type": "boolean"
+                                    },
+                                    "speaks": {
+                                        "type": "array",
+                                        "items": {
+                                            "description": "ISO 639-1 code. For example: en, fr, de, es.",
+                                            "type": "string"
+                                        },
+                                        "uniqueItems": true
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
                             "name": {
                                 "type": "string"
                             },
                             "isPublic": {
                                 "type": "boolean"
                             },
+                            "isPrimary": {
+                                "type": "boolean"
+                            },
                             "email": {
                                 "type": "string",
                                 "format": "email"
-                            },
-                            "sendEnquiries": {
-                                "type": "boolean"
                             },
                             "phone": {
                                 "type": "string"
@@ -386,14 +423,6 @@
                             "countryISO2": {
                                 "type": "string",
                                 "maxLength": 2
-                            },
-                            "speaks": {
-                                "type": "array",
-                                "items": {
-                                    "description": "ISO 639-1 code. For example: en, fr, de, es.",
-                                    "type": "string"
-                                },
-                                "uniqueItems": true
                             }
                         }
                     }
