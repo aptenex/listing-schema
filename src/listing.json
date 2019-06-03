@@ -388,7 +388,7 @@
                                 "properties": {
                                     "guestMakeContactXDaysBeforeArrival": {
                                         "description": "For certain roles we may want to ask the guest to contact this person X days before arrival to ensure that they are prepared for the guests arrival.",
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "sendEnquiries": {
                                         "type": "boolean"
