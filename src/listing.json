@@ -590,6 +590,10 @@
                     "type": "object",
                     "additionalProperties": true
                 },
+                "los": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
                 "visual": {
                     "type": "object",
                     "properties": {
