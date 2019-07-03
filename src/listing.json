@@ -388,7 +388,7 @@
                                 "properties": {
                                     "guestMakeContactXDaysBeforeArrival": {
                                         "description": "For certain roles we may want to ask the guest to contact this person X days before arrival to ensure that they are prepared for the guests arrival.",
-                                        "type": "string"
+                                        "type": "integer"
                                     },
                                     "sendEnquiries": {
                                         "type": "boolean"
@@ -587,6 +587,10 @@
                     "additionalProperties": true
                 },
                 "dynamic": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "los": {
                     "type": "object",
                     "additionalProperties": true
                 },
@@ -847,11 +851,13 @@
                                                     "enum": [
                                                         "SINGLE",
                                                         "SINGLE_BUNK",
+                                                        "SINGLE_ZIP",
                                                         "DOUBLE_BUNK",
                                                         "DOUBLE_SINGLE_BUNK",
                                                         "QUEEN_SINGLE_BUNK",
                                                         "TRIPLE_BUNK",
                                                         "KING",
+                                                        "KING_SUPER",
                                                         "QUEEN",
                                                         "DOUBLE",
                                                         "SOFA_QUEEN",
