@@ -15,10 +15,10 @@ class Load {
 	public function load($path = null){
 		if($path) {
 			return file_get_contents($path);
-		} else {
-			return file_get_contents(__DIR__ . '/listing.json');
 		}
-	}
+        
+        return file_get_contents(__DIR__ . '/listing.json');
+    }
 	
 	protected function __construct()
 	{
