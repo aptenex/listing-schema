@@ -11,6 +11,113 @@
             ],
             "description": "This is the internal ID for the originating source of the rental"
         },
+        "$marketingAgent": {
+            "type": "object",
+            "title": "Marketing Agent for Property",
+            "description": "When distributing schemas, it is often helpful to know who this listing is being marketed as. Oftentimes the property may be available to several partners and while the owner of the property will stay the same, the marketing agent may need to be reflected differently.",
+            "required": [
+                "brandCompanyName"
+            ],
+            "properties": {
+
+                "descriptiveName": {
+                    "type": "string",
+                    "title": "Descriptive name of the settings record. Can be used for internal tracking and should not be displayed publically.",
+                    "default": "",
+                    "examples": [
+                        "(C) Eats and Retreats Settings"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "logo": {
+                    "type": "object",
+                    "title": "The Logo Schema",
+                    "required": [
+                        "id",
+                        "publicUrl",
+                        "width",
+                        "height"
+                    ],
+                    "properties": {
+
+                        "publicUrl": {
+                            "type": "string",
+                            "title": "URL of Logo",
+                            "description": "Where the logo for this agent can be found",
+                            "examples": [
+                                "https://s3-eu-west-1.amazonaws.com/lycan-general/uploads/logo/0001/01/a28cfd69ace5da5896c50de15955a5aca0712bb6.png"
+                            ],
+                            "pattern": "^(.*)$"
+                        },
+                        "width": {
+                            "type": "integer",
+                            "title": "The Width of Logo Image",
+                            "examples": [
+                                689
+                            ]
+                        },
+                        "height": {
+                            "type": "integer",
+                            "title": "The Height of Logo Image",
+                            "examples": [
+                                120
+                            ]
+                        }
+                    }
+                },
+                "brandCompanyName": {
+                    "type": "string",
+                    "title": "The Official name of the marketing agent",
+                    "description": "This is the name of the agent marketing this listing",
+                    "examples": [
+                        "Eats and Retreats"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "website": {
+                    "type": "string",
+                    "title": "A Webaddress for the Agent",
+                    "default": "",
+                    "examples": [
+                        "https://www.eatsandretreats.com"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "biography": {
+                    "type": "string",
+                    "title": "The Biography Schema",
+                    "description": "A short plaintext biography for this marketing agent.",
+                    "default": "",
+                    "examples": [
+                        "Something Something about Something"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "phone": {
+                    "type": "string",
+                    "title": "The Phone Schema",
+                    "default": "",
+                    "examples": [
+                        "+0011223344556677"
+                    ],
+                    "pattern": "^(.*)$"
+                },
+                "emails": {
+                    "type": "array",
+                    "title": "The Emails Array for this Agent",
+                    "items": {
+                        "type": "string",
+                        "title": "An email address",
+                        "default": "",
+                        "examples": [
+                            "reservation@example.com"
+                        ],
+                        "pattern": "^(.*)$"
+                    }
+                }
+            }
+
+        },
         "$marketingReferenceId": {
             "type": [
                 "string",
@@ -363,8 +470,8 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "static" : {
-                    "type" : "object",
+                "static": {
+                    "type": "object",
                     "additionalProperties": true
                 },
                 "visual": {
