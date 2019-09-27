@@ -1,3 +1,6 @@
 .idea
+.idea/*
 example.json
 RentalSchema.iml
+listing-schema.iml
+*.iml

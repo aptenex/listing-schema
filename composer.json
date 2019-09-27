@@ -9,6 +9,9 @@
             "ListingSchema\\" : "src/"
         }
     },
+    "require": {
+        "php": "^7.2"
+    },
     "authors": [
         {
             "name": "Chris Atkinson",

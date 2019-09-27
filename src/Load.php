@@ -1,6 +1,7 @@
 <?php
 namespace ListingSchema;
 class Load {
+    public const URI = 'https://raw.githubusercontent.com/aptenex/listing-schema/master/src/listing.json';
 	private static $instance;
 	public static function getInstance()
 	{
@@ -11,9 +12,13 @@ class Load {
 		return static::$instance;
 	}
 	
-	public function load(){
-		return file_get_contents(__DIR__ . '/listing.json');
-	}
+	public function load($path = null){
+		if($path) {
+			return file_get_contents($path);
+		}
+        
+        return file_get_contents(__DIR__ . '/listing.json');
+    }
 	
 	protected function __construct()
 	{
