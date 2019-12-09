@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.3.4",
+    "description": "Schema for Rentals v0.3.5",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -50,7 +50,6 @@
                             "type": "object",
                             "title": "The Logo Schema",
                             "required": [
-                                "id",
                                 "publicUrl",
                                 "width",
                                 "height"
@@ -218,6 +217,10 @@
                 "isInstantBookable": {
                     "type": "boolean",
                     "description": "Designates if this property is instant bookable and can accept payments online."
+                },
+                "isFeatured": {
+                    "type": "boolean",
+                    "description": "Designates if this property is featured. This field is only used where if the receiving platform accepts being supplied user-specified values for featured properties."
                 },
                 "isDraft": {
                     "type": "boolean",
