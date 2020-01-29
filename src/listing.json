@@ -1120,7 +1120,7 @@
                     "maxPets": {
                         "type": "integer",
                         "multipleOf": 1,
-                        "maximum": 6,
+                        "maximum": 9,
                         "minimum": 1
                     },
                     "sizesAllowed": {
