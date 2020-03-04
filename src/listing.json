@@ -2185,15 +2185,13 @@
                                 "type": [
                                     "string",
                                     "null"
-                                ],
-                                "format": "date-time"
+                                ]
                             },
                             "stayedAt": {
                                 "type": [
                                     "string",
                                     "null"
-                                ],
-                                "format": "date-time"
+                                ]
                             },
                             "stayDuration": {
                                 "type": "number",
