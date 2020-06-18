@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "description": "Schema for Rentals v0.3.6",
+    "description": "Schema for Rentals v0.3.7",
     "properties": {
         "_debug": {},
         "$providerListingId": {
@@ -1090,6 +1090,9 @@
                         "$ref": "#/definitions/features/suitability"
                     },
                     {
+                        "$ref": "#/definitions/features/safety"
+                    },
+                    {
                         "$ref": "#/definitions/features/feature"
                     },
                     {
@@ -1274,6 +1277,50 @@
                     "category": {
                         "type": "string",
                         "default": "Suitability",
+                        "pattern": "^(\\w+([\\\\])?)*"
+                    },
+                    "+mappedFrom": {
+                        "type": "object",
+                        "properties": {
+                            "cost": {
+                                "type": "number"
+                            },
+                            "score": {
+                                "type": "number"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "description": {
+                        "$ref": "#/definitions/translatableContentWithTitle"
+                    }
+                },
+                "required": [
+                    "category",
+                    "type"
+                ]
+            },
+            "safety": {
+                "type": "object",
+                "title": "Cleaning and Safety",
+                "additionalProperties": false,
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "ENHANCED_CLEANING_PRACTICES",
+                            "CLEANING_DISINFECTION",
+                            "SELF_CHECKIN_CHECKOUT",
+                            "GUEST_GAP_PERIOD_24_HOURS",
+                            "GUEST_GAP_PERIOD_48_HOURS",
+                            "GUEST_GAP_PERIOD_72_HOURS"
+                        ]
+                    },
+                    "category": {
+                        "type": "string",
+                        "default": "Safety",
                         "pattern": "^(\\w+([\\\\])?)*"
                     },
                     "+mappedFrom": {
