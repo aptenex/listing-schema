@@ -36,7 +36,6 @@
                         "brandCompanyName"
                     ],
                     "properties": {
-
                         "descriptiveName": {
                             "type": "string",
                             "title": "Descriptive name of the settings record. Can be used for internal tracking and should not be displayed publically.",
@@ -55,7 +54,6 @@
                                 "height"
                             ],
                             "properties": {
-
                                 "publicUrl": {
                                     "type": "string",
                                     "title": "URL of Logo",
@@ -132,7 +130,6 @@
                             }
                         }
                     }
-
                 }
             }
         },
@@ -496,9 +493,9 @@
                 "anyOf": [
                     {
                         "properties": {
-                            "role" : {
+                            "role": {
                                 "type": "string",
-                                "enum" : [
+                                "enum": [
                                     "ROLE_BOOKING_CONTACT",
                                     "ROLE_KEYHOLDER",
                                     "ROLE_MANAGER",
@@ -507,7 +504,7 @@
                                     "ROLE_CHEF",
                                     "ROLE_HOUSEKEEPER",
                                     "ROLE_TRANSPORT_AND_LOGISTICS"
-                                 ]
+                                ]
                             },
                             "description": {
                                 "$ref": "#/definitions/translatableContentWithTitle"
@@ -1316,6 +1313,10 @@
                             "SAFETY_GUEST_GAP_PERIOD_24_HOURS",
                             "SAFETY_GUEST_GAP_PERIOD_48_HOURS",
                             "SAFETY_GUEST_GAP_PERIOD_72_HOURS",
+                            "SAFETY_HAND_SANITIZER_IN_ACCOMMODATION_AND_KEY_AREAS",
+                            "SAFETY_GUEST_HEALTH_CHECKS_IN_PLACE",
+                            "SAFETY_STAFF_PHYSICAL_DISTANCING",
+                            "SAFETY_STAFF_PHYSICAL_BARRIER_IN_KEY_AREAS",
                             "SAFETY_FENCED_PERIMETER",
                             "SAFETY_GARDEN_ENCLOSED",
                             "SAFETY_GARDEN_NOT_SECURED",
