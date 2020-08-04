@@ -1,6 +1,7 @@
 {
-    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
+    "$id" : "property-schema",
     "description": "Schema for Rentals v0.3.7",
     "properties": {
         "_debug": {},
