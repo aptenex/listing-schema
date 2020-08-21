@@ -2133,6 +2133,83 @@
                 ]
             }
         },
+        "cancellations": {
+            "type": "array",
+            "title": "The cancellations schema",
+            "description": "Cancellation rules for the property. Specify the amount retained on this property. If any cancellation rules exist in this array, at least one policy must be matched.",
+            "default": [],
+            "examples": [
+                    [{
+                        "name": "No cancellation 1 day before",
+                        "description": "If you cancellation one day before, all payment forfeit",
+                        "daysBeforeArrival": 1,
+                        "percentageRetained": 100.0
+                    },
+                    {
+                        "name": "Early Cancellation",
+                        "description": "Cancel in any way",
+                        "daysBeforeArrival": 43,
+                        "percentageRetained": 0.0
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "anyOf": [{
+                    "type": "object",
+                    "title": "Cancellation Rule",
+                    "description": "Cancellation rule for Rental.",
+                    "default": {},
+                    "examples": [{
+                        "name": "No cancellation 1 day before",
+                        "description": "If you cancellation one day before, all payment foefeit",
+                        "daysBeforeArrival": 1,
+                        "percentageRetained": 100.0
+                    }],
+                    "required": [                        
+                        "daysBeforeArrival",
+                        "percentageRetained"
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "title": "The name schema",
+                            "description": "The name is the short name for this cancellation.",
+                            "examples": [
+                                "No cancellation 1 day before"
+                            ]
+                        },
+                        "description": {
+                            "type": "string",
+                            "title": "The description schema",
+                            "description": "We will show the full description for a cancellation if specified.",
+                            "examples": [
+                                "If you cancellation one day before, all payment forfeit"
+                            ]
+                        },
+                        "daysBeforeArrival": {
+                            "type": "integer",
+                            "title": "The daysBeforeArrival schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": 0,
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "percentageRetained": {
+                            "type": "number",
+                            "title": "The percentageRetained schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": 0.0,
+                            "examples": [
+                                100.0
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                }]
+            }
+        },
         "policies": {
             "type": "array",
             "additionalProperties": false,
