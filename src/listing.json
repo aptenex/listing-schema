@@ -2446,11 +2446,39 @@
                         "LISTING_TYPE_BUNGALOW",
                         "LISTING_TYPE_CHATEAU",
                         "LISTING_TYPE_CARAVAN",
-                        "LISTING_TYPE_PITCH",
                         "LISTING_TYPE_PENTHOUSE",
-                        "LISTING_TYPE_CAMPER_VAN"
+                        "LISTING_TYPE_PITCH",
+                        "LISTING_TYPE_TREEHOUSE",
+                        "LISTING_TYPE_CAMPER_VAN",
+                        "LISTING_TYPE_YURT",
+                        "LISTING_TYPE_SAFARI_TENT",
+                        "LISTING_TYPE_TEEPEE",
+                        "LISTING_TYPE_DOME",
+                        "LISTING_TYPE_POD",
+                        "LISTING_TYPE_CAVE",
+                        "LISTING_TYPE_HUT",
+                        "LISTING_TYPE_IGLOO",
+                        "LISTING_TYPE_CABOOSE",
+                        "LISTING_TYPE_BUBBLE",
+                        "LISTING_TYPE_HOBBIT_HOUSE",
+                        "LISTING_TYPE_TINY_HOUSE",
+                        "LISTING_TYPE_BELL_TENT"
+
                     ],
                     "default": "LISTING_TYPE_APARTMENT"
+                },
+                "subType": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "LISTING_TYPE_PITCH_TENT",
+                            "LISTING_TYPE_PITCH_SERVICED",
+                            "LISTING_TYPE_PITCH_SUPER",
+                            "LISTING_TYPE_PITCH_STANDARD_WITH_AWNING",
+                            "LISTING_TYPE_PITCH_STANDARD_WITHOUT_AWNING"
+                        ]
+                    }
                 },
                 "unitAllocatedReference": {
                     "type": "string",
