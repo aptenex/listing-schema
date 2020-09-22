@@ -2153,13 +2153,14 @@
                         "name": "No cancellation 1 day before",
                         "description": "If you cancellation one day before, all payment forfeit",
                         "daysBeforeArrival": 1,
-                        "percentageRetained": 100.0
+                        "percentageRetained": 100.0,
                     },
                     {
                         "name": "Early Cancellation",
                         "description": "Cancel in any way",
                         "daysBeforeArrival": 43,
-                        "percentageRetained": 0.0
+                        "percentageRetained": 0.0,
+                        "graceHours" : 48
                     }
                 ]
             ],
@@ -2172,7 +2173,7 @@
                     "default": {},
                     "examples": [{
                         "name": "No cancellation 1 day before",
-                        "description": "If you cancellation one day before, all payment foefeit",
+                        "description": "If you cancellation one day before, all payment forfeit",
                         "daysBeforeArrival": 1,
                         "percentageRetained": 100.0
                     }],
@@ -2204,6 +2205,15 @@
                             "default": 0,
                             "examples": [
                                 1
+                            ]
+                        },
+                        "graceHours": {
+                            "type": "integer",
+                            "title": "A grace period in hours to allow total exemption/refund of the period. ie. 48 hour grace allows cancellation even if within a non-cancellation policy.",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": 0,
+                            "examples": [
+                                24, 48, 72
                             ]
                         },
                         "percentageRetained": {
