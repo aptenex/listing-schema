@@ -4,7 +4,10 @@
     "$id" : "property-schema",
     "description": "Schema for Rentals v0.3.7",
     "properties": {
-        "_debug": {},
+        "_debug": {
+            "type": "array",
+            "additionalProperties": false
+        },
         "$schema" : {
             "type" : ["string"],
             "description" : "Self referrencing URL to allow a distributed schema to refer to what schema validation is used for that property.",
