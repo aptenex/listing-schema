@@ -1,16 +1,18 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
-    "$id" : "property-schema",
+    "$id": "property-schema",
     "description": "Schema for Rentals v0.3.7",
     "properties": {
         "_debug": {
             "type": "object",
             "additionalProperties": false
         },
-        "$schema" : {
-            "type" : ["string"],
-            "description" : "Self referrencing URL to allow a distributed schema to refer to what schema validation is used for that property.",
+        "$schema": {
+            "type": [
+                "string"
+            ],
+            "description": "Self referencing URL to allow a distributed schema to refer to what schema validation is used for that property.",
             "examples": [
                 "https://raw.githubusercontent.com/aptenex/listing-schema/master/src/listing.json"
             ]
@@ -49,7 +51,7 @@
                     "properties": {
                         "descriptiveName": {
                             "type": "string",
-                            "title": "Descriptive name of the settings record. Can be used for internal tracking and should not be displayed publically.",
+                            "title": "Descriptive name of the settings record. Can be used for internal tracking and should not be displayed publicly.",
                             "default": "",
                             "examples": [
                                 "(C) Eats and Retreats Settings"
@@ -101,7 +103,7 @@
                         },
                         "website": {
                             "type": "string",
-                            "title": "A Webaddress for the Agent",
+                            "title": "A Web Address for the Agent",
                             "default": "",
                             "examples": [
                                 "https://www.eatsandretreats.com"
@@ -280,7 +282,7 @@
             "properties": {
                 "startDatum": {
                     "type": "string",
-                    "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                    "pattern": "^([+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24:?00)([.,]\\d+(?!:))?)?(\\17[0-5]\\d([.,]\\d+)?)?([zZ]|([+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                 },
                 "sequence": {
                     "type": "string",
@@ -294,7 +296,7 @@
             "properties": {
                 "startDatum": {
                     "type": "string",
-                    "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                    "pattern": "^([+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24:?00)([.,]\\d+(?!:))?)?(\\17[0-5]\\d([.,]\\d+)?)?([zZ]|([+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                 },
                 "sequence": {
                     "type": "string",
@@ -367,11 +369,11 @@
                     "properties": {
                         "startDate": {
                             "type": "string",
-                            "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                            "pattern": "^([+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24:?00)([.,]\\d+(?!:))?)?(\\17[0-5]\\d([.,]\\d+)?)?([zZ]|([+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                         },
                         "endDate": {
                             "type": "string",
-                            "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                            "pattern": "^([+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24:?00)([.,]\\d+(?!:))?)?(\\17[0-5]\\d([.,]\\d+)?)?([zZ]|([+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                         }
                     },
                     "required": [
@@ -390,10 +392,10 @@
                         "unitsAvailable": {
                             "description": "How many units are available for each day.",
                             "type": "string",
-                            "pattern": "^[\\d\\,]+"
+                            "pattern": "^[\\d,]+"
                         },
                         "instantBookable": {
-                            "description": "Specifies if the property is instant bookable for the given date range. Y= Can be instantable booked. N= Requires confirmation from owner or enquiry only.",
+                            "description": "Specifies if the property is instant bookable for the given date range. Y= Can be instantly booked. N= Requires confirmation from owner or enquiry only.",
                             "type": "string",
                             "pattern": "^[YN]+"
                         },
@@ -405,17 +407,17 @@
                         "minStay": {
                             "description": "Minimum Stay Information",
                             "type": "string",
-                            "pattern": "^[\\d\\,]+"
+                            "pattern": "^[\\d,]+"
                         },
                         "maxStay": {
                             "description": "Max Stay Information",
                             "type": "string",
-                            "pattern": "^[\\d\\,]+"
+                            "pattern": "^[\\d,]+"
                         },
                         "minPriorNotify": {
                             "description": "The number of minimum number of nights before the check-in that the property owner must be notified. For example, if the minPriorNotify is set to =1 then same-day check in arrivals are not available. However, if it is set to 0, then same day are allowed.",
                             "type": "string",
-                            "pattern": "^[\\d\\,]+"
+                            "pattern": "^[\\d,]+"
                         }
                     }
                 }
@@ -2152,85 +2154,92 @@
             "description": "Cancellation rules for the property. Specify the amount retained on this property. If any cancellation rules exist in this array, at least one policy must be matched.",
             "default": [],
             "examples": [
-                    [{
+                [
+                    {
                         "name": "No cancellation 1 day before",
                         "description": "If you cancellation one day before, all payment forfeit",
                         "daysBeforeArrival": 1,
-                        "percentageRetained": 100.0,
+                        "percentageRetained": 100.0
                     },
                     {
                         "name": "Early Cancellation",
                         "description": "Cancel in any way",
                         "daysBeforeArrival": 43,
                         "percentageRetained": 0.0,
-                        "graceHours" : 48
+                        "graceHours": 48
                     }
                 ]
             ],
             "additionalItems": true,
             "items": {
-                "anyOf": [{
-                    "type": "object",
-                    "title": "Cancellation Rule",
-                    "description": "Cancellation rule for Rental.",
-                    "default": {},
-                    "examples": [{
-                        "name": "No cancellation 1 day before",
-                        "description": "If you cancellation one day before, all payment forfeit",
-                        "daysBeforeArrival": 1,
-                        "percentageRetained": 100.0
-                    }],
-                    "required": [                        
-                        "daysBeforeArrival",
-                        "percentageRetained"
-                    ],
-                    "properties": {
-                        "name": {
-                            "type": "string",
-                            "title": "The name schema",
-                            "description": "The name is the short name for this cancellation.",
-                            "examples": [
-                                "No cancellation 1 day before"
-                            ]
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "title": "Cancellation Rule",
+                        "description": "Cancellation rule for Rental.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "name": "No cancellation 1 day before",
+                                "description": "If you cancellation one day before, all payment forfeit",
+                                "daysBeforeArrival": 1,
+                                "percentageRetained": 100.0
+                            }
+                        ],
+                        "required": [
+                            "daysBeforeArrival",
+                            "percentageRetained"
+                        ],
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "title": "The name schema",
+                                "description": "The name is the short name for this cancellation.",
+                                "examples": [
+                                    "No cancellation 1 day before"
+                                ]
+                            },
+                            "description": {
+                                "type": "string",
+                                "title": "The description schema",
+                                "description": "We will show the full description for a cancellation if specified.",
+                                "examples": [
+                                    "If you cancellation one day before, all payment forfeit"
+                                ]
+                            },
+                            "daysBeforeArrival": {
+                                "type": "integer",
+                                "title": "The daysBeforeArrival schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    1
+                                ]
+                            },
+                            "graceHours": {
+                                "type": "integer",
+                                "title": "A grace period in hours to allow total exemption/refund of the period. ie. 48 hour grace allows cancellation even if within a non-cancellation policy.",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    24,
+                                    48,
+                                    72
+                                ]
+                            },
+                            "percentageRetained": {
+                                "type": "number",
+                                "title": "The percentageRetained schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0.0,
+                                "examples": [
+                                    100.0
+                                ]
+                            }
                         },
-                        "description": {
-                            "type": "string",
-                            "title": "The description schema",
-                            "description": "We will show the full description for a cancellation if specified.",
-                            "examples": [
-                                "If you cancellation one day before, all payment forfeit"
-                            ]
-                        },
-                        "daysBeforeArrival": {
-                            "type": "integer",
-                            "title": "The daysBeforeArrival schema",
-                            "description": "An explanation about the purpose of this instance.",
-                            "default": 0,
-                            "examples": [
-                                1
-                            ]
-                        },
-                        "graceHours": {
-                            "type": "integer",
-                            "title": "A grace period in hours to allow total exemption/refund of the period. ie. 48 hour grace allows cancellation even if within a non-cancellation policy.",
-                            "description": "An explanation about the purpose of this instance.",
-                            "default": 0,
-                            "examples": [
-                                24, 48, 72
-                            ]
-                        },
-                        "percentageRetained": {
-                            "type": "number",
-                            "title": "The percentageRetained schema",
-                            "description": "An explanation about the purpose of this instance.",
-                            "default": 0.0,
-                            "examples": [
-                                100.0
-                            ]
-                        }
-                    },
-                    "additionalProperties": false
-                }]
+                        "additionalProperties": false
+                    }
+                ]
             }
         },
         "policies": {
@@ -2290,7 +2299,7 @@
                         "type": "object",
                         "properties": {
                             "type": {
-                                "description": "Your cancellcation policies",
+                                "description": "Your cancellation policies",
                                 "const": "CANCELLATION_POLICY"
                             },
                             "rules": {
@@ -2476,7 +2485,6 @@
                         "LISTING_TYPE_HOBBIT_HOUSE",
                         "LISTING_TYPE_TINY_HOUSE",
                         "LISTING_TYPE_BELL_TENT"
-
                     ],
                     "default": "LISTING_TYPE_APARTMENT"
                 },
@@ -2597,7 +2605,7 @@
                         "string",
                         "null"
                     ],
-                    "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
+                    "pattern": "^([+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24:?00)([.,]\\d+(?!:))?)?(\\17[0-5]\\d([.,]\\d+)?)?([zZ]|([+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$"
                 },
                 "stateTax": {
                     "type": "string"
