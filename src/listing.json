@@ -5,7 +5,7 @@
     "description": "Schema for Rentals v0.3.7",
     "properties": {
         "_debug": {
-            "type": "array",
+            "type": "object",
             "additionalProperties": false
         },
         "$schema" : {
