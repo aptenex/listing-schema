@@ -751,7 +751,7 @@
                                 "records": [{
                                     "date": "2021-01-16",
                                     "currency": "EUR",
-                                    "guests": 10,
+                                    "guest": 10,
                                     "rates": [
                                         0,
                                         0,
@@ -767,7 +767,7 @@
                                     {
                                         "date": "2021-01-17",
                                         "currency": "EUR",
-                                        "guests": 10,
+                                        "guest": 10,
                                         "rates": [
                                             0,
                                             0,
@@ -812,7 +812,7 @@
                                         [{
                                             "date": "2021-01-16",
                                             "currency": "EUR",
-                                            "guests": 10,
+                                            "guest": 10,
                                             "rates": [
                                                 0,
                                                 0,
@@ -828,7 +828,7 @@
                                             {
                                                 "date": "2021-01-17",
                                                 "currency": "EUR",
-                                                "guests": 10,
+                                                "guest": 10,
                                                 "rates": [
                                                     0,
                                                     0,
@@ -853,7 +853,7 @@
                                             "examples": [{
                                                 "date": "2021-01-16",
                                                 "currency": "EUR",
-                                                "guests": 10,
+                                                "guest": 10,
                                                 "rates": [
                                                     0,
                                                     0,
@@ -869,7 +869,7 @@
                                             "required": [
                                                 "date",
                                                 "currency",
-                                                "guests",
+                                                "guest",
                                                 "rates"
                                             ],
                                             "properties": {
@@ -891,7 +891,7 @@
                                                         "EUR"
                                                     ]
                                                 },
-                                                "guests": {
+                                                "guest": {
                                                     "type": "integer",
                                                     "title": "The guests schema",
                                                     "description": "An explanation about the purpose of this instance.",
