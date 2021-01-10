@@ -752,7 +752,7 @@
                                 "records": [{
                                     "date": "2021-01-16",
                                     "currency": "EUR",
-                                    "rateHash" : "ff6284a4-d94e-4306-885d-0e45937fa025",
+                                    "rateHash": "ff6284a4-d94e-4306-885d-0e45937fa025",
                                     "guest": 10,
                                     "rates": [
                                         0,
@@ -770,7 +770,7 @@
                                         "date": "2021-01-17",
                                         "currency": "EUR",
                                         "guest": 10,
-                                        "rateHash" : "ff6284a4-d94e-4306-885d-0e45937fa025",
+                                        "rateHash": "ff6284a4-d94e-4306-885d-0e45937fa025",
                                         "rates": [
                                             0,
                                             0,
@@ -807,143 +807,110 @@
                                     "description": "What time was the schema generated at"
                                 },
                                 "records": {
-                                    "type": "array",
-                                    "title": "The records schema",
-                                    "description": "An explanation about the purpose of this instance.",
+                                    "type": "object",
+                                    "title": "Records grouped by date as the object property",
+                                    "description": "",
                                     "default": [],
-                                    "examples": [
-                                        [{
-                                            "date": "2021-01-16",
-                                            "currency": "EUR",
-                                            "guest": 10,
-                                            "rateHash" : "ff6284a4-d94e-4306-885d-0e45937fa025",
-                                            "rates": [
-                                                0,
-                                                0,
-                                                100,
-                                                200,
-                                                300,
-                                                0,
-                                                500,
-                                                600,
-                                                700
-                                            ]
-                                        },
-                                            {
-                                                "date": "2021-01-17",
-                                                "currency": "EUR",
-                                                "guest": 10,
-                                                "rateHash" : "ff6284a4-d94e-4306-885d-0e45937fa025",
-                                                "rates": [
-                                                    0,
-                                                    0,
-                                                    100,
-                                                    200,
-                                                    300,
-                                                    0,
-                                                    500,
-                                                    600,
-                                                    700
-                                                ]
-                                            }
-                                        ]
-                                    ],
-                                    "additionalItems": true,
-                                    "items": {
-                                        "anyOf": [{
-                                            "type": "object",
-                                            "title": "Each arrival date, per guest and currency including rates for each corressponding date",
-                                            "description": "Representation of the SUPPLIED_ARRAY type",
-                                            "default": {},
-                                            "examples": [{
-                                                "date": "2021-01-16",
-                                                "currency": "EUR",
-                                                "guest": 10,
-                                                "rateHash" : "ff6284a4-d94e-4306-885d-0e45937fa025",
-                                                "rates": [
-                                                    0,
-                                                    0,
-                                                    100,
-                                                    200,
-                                                    300,
-                                                    0,
-                                                    500,
-                                                    600,
-                                                    700
-                                                ]
-                                            }],
-                                            "required": [
-                                                "date",
-                                                "currency",
-                                                "guest",
-                                                "rateHash",
-                                                "rates"
-                                            ],
-                                            "properties": {
-                                                "date": {
-                                                    "type": "string",
-                                                    "title": "The date schema",
-                                                    "description": "An explanation about the purpose of this instance.",
-                                                    "default": "",
-                                                    "examples": [
-                                                        "2021-01-16"
-                                                    ]
-                                                },
-                                                "currency": {
-                                                    "type": "string",
-                                                    "title": "The currency schema",
-                                                    "description": "An explanation about the purpose of this instance.",
-                                                    "default": "",
-                                                    "examples": [
-                                                        "EUR"
-                                                    ]
-                                                },
-                                                "guest": {
-                                                    "type": "integer",
-                                                    "title": "The guests schema",
-                                                    "description": "An explanation about the purpose of this instance.",
-                                                    "default": 0,
-                                                    "examples": [
-                                                        10
-                                                    ]
-                                                },
-                                                "rateHash": {
-                                                    "type": "string",
-                                                    "title": "Computed hash of method used to generate this price",
-                                                    "description": "We require you to supply a rate hash. In simple terms this can be anything, but we use it to understand how you generate the pricing, and understand if something has changed in a group of similar rates. A good rate hash is the configuration used to generate this rate string. For instance, if I has a pricing configuration, I could hash the configuration. We would then expect the rateHash to remain the same, and the computed values to be deterministic if all things being the same. If we see a change of the rateHash then we know that the underlying configuration used to generate this los has been updated. Preference here is deterministic rateHash strings, however, if this is not possible a random UUID will be sufficient however certain intelligence, patching, caching features will then no longer work.",
-                                                    "default": "",
-                                                    "examples": [
-                                                        "EUR"
-                                                    ]
-                                                },
-                                                "rates": {
-                                                    "type": "array",
-                                                    "title": "The rates schema",
-                                                    "description": "An explanation about the purpose of this instance.",
-                                                    "default": [],
-                                                    "examples": [
-                                                        [
+                                    "patternProperties": {
+                                        "^([+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24:?00)([.,]\\d+(?!:))?)?(\\17[0-5]\\d([.,]\\d+)?)?([zZ]|([+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$": {
+                                            "type": "array",
+                                            "items": {
+                                                "anyOf": [{
+                                                    "type": "object",
+                                                    "title": "Each arrival date, per guest and currency including rates for each corressponding date",
+                                                    "description": "Representation of the SUPPLIED_ARRAY type",
+                                                    "default": {},
+                                                    "examples": [{
+                                                        "date": "2021-01-16",
+                                                        "currency": "EUR",
+                                                        "guest": 10,
+                                                        "rateHash": "ff6284a4-d94e-4306-885d-0e45937fa025",
+                                                        "rates": [
                                                             0,
-                                                            0
+                                                            0,
+                                                            100,
+                                                            200,
+                                                            300,
+                                                            0,
+                                                            500,
+                                                            600,
+                                                            700
                                                         ]
+                                                    }],
+                                                    "required": [
+                                                        "date",
+                                                        "currency",
+                                                        "guest",
+                                                        "rateHash",
+                                                        "rates"
                                                     ],
-                                                    "additionalItems": true,
-                                                    "items": {
-                                                        "anyOf": [{
+                                                    "properties": {
+                                                        "date": {
+                                                            "type": "string",
+                                                            "title": "The date schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": "",
+                                                            "examples": [
+                                                                "2021-01-16"
+                                                            ]
+                                                        },
+                                                        "currency": {
+                                                            "type": "string",
+                                                            "title": "The currency schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": "",
+                                                            "examples": [
+                                                                "EUR"
+                                                            ]
+                                                        },
+                                                        "guest": {
                                                             "type": "integer",
-                                                            "title": "The cost to stay",
-                                                            "description": "We expect this to be an integer value. We do not support float values for supplied LOS pricing due to incompatibility on several marketplaces (such as Airbnb) which do not support float points for LOS. To avoid inconsistencies where we require integer amounts only.",
+                                                            "title": "The guests schema",
+                                                            "description": "An explanation about the purpose of this instance.",
                                                             "default": 0,
                                                             "examples": [
-                                                                0,
-                                                                100
+                                                                10
                                                             ]
-                                                        }]
-                                                    }
-                                                }
-                                            },
-                                            "additionalProperties": true
-                                        }]
+                                                        },
+                                                        "rateHash": {
+                                                            "type": "string",
+                                                            "title": "Computed hash of method used to generate this price",
+                                                            "description": "We require you to supply a rate hash. In simple terms this can be anything, but we use it to understand how you generate the pricing, and understand if something has changed in a group of similar rates. A good rate hash is the configuration used to generate this rate string. For instance, if I has a pricing configuration, I could hash the configuration. We would then expect the rateHash to remain the same, and the computed values to be deterministic if all things being the same. If we see a change of the rateHash then we know that the underlying configuration used to generate this los has been updated. Preference here is deterministic rateHash strings, however, if this is not possible a random UUID will be sufficient however certain intelligence, patching, caching features will then no longer work.",
+                                                            "default": "",
+                                                            "examples": [
+                                                                "EUR"
+                                                            ]
+                                                        },
+                                                        "rates": {
+                                                            "type": "array",
+                                                            "title": "The rates schema",
+                                                            "description": "An explanation about the purpose of this instance.",
+                                                            "default": [],
+                                                            "examples": [
+                                                                [
+                                                                    0,
+                                                                    0
+                                                                ]
+                                                            ],
+                                                            "additionalItems": true,
+                                                            "items": {
+                                                                "anyOf": [{
+                                                                    "type": "integer",
+                                                                    "title": "The cost to stay",
+                                                                    "description": "We expect this to be an integer value. We do not support float values for supplied LOS pricing due to incompatibility on several marketplaces (such as Airbnb) which do not support float points for LOS. To avoid inconsistencies where we require integer amounts only.",
+                                                                    "default": 0,
+                                                                    "examples": [
+                                                                        0,
+                                                                        100
+                                                                    ]
+                                                                }]
+                                                            }
+                                                        }
+                                                    },
+                                                    "additionalProperties": false
+                                                }]
+                                            }
+                                        }
                                     }
                                 }
                             },
