@@ -787,7 +787,6 @@
                             }],
                             "required": [
                                 "type",
-                                "rateHash",
                                 "generatedAt",
                                 "records"
                             ],
