@@ -808,7 +808,7 @@
                                 },
                                 "records": {
                                     "type": "object",
-                                    "title": "Records grouped by date as the object property",
+                                    "title": "Records grouped by date as the object property.",
                                     "description": "",
                                     "default": [],
                                     "patternProperties": {
