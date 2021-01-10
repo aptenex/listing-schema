@@ -202,20 +202,18 @@
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "oneOf": [
-                    {
-                        "type": "object",
-                        "title": "Custom Tags Assigned to Property",
-                        "properties": {
-                            "tag": {
-                                "type": "string"
-                            },
-                            "value": {
-                                "type": "string"
-                            }
+                "oneOf": [{
+                    "type": "object",
+                    "title": "Custom Tags Assigned to Property",
+                    "properties": {
+                        "tag": {
+                            "type": "string"
+                        },
+                        "value": {
+                            "type": "string"
                         }
                     }
-                ]
+                }]
             }
         },
         "flags": {
@@ -430,20 +428,18 @@
                     "type": "array",
                     "additionalProperties": false,
                     "items": {
-                        "anyOf": [
-                            {
-                                "type": "object",
-                                "title": "Custom Place Destinations by Tags",
-                                "properties": {
-                                    "key": {
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "$ref": "#/definitions/translatableContentWithTitle"
-                                    }
+                        "anyOf": [{
+                            "type": "object",
+                            "title": "Custom Place Destinations by Tags",
+                            "properties": {
+                                "key": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "$ref": "#/definitions/translatableContentWithTitle"
                                 }
                             }
-                        ]
+                        }]
                     }
                 },
                 "google": {
@@ -506,135 +502,132 @@
         "contacts": {
             "type": "array",
             "items": {
-                "anyOf": [
-                    {
-                        "properties": {
-                            "role": {
-                                "type": "string",
-                                "enum": [
-                                    "ROLE_BOOKING_CONTACT",
-                                    "ROLE_KEYHOLDER",
-                                    "ROLE_MANAGER",
-                                    "ROLE_OWNER",
-                                    "ROLE_CONCIERGE",
-                                    "ROLE_CHEF",
-                                    "ROLE_HOUSEKEEPER",
-                                    "ROLE_TRANSPORT_AND_LOGISTICS"
-                                ]
-                            },
-                            "description": {
-                                "$ref": "#/definitions/translatableContentWithTitle"
-                            },
-                            "interactions": {
-                                "type": "object",
-                                "properties": {
-                                    "guestMakeContactXDaysBeforeArrival": {
-                                        "description": "For certain roles we may want to ask the guest to contact this person X days before arrival to ensure that they are prepared for the guests arrival.",
-                                        "type": "integer"
-                                    },
-                                    "sendEnquiries": {
-                                        "type": "boolean"
-                                    },
-                                    "speaks": {
-                                        "type": "array",
-                                        "items": {
-                                            "description": "ISO 639-1 code. For example: en, fr, de, es.",
-                                            "type": "string"
-                                        },
-                                        "uniqueItems": true
-                                    }
+                "anyOf": [{
+                    "properties": {
+                        "role": {
+                            "type": "string",
+                            "enum": [
+                                "ROLE_BOOKING_CONTACT",
+                                "ROLE_KEYHOLDER",
+                                "ROLE_MANAGER",
+                                "ROLE_OWNER",
+                                "ROLE_CONCIERGE",
+                                "ROLE_CHEF",
+                                "ROLE_HOUSEKEEPER",
+                                "ROLE_TRANSPORT_AND_LOGISTICS"
+                            ]
+                        },
+                        "description": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        },
+                        "interactions": {
+                            "type": "object",
+                            "properties": {
+                                "guestMakeContactXDaysBeforeArrival": {
+                                    "description": "For certain roles we may want to ask the guest to contact this person X days before arrival to ensure that they are prepared for the guests arrival.",
+                                    "type": "integer"
                                 },
-                                "additionalProperties": true
+                                "sendEnquiries": {
+                                    "type": "boolean"
+                                },
+                                "speaks": {
+                                    "type": "array",
+                                    "items": {
+                                        "description": "ISO 639-1 code. For example: en, fr, de, es.",
+                                        "type": "string"
+                                    },
+                                    "uniqueItems": true
+                                }
                             },
-                            "name": {
-                                "type": "string"
-                            },
-                            "isPublic": {
-                                "type": "boolean"
-                            },
-                            "isPrimary": {
-                                "type": "boolean"
-                            },
-                            "email": {
-                                "type": "string",
-                                "format": "email"
-                            },
-                            "phone": {
-                                "type": "string"
-                            },
-                            "countryISO2": {
-                                "type": "string",
-                                "maxLength": 2
-                            }
+                            "additionalProperties": true
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "isPublic": {
+                            "type": "boolean"
+                        },
+                        "isPrimary": {
+                            "type": "boolean"
+                        },
+                        "email": {
+                            "type": "string",
+                            "format": "email"
+                        },
+                        "phone": {
+                            "type": "string"
+                        },
+                        "countryISO2": {
+                            "type": "string",
+                            "maxLength": 2
                         }
                     }
-                ]
+                }]
             }
         },
         "media": {
             "type": "array",
             "items": {
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "title": "Photo",
-                        "properties": {
-                            "$key": {
-                                "type": [
-                                    "string",
-                                    "null"
-                                ]
-                            },
-                            "$provider": {
-                                "type": [
-                                    "string",
-                                    "null"
-                                ]
-                            },
-                            "type": {
-                                "type": "string",
-                                "enum": [
-                                    "URI",
-                                    "BASE64"
-                                ]
-                            },
-                            "category": {
-                                "type": "string",
-                                "enum": [
-                                    "ICON",
-                                    "PHOTO",
-                                    "FLOORPLAN"
-                                ]
-                            },
-                            "uri": {
-                                "type": "string",
-                                "pattern": "^(https?)://"
-                            },
-                            "data": {
-                                "type": [
-                                    "string",
-                                    "null"
-                                ],
-                                "pattern": "^data:image/[.*]"
-                            },
-                            "position": {
-                                "type": [
-                                    "integer",
-                                    "string"
-                                ]
-                            },
-                            "isFeatured": {
-                                "type": "boolean"
-                            },
-                            "description": {
-                                "$ref": "#/definitions/translatableContentWithTitle"
-                            }
+                "anyOf": [{
+                    "type": "object",
+                    "title": "Photo",
+                    "properties": {
+                        "$key": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
                         },
-                        "required": [
-                            "type",
-                            "category"
-                        ]
+                        "$provider": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "URI",
+                                "BASE64"
+                            ]
+                        },
+                        "category": {
+                            "type": "string",
+                            "enum": [
+                                "ICON",
+                                "PHOTO",
+                                "FLOORPLAN"
+                            ]
+                        },
+                        "uri": {
+                            "type": "string",
+                            "pattern": "^(https?)://"
+                        },
+                        "data": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "pattern": "^data:image/[.*]"
+                        },
+                        "position": {
+                            "type": [
+                                "integer",
+                                "string"
+                            ]
+                        },
+                        "isFeatured": {
+                            "type": "boolean"
+                        },
+                        "description": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        }
                     },
+                    "required": [
+                        "type",
+                        "category"
+                    ]
+                },
                     {
                         "type": "object",
                         "title": "Video",
@@ -726,16 +719,223 @@
             "properties": {
                 "static": {
                     "type": "object",
+                    "description": "The static section is legacy pricing structure. It allows us to show static tables to guests for daily and weekly pricing. It is never used in the calculation of a property for pricing.",
                     "additionalProperties": true
                 },
                 "dynamic": {
                     "type": "object",
+                    "description": "The dynamic pricing is the full pricing configuration used by the Ultimate Property Pricing format for pricing properties. It is used for real time pricing calculations and is the preferred structure for sending pricing",
                     "additionalProperties": true
                 },
                 "los": {
                     "type": "object",
-                    "additionalProperties": true
+                    "description": "Allows storage of generated LOS and supplied LOS records in raw array form",
+                    "additionalProperties": true,
+                    "properties": {
+                        "base64Blob": {
+                            "type": "string",
+                            "description": "Used internally. The base64Blob is a calculated encoded in base64 representation of the LOS from a simple CSV structure."
+                        },
+                        "generated": {
+                            "type": "object",
+                            "additionalProperties": true
+                        },
+                        "supplied": {
+                            "type": "object",
+                            "title": "The supplied schema",
+                            "description": "Based on the version ",
+                            "default": {},
+                            "examples": [{
+                                "type": "SUPPLIED_ARRAY",
+                                "generatedAt": "date",
+                                "records": [{
+                                    "date": "2021-01-16",
+                                    "currency": "EUR",
+                                    "guests": 10,
+                                    "rates": [
+                                        0,
+                                        0,
+                                        100,
+                                        200,
+                                        300,
+                                        0,
+                                        500,
+                                        600,
+                                        700
+                                    ]
+                                },
+                                    {
+                                        "date": "2021-01-17",
+                                        "currency": "EUR",
+                                        "guests": 10,
+                                        "rates": [
+                                            0,
+                                            0,
+                                            100,
+                                            200,
+                                            300,
+                                            0,
+                                            500,
+                                            600,
+                                            700
+                                        ]
+                                    }
+                                ]
+                            }],
+                            "required": [
+                                "type",
+                                "generatedAt",
+                                "records"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string",
+                                    "title": "The type of the supplied LOS records",
+                                    "description": "We allow LOS to be supplied to us, in a generated form. The array format is verbose enough to support specific pricing and changeover requirements.",
+                                    "default": "SUPPLIED_ARRAY",
+                                    "examples": [
+                                        "SUPPLIED_ARRAY"
+                                    ]
+                                },
+                                "generatedAt": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "title": "The generatedAt schema",
+                                    "description": "What time was the schema generated at"
+                                },
+                                "records": {
+                                    "type": "array",
+                                    "title": "The records schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": [],
+                                    "examples": [
+                                        [{
+                                            "date": "2021-01-16",
+                                            "currency": "EUR",
+                                            "guests": 10,
+                                            "rates": [
+                                                0,
+                                                0,
+                                                100,
+                                                200,
+                                                300,
+                                                0,
+                                                500,
+                                                600,
+                                                700
+                                            ]
+                                        },
+                                            {
+                                                "date": "2021-01-17",
+                                                "currency": "EUR",
+                                                "guests": 10,
+                                                "rates": [
+                                                    0,
+                                                    0,
+                                                    100,
+                                                    200,
+                                                    300,
+                                                    0,
+                                                    500,
+                                                    600,
+                                                    700
+                                                ]
+                                            }
+                                        ]
+                                    ],
+                                    "additionalItems": true,
+                                    "items": {
+                                        "anyOf": [{
+                                            "type": "object",
+                                            "title": "Each arrival date, per guest and currency including rates for each corressponding date",
+                                            "description": "Representation of the SUPPLIED_ARRAY type",
+                                            "default": {},
+                                            "examples": [{
+                                                "date": "2021-01-16",
+                                                "currency": "EUR",
+                                                "guests": 10,
+                                                "rates": [
+                                                    0,
+                                                    0,
+                                                    100,
+                                                    200,
+                                                    300,
+                                                    0,
+                                                    500,
+                                                    600,
+                                                    700
+                                                ]
+                                            }],
+                                            "required": [
+                                                "date",
+                                                "currency",
+                                                "guests",
+                                                "rates"
+                                            ],
+                                            "properties": {
+                                                "date": {
+                                                    "type": "string",
+                                                    "title": "The date schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "2021-01-16"
+                                                    ]
+                                                },
+                                                "currency": {
+                                                    "type": "string",
+                                                    "title": "The currency schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "EUR"
+                                                    ]
+                                                },
+                                                "guests": {
+                                                    "type": "integer",
+                                                    "title": "The guests schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": 0,
+                                                    "examples": [
+                                                        10
+                                                    ]
+                                                },
+                                                "rates": {
+                                                    "type": "array",
+                                                    "title": "The rates schema",
+                                                    "description": "An explanation about the purpose of this instance.",
+                                                    "default": [],
+                                                    "examples": [
+                                                        [
+                                                            0,
+                                                            0
+                                                        ]
+                                                    ],
+                                                    "additionalItems": true,
+                                                    "items": {
+                                                        "anyOf": [{
+                                                            "type": "integer",
+                                                            "title": "The cost to stay",
+                                                            "description": "We expect this to be an integer value. We do not support float values for supplied LOS pricing due to incompatibility on several marketplaces (such as Airbnb) which do not support float points for LOS. To avoid inconsistencies where we require integer amounts only.",
+                                                            "default": 0,
+                                                            "examples": [
+                                                                0,
+                                                                100
+                                                            ]
+                                                        }]
+                                                    }
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }]
+                                    }
+                                }
+                            },
+                            "additionalProperties": true
+                        }
+                    }
                 },
+
                 "visual": {
                     "type": "object",
                     "properties": {
@@ -824,28 +1024,26 @@
                     "type": "array",
                     "additionalProperties": false,
                     "items": {
-                        "anyOf": [
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "type": {
-                                        "description": "A ",
-                                        "type": "string",
-                                        "enum": [
-                                            "KEY_COLLECTION",
-                                            "ARRIVAL_INSTRUCTIONS"
-                                        ]
-                                    },
-                                    "description": {
-                                        "$ref": "#/definitions/translatableContentWithTitle"
-                                    }
+                        "anyOf": [{
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "description": "A ",
+                                    "type": "string",
+                                    "enum": [
+                                        "KEY_COLLECTION",
+                                        "ARRIVAL_INSTRUCTIONS"
+                                    ]
                                 },
-                                "required": [
-                                    "description",
-                                    "type"
-                                ]
-                            }
-                        ]
+                                "description": {
+                                    "$ref": "#/definitions/translatableContentWithTitle"
+                                }
+                            },
+                            "required": [
+                                "description",
+                                "type"
+                            ]
+                        }]
                     }
                 },
                 "checkInStartTime": {
@@ -889,28 +1087,26 @@
                     "type": "array",
                     "additionalProperties": false,
                     "items": {
-                        "anyOf": [
-                            {
-                                "type": "object",
-                                "properties": {
-                                    "type": {
-                                        "description": "The Type of Descriptive Text",
-                                        "type": "string",
-                                        "enum": [
-                                            "KEY_RETURN",
-                                            "DEPARTURE_INSTRUCTIONS"
-                                        ]
-                                    },
-                                    "description": {
-                                        "$ref": "#/definitions/translatableContentWithTitle"
-                                    }
+                        "anyOf": [{
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "description": "The Type of Descriptive Text",
+                                    "type": "string",
+                                    "enum": [
+                                        "KEY_RETURN",
+                                        "DEPARTURE_INSTRUCTIONS"
+                                    ]
                                 },
-                                "required": [
-                                    "description",
-                                    "type"
-                                ]
-                            }
-                        ]
+                                "description": {
+                                    "$ref": "#/definitions/translatableContentWithTitle"
+                                }
+                            },
+                            "required": [
+                                "description",
+                                "type"
+                            ]
+                        }]
                     }
                 },
                 "lateCheckOut": {
@@ -948,79 +1144,76 @@
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "title": "Bedroom",
-                        "additionalProperties": false,
-                        "properties": {
-                            "type": {
-                                "const": "BEDROOM",
-                                "default": "BEDROOM"
-                            },
-                            "name": {
-                                "type": "string"
-                            },
-                            "isSharedSpace": {
-                                "type": [
-                                    "null",
-                                    "boolean"
-                                ]
-                            },
-                            "isLockable": {
-                                "type": [
-                                    "null",
-                                    "boolean"
-                                ]
-                            },
-                            "description": {
-                                "$ref": "#/definitions/translatableContent"
-                            },
-                            "blueprint": {
-                                "type": "array",
-                                "additionalProperties": false,
-                                "items": {
-                                    "anyOf": [
-                                        {
-                                            "type": "object",
-                                            "title": "Bedroom",
-                                            "properties": {
-                                                "quantity": {
-                                                    "type": "integer"
-                                                },
-                                                "type": {
-                                                    "type": "string",
-                                                    "enum": [
-                                                        "SINGLE",
-                                                        "SINGLE_BUNK",
-                                                        "SINGLE_ZIP",
-                                                        "DOUBLE_BUNK",
-                                                        "DOUBLE_SINGLE_BUNK",
-                                                        "QUEEN_SINGLE_BUNK",
-                                                        "TRIPLE_BUNK",
-                                                        "KING",
-                                                        "KING_SUPER",
-                                                        "QUEEN",
-                                                        "DOUBLE",
-                                                        "SOFA_QUEEN",
-                                                        "SOFA_DOUBLE",
-                                                        "SOFA_SINGLE",
-                                                        "FOLDING",
-                                                        "OTHER",
-                                                        "INFLATABLE",
-                                                        "WATER"
-                                                    ]
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
+                "anyOf": [{
+                    "type": "object",
+                    "title": "Bedroom",
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "const": "BEDROOM",
+                            "default": "BEDROOM"
                         },
-                        "required": [
-                            "type"
-                        ]
+                        "name": {
+                            "type": "string"
+                        },
+                        "isSharedSpace": {
+                            "type": [
+                                "null",
+                                "boolean"
+                            ]
+                        },
+                        "isLockable": {
+                            "type": [
+                                "null",
+                                "boolean"
+                            ]
+                        },
+                        "description": {
+                            "$ref": "#/definitions/translatableContent"
+                        },
+                        "blueprint": {
+                            "type": "array",
+                            "additionalProperties": false,
+                            "items": {
+                                "anyOf": [{
+                                    "type": "object",
+                                    "title": "Bedroom",
+                                    "properties": {
+                                        "quantity": {
+                                            "type": "integer"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "enum": [
+                                                "SINGLE",
+                                                "SINGLE_BUNK",
+                                                "SINGLE_ZIP",
+                                                "DOUBLE_BUNK",
+                                                "DOUBLE_SINGLE_BUNK",
+                                                "QUEEN_SINGLE_BUNK",
+                                                "TRIPLE_BUNK",
+                                                "KING",
+                                                "KING_SUPER",
+                                                "QUEEN",
+                                                "DOUBLE",
+                                                "SOFA_QUEEN",
+                                                "SOFA_DOUBLE",
+                                                "SOFA_SINGLE",
+                                                "FOLDING",
+                                                "OTHER",
+                                                "INFLATABLE",
+                                                "WATER"
+                                            ]
+                                        }
+                                    }
+                                }]
+                            }
+                        }
                     },
+                    "required": [
+                        "type"
+                    ]
+                },
                     {
                         "type": "object",
                         "title": "Bathroom",
@@ -1058,29 +1251,27 @@
                                 "type": "array",
                                 "additionalProperties": false,
                                 "items": {
-                                    "anyOf": [
-                                        {
-                                            "type": "object",
-                                            "title": "Bathroom",
-                                            "properties": {
-                                                "quantity": {
-                                                    "type": "integer"
-                                                },
-                                                "type": {
-                                                    "type": "string",
-                                                    "enum": [
-                                                        "HOT_TUB",
-                                                        "BATH",
-                                                        "WHIRLPOOL",
-                                                        "SHOWER",
-                                                        "WASH_BASIN",
-                                                        "BIDET",
-                                                        "TOILET"
-                                                    ]
-                                                }
+                                    "anyOf": [{
+                                        "type": "object",
+                                        "title": "Bathroom",
+                                        "properties": {
+                                            "quantity": {
+                                                "type": "integer"
+                                            },
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "HOT_TUB",
+                                                    "BATH",
+                                                    "WHIRLPOOL",
+                                                    "SHOWER",
+                                                    "WASH_BASIN",
+                                                    "BIDET",
+                                                    "TOILET"
+                                                ]
                                             }
                                         }
-                                    ]
+                                    }]
                                 }
                             }
                         },
@@ -1095,10 +1286,9 @@
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "anyOf": [
-                    {
-                        "$ref": "#/definitions/features/pets"
-                    },
+                "anyOf": [{
+                    "$ref": "#/definitions/features/pets"
+                },
                     {
                         "$ref": "#/definitions/features/suitability"
                     },
@@ -2114,38 +2304,36 @@
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "properties": {
-                            "type": {
-                                "description": "The Type of Descriptive Text",
-                                "type": "string",
-                                "enum": [
-                                    "PRIMARY_DESCRIPTION",
-                                    "ABOUT_NEIGHBOURHOOD",
-                                    "ABOUT_DESTINATION",
-                                    "FAQ",
-                                    "WELCOME",
-                                    "HOUSE_RULES",
-                                    "LISTING_DIRECTIONS",
-                                    "WHAT_IS_INCLUDED",
-                                    "WHAT_IS_NOT_INCLUDED"
-                                ]
-                            },
-                            "position": {
-                                "type": "integer"
-                            },
-                            "description": {
-                                "$ref": "#/definitions/translatableContentWithTitle"
-                            }
+                "anyOf": [{
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "description": "The Type of Descriptive Text",
+                            "type": "string",
+                            "enum": [
+                                "PRIMARY_DESCRIPTION",
+                                "ABOUT_NEIGHBOURHOOD",
+                                "ABOUT_DESTINATION",
+                                "FAQ",
+                                "WELCOME",
+                                "HOUSE_RULES",
+                                "LISTING_DIRECTIONS",
+                                "WHAT_IS_INCLUDED",
+                                "WHAT_IS_NOT_INCLUDED"
+                            ]
                         },
-                        "required": [
-                            "description",
-                            "type"
-                        ]
-                    }
-                ]
+                        "position": {
+                            "type": "integer"
+                        },
+                        "description": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        }
+                    },
+                    "required": [
+                        "description",
+                        "type"
+                    ]
+                }]
             }
         },
         "cancellations": {
@@ -2154,13 +2342,12 @@
             "description": "Cancellation rules for the property. Specify the amount retained on this property. If any cancellation rules exist in this array, at least one policy must be matched.",
             "default": [],
             "examples": [
-                [
-                    {
-                        "name": "No cancellation 1 day before",
-                        "description": "If you cancellation one day before, all payment forfeit",
-                        "daysBeforeArrival": 1,
-                        "percentageRetained": 100.0
-                    },
+                [{
+                    "name": "No cancellation 1 day before",
+                    "description": "If you cancellation one day before, all payment forfeit",
+                    "daysBeforeArrival": 1,
+                    "percentageRetained": 100.0
+                },
                     {
                         "name": "Early Cancellation",
                         "description": "Cancel in any way",
@@ -2172,106 +2359,101 @@
             ],
             "additionalItems": true,
             "items": {
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "title": "Cancellation Rule",
-                        "description": "Cancellation rule for Rental.",
-                        "default": {},
-                        "examples": [
-                            {
-                                "name": "No cancellation 1 day before",
-                                "description": "If you cancellation one day before, all payment forfeit",
-                                "daysBeforeArrival": 1,
-                                "percentageRetained": 100.0
-                            }
-                        ],
-                        "required": [
-                            "daysBeforeArrival",
-                            "percentageRetained"
-                        ],
-                        "properties": {
-                            "name": {
-                                "type": "string",
-                                "title": "The name schema",
-                                "description": "The name is the short name for this cancellation.",
-                                "examples": [
-                                    "No cancellation 1 day before"
-                                ]
-                            },
-                            "description": {
-                                "type": "string",
-                                "title": "The description schema",
-                                "description": "We will show the full description for a cancellation if specified.",
-                                "examples": [
-                                    "If you cancellation one day before, all payment forfeit"
-                                ]
-                            },
-                            "daysBeforeArrival": {
-                                "type": "integer",
-                                "title": "The daysBeforeArrival schema",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": 0,
-                                "examples": [
-                                    1
-                                ]
-                            },
-                            "graceHours": {
-                                "type": "integer",
-                                "title": "A grace period in hours to allow total exemption/refund of the period. ie. 48 hour grace allows cancellation even if within a non-cancellation policy.",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": 0,
-                                "examples": [
-                                    24,
-                                    48,
-                                    72
-                                ]
-                            },
-                            "percentageRetained": {
-                                "type": "number",
-                                "title": "The percentageRetained schema",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": 0.0,
-                                "examples": [
-                                    100.0
-                                ]
-                            }
+                "anyOf": [{
+                    "type": "object",
+                    "title": "Cancellation Rule",
+                    "description": "Cancellation rule for Rental.",
+                    "default": {},
+                    "examples": [{
+                        "name": "No cancellation 1 day before",
+                        "description": "If you cancellation one day before, all payment forfeit",
+                        "daysBeforeArrival": 1,
+                        "percentageRetained": 100.0
+                    }],
+                    "required": [
+                        "daysBeforeArrival",
+                        "percentageRetained"
+                    ],
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "title": "The name schema",
+                            "description": "The name is the short name for this cancellation.",
+                            "examples": [
+                                "No cancellation 1 day before"
+                            ]
                         },
-                        "additionalProperties": false
-                    }
-                ]
+                        "description": {
+                            "type": "string",
+                            "title": "The description schema",
+                            "description": "We will show the full description for a cancellation if specified.",
+                            "examples": [
+                                "If you cancellation one day before, all payment forfeit"
+                            ]
+                        },
+                        "daysBeforeArrival": {
+                            "type": "integer",
+                            "title": "The daysBeforeArrival schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": 0,
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "graceHours": {
+                            "type": "integer",
+                            "title": "A grace period in hours to allow total exemption/refund of the period. ie. 48 hour grace allows cancellation even if within a non-cancellation policy.",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": 0,
+                            "examples": [
+                                24,
+                                48,
+                                72
+                            ]
+                        },
+                        "percentageRetained": {
+                            "type": "number",
+                            "title": "The percentageRetained schema",
+                            "description": "An explanation about the purpose of this instance.",
+                            "default": 0.0,
+                            "examples": [
+                                100.0
+                            ]
+                        }
+                    },
+                    "additionalProperties": false
+                }]
             }
         },
         "policies": {
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "properties": {
-                            "type": {
-                                "description": "The Type of Descriptive Text",
-                                "type": "string",
-                                "enum": [
-                                    "BOOKING_TERMS",
-                                    "HOUSE_RULES",
-                                    "GROUP_BOOKINGS",
-                                    "OTHER",
-                                    "CANCELLATION_TERMS",
-                                    "RATE_INCLUDES",
-                                    "RATE_EXCLUDES"
-                                ]
-                            },
-                            "description": {
-                                "$ref": "#/definitions/translatableContentWithTitle"
-                            }
+                "anyOf": [{
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "description": "The Type of Descriptive Text",
+                            "type": "string",
+                            "enum": [
+                                "BOOKING_TERMS",
+                                "HOUSE_RULES",
+                                "GROUP_BOOKINGS",
+                                "OTHER",
+                                "CANCELLATION_TERMS",
+                                "RATE_INCLUDES",
+                                "RATE_EXCLUDES"
+                            ]
                         },
-                        "required": [
-                            "description",
-                            "type"
-                        ]
+                        "description": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        }
                     },
+                    "required": [
+                        "description",
+                        "type"
+                    ]
+                },
                     {
                         "type": "object",
                         "properties": {
@@ -2305,25 +2487,23 @@
                             "rules": {
                                 "type": "array",
                                 "items": {
-                                    "anyOf": [
-                                        {
-                                            "properties": {
-                                                "daysBeforeArrival": {
-                                                    "type": "integer"
-                                                },
-                                                "percentageRefund": {
-                                                    "type": "number",
-                                                    "maximum": 100,
-                                                    "minimum": 0,
-                                                    "multipleOf": 0.01
-                                                },
-                                                "feesRefunded": {
-                                                    "type": "boolean",
-                                                    "default": true
-                                                }
+                                    "anyOf": [{
+                                        "properties": {
+                                            "daysBeforeArrival": {
+                                                "type": "integer"
+                                            },
+                                            "percentageRefund": {
+                                                "type": "number",
+                                                "maximum": 100,
+                                                "minimum": 0,
+                                                "multipleOf": 0.01
+                                            },
+                                            "feesRefunded": {
+                                                "type": "boolean",
+                                                "default": true
                                             }
                                         }
-                                    ]
+                                    }]
                                 }
                             },
                             "description": {
@@ -2342,64 +2522,62 @@
             "type": "array",
             "additionalProperties": false,
             "items": {
-                "anyOf": [
-                    {
-                        "type": "object",
-                        "properties": {
-                            "review": {
-                                "$ref": "#/definitions/translatableContentWithTitle"
-                            },
-                            "reviewerName": {
-                                "type": "string"
-                            },
-                            "createdAt": {
-                                "type": [
-                                    "string",
-                                    "null"
-                                ]
-                            },
-                            "stayedAt": {
-                                "type": [
-                                    "string",
-                                    "null"
-                                ]
-                            },
-                            "stayDuration": {
-                                "type": "number",
-                                "multipleOf": 1
-                            },
-                            "rating": {
-                                "type": "object",
-                                "properties": {
-                                    "score": {
-                                        "type": "number",
-                                        "multipleOf": 0.1
-                                    },
-                                    "origin": {
-                                        "type": "string",
-                                        "enum": [
-                                            "SELF_ASSIGNED",
-                                            "NATIONAL_TOURISM_BOARD",
-                                            "HOTREC",
-                                            "AVROA",
-                                            "UNSPECIFIED_ORGANISATION",
-                                            "FORBES_TRAVEL_GUIDE",
-                                            "AAA"
-                                        ]
-                                    },
-                                    "certificationUrl": {
-                                        "type": "string",
-                                        "pattern": "^(https?)://"
-                                    },
-                                    "max": {
-                                        "type": "number",
-                                        "multipleOf": 0.1
-                                    }
+                "anyOf": [{
+                    "type": "object",
+                    "properties": {
+                        "review": {
+                            "$ref": "#/definitions/translatableContentWithTitle"
+                        },
+                        "reviewerName": {
+                            "type": "string"
+                        },
+                        "createdAt": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "stayedAt": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "stayDuration": {
+                            "type": "number",
+                            "multipleOf": 1
+                        },
+                        "rating": {
+                            "type": "object",
+                            "properties": {
+                                "score": {
+                                    "type": "number",
+                                    "multipleOf": 0.1
+                                },
+                                "origin": {
+                                    "type": "string",
+                                    "enum": [
+                                        "SELF_ASSIGNED",
+                                        "NATIONAL_TOURISM_BOARD",
+                                        "HOTREC",
+                                        "AVROA",
+                                        "UNSPECIFIED_ORGANISATION",
+                                        "FORBES_TRAVEL_GUIDE",
+                                        "AAA"
+                                    ]
+                                },
+                                "certificationUrl": {
+                                    "type": "string",
+                                    "pattern": "^(https?)://"
+                                },
+                                "max": {
+                                    "type": "number",
+                                    "multipleOf": 0.1
                                 }
                             }
                         }
                     }
-                ]
+                }]
             }
         },
         "translatableContent": {
@@ -2682,10 +2860,9 @@
             }
         },
         "i18nContentWithTitle": {
-            "allOf": [
-                {
-                    "$ref": "#/definitions/i18nContent"
-                },
+            "allOf": [{
+                "$ref": "#/definitions/i18nContent"
+            },
                 {
                     "properties": {
                         "title": {
