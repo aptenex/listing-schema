@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "$id": "property-schema",
-    "description": "Schema for Rentals v0.3.7",
+    "description": "Schema for Rentals v0.3.8",
     "properties": {
         "_debug": {
             "type": "object",
@@ -23,6 +23,28 @@
                 "integer"
             ],
             "description": "This is the internal ID for the originating source of the rental"
+        },
+        "$booking" : {
+            "type": "object",
+            "description": "Configuration options, which determine fields specific to the booking process for a rental. These values are accessible elsewhere, however for convenience we merge in the values to a single, more easily accessible object to assist in accessing the values.",
+            "properties": {
+                "cancellationKey" : {
+                    "type" : [
+                        "string"
+                    ],
+                    "enum": [
+                        "NO_REFUND",
+                        "BASIC",
+                        "RELAXED",
+                        "MODERATE",
+                        "FIRM",
+                        "STRICT",
+                        "SUPER_STRICT",
+                        "SUPER_STRICT_EXTENDED"
+                    ],
+                    "description": "The cancellation key, is used instead of setting configurable values in the #/definitions/cancellations defs. The idea is that the cancellation rules may be held on a third party site, unknown to us, however we know the underlying Enums which are used. This lets us send what key should be used and you can control the actual implementation of the cancellation processes."
+                }
+            }
         },
         "$marketing": {
             "type": "object",
