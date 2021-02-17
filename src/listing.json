@@ -24,6 +24,13 @@
             ],
             "description": "This is the internal ID for the originating source of the rental"
         },
+        "$providerUnitId": {
+            "type": [
+                "string",
+                "integer"
+            ],
+            "description": "This is the internal unit ID for the originating source of the unit"
+        },
         "$booking" : {
             "type": "object",
             "description": "Configuration options, which determine fields specific to the booking process for a rental. These values are accessible elsewhere, however for convenience we merge in the values to a single, more easily accessible object to assist in accessing the values.",
