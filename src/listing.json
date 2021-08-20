@@ -2665,6 +2665,7 @@
                         "LISTING_TYPE_CONDO",
                         "LISTING_TYPE_HOUSE_BOAT",
                         "LISTING_TYPE_CABIN",
+                        "LISTING_TYPE_LODGE",
                         "LISTING_TYPE_HOSTEL",
                         "LISTING_TYPE_BEACH_HUT",
                         "LISTING_TYPE_GITE",
