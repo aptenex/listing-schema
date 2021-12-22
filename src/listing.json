@@ -692,6 +692,10 @@
                             "isFeatured": {
                                 "type": "boolean"
                             },
+                            "isBackground": {
+                                "description": "This lets us know if we can use the video as a background on the pages.",
+                                "type": "boolean"
+                            },
                             "description": {
                                 "$ref": "#/definitions/translatableContentWithTitle"
                             }
