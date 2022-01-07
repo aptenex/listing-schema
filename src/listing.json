@@ -2918,7 +2918,7 @@
                 },
                 "zipPostCode": {
                     "type": "string",
-                    "maxLength": 16
+                    "maxLength": 50
                 },
                 "countryISO2": {
                     "type": "string",
