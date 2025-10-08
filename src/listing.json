@@ -2906,7 +2906,8 @@
                       "FOLDING",
                       "OTHER",
                       "INFLATABLE",
-                      "WATER"
+                      "WATER",
+                      "CHILDREN_BABY_COT"
                     ]
                   },
                   "quantity": {
